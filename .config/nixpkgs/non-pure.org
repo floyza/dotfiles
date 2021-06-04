@@ -1,0 +1,7 @@
+#+TITLE: Non Pure
+
+* Most all games
+- Lutris
+- Steam
+* Firefox
+Activate plugins
