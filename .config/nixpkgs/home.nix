@@ -13,7 +13,7 @@ let
     # emacsPackages = pkgs.emacsPackagesFor pkgs.emacsGit;
   });
   use-nix-doom = false;
-  emacs = if use-nix-doom then doom-emacs else pkgs.emacsGcc;
+  emacs = if use-nix-doom then doom-emacs else pkgs.emacs;
 in {
   nixpkgs.overlays = [ (import emacs-overlay) ];
   home.packages = with pkgs; [
@@ -32,6 +32,7 @@ in {
     godot
     gotop
     torbrowser
+    nyxt
     krita
     ## programming
     sbcl
@@ -74,6 +75,17 @@ in {
 
   programs.password-store = {
     enable = true;
+  };
+
+  programs.beets = {
+    enable = true;
+    settings = {
+      directory = "/mnt/music/beets";
+      library = "/home/gavin/.config/beets/musiclibrary.blb";
+      plugins = "fetchart";
+      import.move = true;
+      fetchart.auto = true;
+    };
   };
 
   programs.mbsync.enable = true;
@@ -140,7 +152,7 @@ in {
   xsession.windowManager.i3 = {
     enable = true;
     config = {
-      terminal = "konsole";
+      terminal = "xfce4-terminal";
       modifier = "Mod4"; # super (called meta in i3 docs)
       keybindings =
         let
@@ -208,20 +220,17 @@ in {
   #   tray = "never";
   # };
 
-  # kde wants to do this
-  # gtk = {
-  #   enable = true;
-  #   iconTheme = {
-  #     package = pkgs.gnome3.gnome_themes_standard;
-  #     name = "Adwaita";
-  #   };
-  #   theme = {
-  #     # package = pkgs.gnome3.gnome_themes_standard;
-  #     # name = "Adwaita";
-  #     package = pkgs.nordic;
-  #     name = "Nordic";
-  #   };
-  # };
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark-gtk";
+    };
+    theme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark-gtk";
+    };
+  };
 
   programs.direnv = {
     enable = true;

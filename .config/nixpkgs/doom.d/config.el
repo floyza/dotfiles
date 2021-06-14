@@ -40,7 +40,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font "JetBrains Mono:pixelsize=13")
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
 ;;; evil config
@@ -48,6 +48,12 @@
 (after! vterm
   (map! :map vterm-mode-map :i "C-w" evil-window-map)) ; YASSS!
 (map! :leader "C" #'calc-dispatch)
+
+(map! :n "C-J" #'+workspace/switch-right)
+(map! :n "C-K" #'+workspace/switch-left)
+
+(map! :leader :n ":" #'pp-eval-expression)
+(map! :leader :n ";" #'counsel-M-x)
 
 ;;; org-mode configuration
 
@@ -172,9 +178,6 @@
 (after! evil
   (evil-escape-mode -1))
 ;; (setq! ivy-posframe-style 'frame-top-center)
-
-(map! :leader :n ":" #'pp-eval-expression)
-(map! :leader :n ";" #'counsel-M-x)
 
 ;;; pdf-view mode
 (add-hook! 'pdf-view-mode-hook :append #'pdf-view-midnight-minor-mode)

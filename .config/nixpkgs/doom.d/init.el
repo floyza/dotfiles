@@ -111,7 +111,7 @@
        :lang
        ;;agda                         ; types of types of types of types...
        (cc +lsp)                      ; C/C++/Obj-C madness
-       ;;clojure                      ; java with a lisp
+       ;; (clojure +lsp)                      ; java with a lisp
        common-lisp                    ; if you've seen one lisp, you've seen them all
        ;;coq                          ; proofs-as-programs
        ;;crystal                      ; ruby at the speed of c
@@ -127,7 +127,7 @@
        ;;fsharp                       ; ML stands for Microsoft's Language
        ;;fstar                        ; (dependent) types and (monadic) effects and Z3
        ;;gdscript                     ; the language you waited for
-       (go +lsp)                      ; the hipster dialect
+       ;; (go +lsp)                      ; the hipster dialect
        (haskell +lsp)                        ; a language that's lazier than I am
        ;;hy                           ; readability of scheme w/ speed of python
        ;;idris                        ;
