@@ -35,6 +35,7 @@ in {
     nyxt
     krita
     ## programming
+    guile
     sbcl
     lispPackages.clwrapper
     ## games
@@ -61,7 +62,8 @@ in {
     gnutls
     # optional doom
     zstd
-    ispell
+    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+    # ispell
     # org-mode
     sqlite
     texlive.combined.scheme-medium

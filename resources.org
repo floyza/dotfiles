@@ -1,0 +1,10 @@
+#+TITLE: Resources
+
+* Nix
+** [[https://sandervanderburg.blogspot.com/2014/07/managing-private-nix-packages-outside.html][Packages Outside Nixpkgs]]
+** [[https://nix.dev/tutorials/cross-compilation][Cross Compilation]]
+** MkDerivation
+*** Esp https://nixos.org/manual/nixpkgs/stable/#chap-stdenv
+*** https://nixos.org/manual/nix/stable/#ssec-derivation
+*** [[https://github.com/NixOS/nixpkgs/blob/master/pkgs/stdenv/generic/make-derivation.nix][Source]]
+** https://nixos.wiki/wiki/Packaging/Tutorial

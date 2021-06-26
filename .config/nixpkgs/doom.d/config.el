@@ -140,6 +140,8 @@
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
+(after! haskell
+  (setq haskell-interactive-popup-errors nil))
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
 
@@ -180,7 +182,7 @@
 ;; (setq! ivy-posframe-style 'frame-top-center)
 
 ;;; pdf-view mode
-(add-hook! 'pdf-view-mode-hook :append #'pdf-view-midnight-minor-mode)
+;; (add-hook! 'pdf-view-mode-hook :append #'pdf-view-midnight-minor-mode)
 
 (after! flycheck
   (setq flycheck-global-modes '(not nix-mode)))
