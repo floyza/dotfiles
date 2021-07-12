@@ -13,21 +13,27 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/d4110f55-7060-4167-a489-bafd324898bd";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/d4110f55-7060-4167-a489-bafd324898bd";
       fsType = "ext4";
     };
 
-  fileSystems."/home/gavin/mnt" =
-    {
+    "/home/gavin/mnt" = {
       device = "/dev/disk/by-uuid/a9abd67e-faab-4241-82de-60fb2c337005";
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FE84-A8A6";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/FE84-A8A6";
       fsType = "vfat";
     };
+
+    "/mnt/music" = {
+      device = "/dev/disk/by-uuid/64f6c4dd-7fa2-4fdd-8b59-44aab6cbbaee";
+      fsType = "ext4";
+    };
+  };
 
   swapDevices = [ ];
 

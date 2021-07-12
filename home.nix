@@ -1,18 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  emacs-overlay = builtins.fetchTarball
-    "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-  nix-doom-emacs = builtins.fetchTarball {
-    url = "https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz";
-  };
-  doom-emacs = (pkgs.callPackage nix-doom-emacs {
-    doomPrivateDir = ./doom.d;
-    # bundledPackages = false;
-    # emacsPackages = pkgs.emacsPackagesFor pkgs.emacsGit;
-  });
-  use-nix-doom = false;
-  emacs = if use-nix-doom then doom-emacs else pkgs.emacs;
   tome4-latest = pkgs.tome4.overrideAttrs (oldAttrs: rec {
     version = "1.7.4";
     src = pkgs.fetchurl {
@@ -50,7 +38,6 @@ let
     '';
   });
 in {
-  nixpkgs.overlays = [ (import emacs-overlay) ];
   home.packages = with pkgs; [
     lutris
     mpd
@@ -179,13 +166,18 @@ in {
     };
   };
 
-  programs.emacs = ({
+  #programs.emacs = ({
+  #  enable = true;
+  #  package = emacs;
+  #} // (if !use-nix-doom then {
+  #  extraPackages = epkgs: [ epkgs.vterm ];
+  #} else
+  #  { }));
+
+  programs.doom-emacs = {
     enable = true;
-    package = emacs;
-  } // (if !use-nix-doom then {
-    extraPackages = epkgs: [ epkgs.vterm ];
-  } else
-    { }));
+    doomPrivateDir = ./doom.d;
+  };
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -381,15 +373,7 @@ in {
       "$HOME/.vst3:$HOME/.nix-profile/lib/vst3:/run/current-system/sw/lib/vst3";
   };
 
-  home.file = (if use-nix-doom then {
-    ".emacs.d/init.el".text = ''
-      (load "default.el")
-      (add-to-list 'load-path "${pkgs.mu}/share/emacs/site-lisp/mu4e")
-    '';
-  } else
-    {
-      # ".doom.d".source = ./doom.d;
-    }) // {
+  home.file = {
       # ".config/common-lisp/source-registry.conf.d/50-luser.lisp.conf".text = ''
       #   (:tree "$HOME/src/my/lisp/")
       # '';
@@ -399,7 +383,6 @@ in {
       '';
     };
   services.emacs.enable = true;
-  services.emacs.package = emacs;
 
   programs.home-manager.enable = true;
 

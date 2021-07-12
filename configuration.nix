@@ -16,6 +16,7 @@
   networking = {
     hostName = "gavin-nixos";
     networkmanager.enable = true;
+    enableIPv6 = false; # vpn might leak otherwise
 
     useDHCP = false;
     interfaces.enp7s0.useDHCP = true;
@@ -34,15 +35,26 @@
   #   };
   # };
 
+  # services.xserver = {
+  #   enable = true;
+  #   displayManager.sddm.enable = true;
+  #   desktopManager = {
+  #     xfce = {
+  #       enable = true;
+  #       noDesktop = true;
+  #       enableXfwm = false;
+  #     };
+  #   };
+  #   windowManager.i3.enable = true;
+  #   windowManager.i3.extraPackages = with pkgs; [
+  #     feh
+  #   ];
+  #   displayManager.defaultSession = "xfce+i3";
+  # };
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
-    windowManager.i3.enable = true;
-    windowManager.i3.extraPackages = with pkgs; [
-      feh
-    ];
-    displayManager.defaultSession = "plasma5+i3";
   };
 
   # programs.sway = {
@@ -70,33 +82,34 @@
 
   # xdg = { autostart.enable = true; };
 
-  sound.enable = true; # misleading: enables alsa
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  #sound.enable = true; # misleading: enables alsa
+  #hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.support32Bit = true;
+  #hardware.pulseaudio.package = pkgs.pulseaudioFull;
   # Enable pipewire
   security.rtkit.enable = true;
-  # services.pipewire = {
-  #   enable = true;
-  #   alsa.enable = true;
-  #   alsa.support32Bit = true;
-  #   pulse.enable = true;
-  #   # jack.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # jack.enable = true;
 
-  #   # config.pipewire = {
-  #   #   "context.properties" = {
-  #   #     "link.max-buffers" = 64;
-  #   #     "default.clock.rate" = 48000;
-  #   #   };
-  #   # };
-  # };
+    # config.pipewire = {
+    #   "context.properties" = {
+    #     "link.max-buffers" = 64;
+    #     "default.clock.rate" = 48000;
+    #   };
+    # };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   users.users.gavin = {
     isNormalUser = true;
-    extraGroups = [ "audio" "wheel" "libvirtd" "networkmanager" "scanner" "lp" "adbusers" ];
+    extraGroups =
+      [ "audio" "wheel" "libvirtd" "networkmanager" "scanner" "lp" "adbusers" ];
     shell = pkgs.zsh;
   };
 
@@ -130,6 +143,12 @@
     };
   };
 
+  services.openvpn.servers = {
+    tcp = {
+      config = "config /root/nixos/openvpn/us8272.nordvpn.com.tcp.conf ";
+    };
+  };
+
   environment.systemPackages = (with pkgs; [
     wget
     vim
@@ -143,16 +162,18 @@
     # Temporary fix for kde plasma and pipewire
     # kmix
     # plasma-pa
-  ]) ++ (with pkgs.plasma5Packages; [
-    gwenview
-  ]);
+  ]); # ++ (with pkgs.plasma5Packages; [
+  #   gwenview
+  # ]);
 
   # require modification to udev rules
   programs.tilp2.enable = true;
   programs.adb.enable = true;
 
-  environment.pathsToLink = [ "/share/zsh" # for zsh completion
-                              "/libexec" ]; # for polkit-gnome
+  environment.pathsToLink = [
+    "/share/zsh" # for zsh completion
+    "/libexec"
+  ]; # for polkit-gnome
 
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
@@ -170,7 +191,8 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+  services.openssh.forwardX11 = true;
 
   security.polkit.enable = true;
 
@@ -190,8 +212,8 @@
       keep-derivations = true
       experimental-features = nix-command flakes
     '';
-    sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
-    useSandbox = false;
+    # sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
+    # useSandbox = false;
   };
 
   documentation.info.enable = false;
