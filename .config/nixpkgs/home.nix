@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  my-pkgs = (import ./nixpkgs {});
   emacs-overlay = builtins.fetchTarball
     "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
   nix-doom-emacs = builtins.fetchTarball {
@@ -14,6 +13,42 @@ let
   });
   use-nix-doom = false;
   emacs = if use-nix-doom then doom-emacs else pkgs.emacs;
+  tome4-latest = pkgs.tome4.overrideAttrs (oldAttrs: rec {
+    version = "1.7.4";
+    src = pkgs.fetchurl {
+      url = "https://te4.org/dl/t-engine/t-engine4-src-${version}.tar.bz2";
+      sha256 = "sha256-w1NPM/SMnPAnAl6z9E6Xsj3mEqZtXzFe1IMPmlKr8qQ=";
+    };
+    installPhase = let
+      pname = "tome4";
+      desktop = pkgs.makeDesktopItem {
+        desktopName = pname;
+        name = pname;
+        exec = "@out@/bin/${pname}";
+        icon = pname;
+        terminal = "false";
+        comment =
+          "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
+        type = "Application";
+        categories = "Game;RolePlaying;";
+        genericName = pname;
+      };
+    in ''
+      runHook preInstall
+      dir=$out/share/${pname}
+      install -Dm755 t-engine $dir/t-engine
+      cp -r bootstrap game $dir
+      makeWrapper $dir/t-engine $out/bin/${pname} \
+        --run "cd $dir"
+      install -Dm755 ${desktop}/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --subst-var out
+      unzip -oj -qq game/engines/te4-${version}.teae data/gfx/te4-icon.png
+      install -Dm644 te4-icon.png $out/share/icons/hicolor/64x64/${pname}.png
+      install -Dm644 -t $out/share/doc/${pname} CONTRIBUTING COPYING COPYING-MEDIA CREDITS
+      runHook postInstall
+    '';
+  });
 in {
   nixpkgs.overlays = [ (import emacs-overlay) ];
   home.packages = with pkgs; [
@@ -21,7 +56,6 @@ in {
     mpd
     mpc_cli
     killall
-    ncmpcpp
     alsaUtils
     #ardour
     gparted
@@ -29,11 +63,11 @@ in {
     zip
     # distrho # vitalium
     # zynaddsubfx
-    godot
+    #godot
     gotop
-    torbrowser
+    #torbrowser
     nyxt
-    krita
+    #krita
     ## programming
     guile
     sbcl
@@ -41,11 +75,14 @@ in {
     ## games
     steam
     steam-run-native
-    runelite
+    cataclysm-dda
+    cataclysmDDA.stable.curses
+    #runelite
     crawl
     angband
     hyperrogue
     cockatrice
+    tome4-latest
     #zeroad
     #factorio
     ## other
@@ -75,14 +112,13 @@ in {
     shellcheck
   ];
 
-  programs.password-store = {
-    enable = true;
-  };
+  programs.password-store = { enable = true; };
 
   programs.beets = {
     enable = true;
     settings = {
-      directory = "/mnt/music/beets";
+      directory = "/home/gavin/Music";
+      #directory = "/mnt/music/beets";
       library = "/home/gavin/.config/beets/musiclibrary.blb";
       plugins = "fetchart";
       import.move = true;
@@ -156,23 +192,22 @@ in {
     config = {
       terminal = "xfce4-terminal";
       modifier = "Mod4"; # super (called meta in i3 docs)
-      keybindings =
-        let
-          mod = config.xsession.windowManager.i3.config.modifier;
-          amixer = "${pkgs.alsaUtils}/bin/amixer";
-        in lib.mkOptionDefault {
-          "${mod}+Tab" = "workspace back_and_forth";
-          "${mod}+Control+e" = "exec emacsclient -c";
-          # "${mod}+space" =
-          "${mod}+g" = "split h";
-          "${mod}+h" = "focus left";
-          "${mod}+j" = "focus down";
-          "${mod}+k" = "focus up";
-          "${mod}+l" = "focus right";
-          "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
-          "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
-          "XF86AudioMute" = "exec ${amixer} set Master toggle";
-        };
+      keybindings = let
+        mod = config.xsession.windowManager.i3.config.modifier;
+        amixer = "${pkgs.alsaUtils}/bin/amixer";
+      in lib.mkOptionDefault {
+        "${mod}+Tab" = "workspace back_and_forth";
+        "${mod}+Control+e" = "exec emacsclient -c";
+        # "${mod}+space" =
+        "${mod}+g" = "split h";
+        "${mod}+h" = "focus left";
+        "${mod}+j" = "focus down";
+        "${mod}+k" = "focus up";
+        "${mod}+l" = "focus right";
+        "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
+        "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
+        "XF86AudioMute" = "exec ${amixer} set Master toggle";
+      };
       startup = [
         {
           command = "firefox";
@@ -182,9 +217,7 @@ in {
           command = "emacsclient -c";
           workspace = "2:coding";
         }
-        {
-          command = "feh --bg-scale ${./nord-bg.png}";
-        }
+        { command = "feh --bg-scale ${./nord-bg.png}"; }
       ];
     };
   };
@@ -222,21 +255,22 @@ in {
   #   tray = "never";
   # };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark-gtk";
-    };
-    theme = {
-      package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark-gtk";
-    };
-  };
+  ## kde takes care of this
+  # gtk = {
+  #   enable = true;
+  #   iconTheme = {
+  #     package = pkgs.gruvbox-dark-gtk;
+  #     name = "gruvbox-dark-gtk";
+  #   };
+  #   theme = {
+  #     package = pkgs.gruvbox-dark-gtk;
+  #     name = "gruvbox-dark-gtk";
+  #   };
+  # };
 
   programs.direnv = {
     enable = true;
-    enableNixDirenvIntegration = true;
+    nix-direnv.enable = true;
   };
 
   programs.zsh = {
@@ -286,6 +320,49 @@ in {
   services.mpd = {
     enable = true;
     musicDirectory = "/home/gavin/Music";
+    extraConfig = ''
+      audio_output {
+              type            "pulse"
+              name            "pulse audio"
+      }
+      audio_output {
+          type                    "fifo"
+          name                    "my_fifo"
+          path                    "/tmp/mpd.fifo"
+          format                  "44100:16:2"
+      }
+    '';
+  };
+
+  programs.ncmpcpp = {
+    enable = true;
+    package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+    bindings = [
+      {
+        key = "j";
+        command = "scroll_down";
+      }
+      {
+        key = "k";
+        command = "scroll_up";
+      }
+      {
+        key = "J";
+        command = [ "select_item" "scroll_down" ];
+      }
+      {
+        key = "K";
+        command = [ "select_item" "scroll_up" ];
+      }
+    ];
+    settings = {
+      user_interface = "alternative";
+      visualizer_data_source = "/tmp/mpd.fifo";
+      visualizer_output_name = "my_fifo";
+      visualizer_in_stereo = "yes";
+      visualizer_type = "spectrum";
+      visualizer_look = "+|";
+    };
   };
 
   home.sessionVariables = {

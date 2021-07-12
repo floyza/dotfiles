@@ -40,7 +40,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font "JetBrains Mono:pixelsize=13")
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-solarized-light)
 (setq display-line-numbers-type t)
 
 ;;; evil config
@@ -133,6 +133,10 @@
     ;; lsp-file-watch-ignored-directories and lsp-file-watch-ignored-files variables.
     (lsp--with-workspace-temp-buffer workspace-root
       (list lsp-file-watch-ignored-files (lsp-file-watch-ignored-directories)))))
+
+;; (c-add-style "user"
+;;              '("doom"
+;;                (c-offsets-alist . ((innamespace . [0])))))
 
 ;; (after! scheme
 ;;   (setq geiser-repl-skip-version-check-p t
