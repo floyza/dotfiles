@@ -16,6 +16,7 @@
 
       common = { pkgs, config, ... }: {
         nixpkgs.overlays = [ emacs-overlay.overlay nur.overlay ];
+        nix.registry.nixpkgs.flake = nixpkgs;
       };
 
     in {

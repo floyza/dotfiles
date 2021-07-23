@@ -40,7 +40,8 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font "JetBrains Mono:pixelsize=13")
-(setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-solarized-light)
+(setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
 ;;; evil config

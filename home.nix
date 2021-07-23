@@ -263,6 +263,7 @@ in {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    nix-direnv.enableFlakes = true;
   };
 
   programs.zsh = {
@@ -305,6 +306,12 @@ in {
     enable = true;
     userEmail = "gavin.downard@runbox.com";
     userName = "Gavin Downard";
+    extraConfig = {
+      github.user = "floyza";
+    };
+    ignores = [
+      ".direnv/"
+    ];
   };
 
   programs.ssh.enable = true;

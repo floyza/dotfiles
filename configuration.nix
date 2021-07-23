@@ -212,8 +212,17 @@
       keep-derivations = true
       experimental-features = nix-command flakes
     '';
-    # sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
-    # useSandbox = false;
+    registry = {
+      my = {
+        from.type = "indirect";
+        from.id = "my";
+        to = {
+          type = "github";
+          owner = "floyza";
+          repo = "templates";
+        };
+      };
+    };
   };
 
   documentation.info.enable = false;
