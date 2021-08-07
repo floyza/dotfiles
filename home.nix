@@ -37,6 +37,7 @@ let
       runHook postInstall
     '';
   });
+  use-nix-doom = false;
 in {
   home.packages = with pkgs; [
     mpd
@@ -66,6 +67,7 @@ in {
     ### games
     steam
     steam-run-native
+    dwarf-fortress-packages.dwarf-fortress-full
     lutris
     cataclysm-dda
     cataclysmDDA.stable.curses
@@ -141,7 +143,8 @@ in {
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" = false; # disables canvas when enabled, breaks chessable
+        "privacy.resistFingerprinting" =
+          false; # disables canvas when enabled, breaks chessable
         "privacy.trackingprotection.fingerprinting.enabled" = true; # default
         "privacy.trackingprotection.cryptomining.enabled" = true; # default
         "privacy.trackingprotection.enabled" = true;
@@ -160,19 +163,6 @@ in {
         "network.IDN_show_punycode" = true;
       };
     };
-  };
-
-  #programs.emacs = ({
-  #  enable = true;
-  #  package = emacs;
-  #} // (if !use-nix-doom then {
-  #  extraPackages = epkgs: [ epkgs.vterm ];
-  #} else
-  #  { }));
-
-  programs.doom-emacs = {
-    enable = true;
-    doomPrivateDir = ./doom.d;
   };
 
   xsession.windowManager.i3 = {
@@ -302,12 +292,8 @@ in {
     enable = true;
     userEmail = "gavin.downard@runbox.com";
     userName = "Gavin Downard";
-    extraConfig = {
-      github.user = "floyza";
-    };
-    ignores = [
-      ".direnv/"
-    ];
+    extraConfig = { github.user = "floyza"; };
+    ignores = [ ".direnv/" ];
   };
 
   programs.ssh.enable = true;
@@ -360,6 +346,18 @@ in {
     };
   };
 
+  programs.doom-emacs = if use-nix-doom then {
+    enable = true;
+    doomPrivateDir = ./doom.d;
+  } else
+    { };
+
+  programs.emacs = if !use-nix-doom then {
+    enable = true;
+    extraPackages = epkgs: [ epkgs.vterm ];
+  } else
+    { };
+
   home.sessionVariables = {
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
@@ -377,14 +375,14 @@ in {
   };
 
   home.file = {
-      # ".config/common-lisp/source-registry.conf.d/50-luser.lisp.conf".text = ''
-      #   (:tree "$HOME/src/my/lisp/")
-      # '';
-      ".sbclrc".text = ''
-        (require 'asdf)
-        (push '*default-pathname-defaults* asdf:*central-registry*)
-      '';
-    };
+    # ".config/common-lisp/source-registry.conf.d/50-luser.lisp.conf".text = ''
+    #   (:tree "$HOME/src/my/lisp/")
+    # '';
+    ".sbclrc".text = ''
+      (require 'asdf)
+      (push '*default-pathname-defaults* asdf:*central-registry*)
+    '';
+  };
   services.emacs.enable = true;
 
   programs.home-manager.enable = true;
