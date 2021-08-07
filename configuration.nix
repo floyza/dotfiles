@@ -113,10 +113,10 @@
     shell = pkgs.zsh;
   };
 
-  hardware.sane = {
-    enable = true;
-    extraBackends = [ pkgs.epkowa ];
-  };
+  # hardware.sane = {
+  #   enable = true;
+  #   extraBackends = [ pkgs.epkowa ];
+  # };
 
   services.locate = {
     enable = true;
@@ -125,28 +125,28 @@
     interval = "hourly"; # fine with mlocate?
   };
 
-  services.syncthing = {
-    enable = true;
-    user = "gavin";
-    configDir = "/home/gavin/.config/syncthing";
-    dataDir = "/home/gavin/syncthing";
-    declarative = {
-      devices = {
-        "home-desktop" = {
-          # this is our system
-          id =
-            "DPHVIJC-2UI6GXX-D2P4TPD-EKYT6RI-VGHQMZE-B6XD5WR-QJC64F4-E75BUAR";
-          introducer = true;
-        };
-      };
-      folders = {
-        "org" = {
-          path = "/home/gavin/syncthing/org";
-          devices = [ "home-desktop" ];
-        };
-      };
-    };
-  };
+  # services.syncthing = {
+  #   enable = true;
+  #   user = "gavin";
+  #   configDir = "/home/gavin/.config/syncthing";
+  #   dataDir = "/home/gavin/syncthing";
+  #   declarative = {
+  #     devices = {
+  #       "home-desktop" = {
+  #         # this is our system
+  #         id =
+  #           "DPHVIJC-2UI6GXX-D2P4TPD-EKYT6RI-VGHQMZE-B6XD5WR-QJC64F4-E75BUAR";
+  #         introducer = true;
+  #       };
+  #     };
+  #     folders = {
+  #       "org" = {
+  #         path = "/home/gavin/syncthing/org";
+  #         devices = [ "home-desktop" ];
+  #       };
+  #     };
+  #   };
+  # };
 
   services.openvpn.servers = {
     tcp = {
@@ -204,11 +204,11 @@
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
-  };
+  # hardware.opengl = {
+  #   driSupport = true;
+  #   driSupport32Bit = true;
+  #   extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
+  # };
 
   nix = {
     package = pkgs.nixFlakes;
