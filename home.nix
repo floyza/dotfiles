@@ -39,64 +39,60 @@ let
   });
 in {
   home.packages = with pkgs; [
-    lutris
     mpd
     mpc_cli
     killall
     alsaUtils
-    #ardour
     gparted
     pavucontrol
     zip
-    # distrho # vitalium
-    # zynaddsubfx
-    #godot
     gotop
-    #torbrowser
     nyxt
-    #krita
-    ## programming
+    krita
+    ### programming
+    ## haskell
+    haskellPackages.stack
+    haskellPackages.haskell-language-server
+    haskellPackages.hoogle
+    ## lisp
     guile
     sbcl
     lispPackages.clwrapper
-    ## games
+    ## c++
+    ccls
+    ## formatting
+    shellcheck
+    nixfmt
+    ### games
     steam
     steam-run-native
+    lutris
     cataclysm-dda
     cataclysmDDA.stable.curses
-    #runelite
     crawl
     angband
     hyperrogue
     cockatrice
     tome4-latest
-    #zeroad
-    #factorio
-    ## other
+    ### other
     calc
     discord
     element-desktop
     ## fonts
     emacs-all-the-icons-fonts
     jetbrains-mono
-    # doom dependencies
+    ### doom dependencies
     gcc # need for emacsql-sqlite
     fd
     ripgrep
     gnutls
-    # optional doom
+    ## optional doom
     zstd
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-    # ispell
-    # org-mode
+    ## org-mode
     sqlite
     texlive.combined.scheme-medium
     (python38.withPackages (ps: with ps; [ jupyter python-language-server ]))
-    ## programming tools (lsp/linter/fmt)
-    # hard deps
-    nixfmt
-    # soft deps
-    shellcheck
   ];
 
   programs.password-store = { enable = true; };
@@ -145,7 +141,7 @@ in {
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting" = false; # disables canvas when enabled, breaks chessable
         "privacy.trackingprotection.fingerprinting.enabled" = true; # default
         "privacy.trackingprotection.cryptomining.enabled" = true; # default
         "privacy.trackingprotection.enabled" = true;

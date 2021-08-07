@@ -10,6 +10,9 @@
 ;;                     '((smtpmail-smtp-user . "gavin.downard@runbox.com"))
 ;;                     t)
 
+;; nix-doom-emacs does not add this to the load-path
+(add-to-list 'load-path "/etc/profiles/per-user/gavin/share/emacs/site-lisp/mu4e")
+
 (setq send-mail-function    'smtpmail-send-it
       smtpmail-smtp-server  "mail.runbox.com"
       smtpmail-stream-type  'ssl
@@ -39,8 +42,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(setq doom-font "JetBrains Mono:pixelsize=13")
-;; (setq doom-theme 'doom-solarized-light)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13))
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 

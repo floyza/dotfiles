@@ -66,3 +66,5 @@
 (package! egg-timer)
 (package! saveplace-pdf-view)
 (package! disk-usage)
+
+(disable-packages! company-dict)
