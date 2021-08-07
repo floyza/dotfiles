@@ -118,7 +118,12 @@
     extraBackends = [ pkgs.epkowa ];
   };
 
-  services.locate.enable = true;
+  services.locate = {
+    enable = true;
+    locate = pkgs.mlocate;
+    localuser = null; # for pkgs.mlocate
+    interval = "hourly"; # fine with mlocate?
+  };
 
   services.syncthing = {
     enable = true;
