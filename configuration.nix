@@ -57,6 +57,27 @@
     desktopManager.plasma5.enable = true;
   };
 
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      server string = smbnix
+      netbios name = smbnix
+      security = user
+      hosts allow = 192.168.0  localhost
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      public = {
+        path = "/mnt/Shares/Public";
+        browsable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+      };
+    };
+  };
+
   # programs.sway = {
   #   enable = true;
   #   wrapperFeatures.gtk = true;

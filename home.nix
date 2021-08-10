@@ -55,6 +55,8 @@ in {
     haskellPackages.stack
     haskellPackages.haskell-language-server
     haskellPackages.hoogle
+    haskellPackages.cabal-install
+    haskellPackages.ghc
     ## lisp
     guile
     sbcl
@@ -67,7 +69,12 @@ in {
     ### games
     steam
     steam-run-native
-    dwarf-fortress-packages.dwarf-fortress-full
+    #dwarf-fortress-packages.dwarf-fortress-full
+    (dwarf-fortress-packages.dwarf-fortress-full.override {
+      theme = null;
+      enableIntro = false;
+      enableFPS = true;
+    })
     lutris
     cataclysm-dda
     cataclysmDDA.stable.curses
