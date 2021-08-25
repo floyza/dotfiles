@@ -40,6 +40,8 @@ let
   use-nix-doom = false;
 in {
   home.packages = with pkgs; [
+    qjackctl
+
     mpd
     mpc_cli
     killall
@@ -82,6 +84,7 @@ in {
     angband
     hyperrogue
     cockatrice
+    wesnoth
     tome4-latest
     ### other
     calc
@@ -100,7 +103,8 @@ in {
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
     ## org-mode
     sqlite
-    texlive.combined.scheme-medium
+    texlive.combined.scheme-full
+    texlab
     (python38.withPackages (ps: with ps; [ jupyter python-language-server ]))
   ];
 

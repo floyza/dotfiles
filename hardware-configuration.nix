@@ -4,18 +4,17 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/d4110f55-7060-4167-a489-bafd324898bd";
+      device = "/dev/disk/by-uuid/4a964a46-1ff2-486d-92d2-59095b020e26";
       fsType = "ext4";
     };
 
@@ -27,11 +26,6 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/FE84-A8A6";
       fsType = "vfat";
-    };
-
-    "/mnt/music" = {
-      device = "/dev/disk/by-uuid/64f6c4dd-7fa2-4fdd-8b59-44aab6cbbaee";
-      fsType = "ext4";
     };
   };
 

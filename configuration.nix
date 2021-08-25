@@ -114,7 +114,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # jack.enable = true;
+    jack.enable = true;
 
     # config.pipewire = {
     #   "context.properties" = {
@@ -225,11 +225,10 @@
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-  # hardware.opengl = {
-  #   driSupport = true;
-  #   driSupport32Bit = true;
-  #   extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
-  # };
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   nix = {
     package = pkgs.nixFlakes;
