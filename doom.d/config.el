@@ -19,13 +19,12 @@
       smtpmail-smtp-service 465)
 
 (after! circe
-  (set-irc-server! "chat.freenode.net"
+  (set-irc-server! "irc.libera.chat"
                    `(:tls t
                      :port 6697
                      :nick "gdown"
                      :sasl-username "gdown"
-                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/freenode.net"))
-                     :channels ("#emacs" "#nixos" "#nixos-emacs" "#home-manager" "#lispgames"))))
+                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))))
 
 ;;; Visible changes
 
@@ -100,15 +99,16 @@
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
           ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
   ;; Org-roam
-  (setq org-roam-dailies-capture-templates
-        `(("d" "default" entry (function org-roam-capture--get-point)
-           "* %?"
-           :file-name ,(concat org-roam-dailies-directory "%<%Y-%m-%d>")
-           :head "#+title: %<%Y-%m-%d>\n")
-          ("s" "school" entry (function org-roam-capture--get-point)
-           "* %?"
-           :file-name ,(concat org-roam-dailies-directory "school/%<%Y-%m-%d>")
-           :head "#+title: Schoolwork %<%Y-%m-%d>\n"))))
+  ;; (setq org-roam-dailies-capture-templates
+  ;;       `(("d" "default" entry (function org-roam-capture--get-point)
+  ;;          "* %?"
+  ;;          :file-name ,(concat org-roam-dailies-directory "%<%Y-%m-%d>")
+  ;;          :head "#+title: %<%Y-%m-%d>\n")
+  ;;         ("s" "school" entry (function org-roam-capture--get-point)
+  ;;          "* %?"
+  ;;          :file-name ,(concat org-roam-dailies-directory "school/%<%Y-%m-%d>")
+  ;;          :head "#+title: Schoolwork %<%Y-%m-%d>\n")))
+  )
 
 (map! :map doom-leader-notes-map
       :desc "Capture arbitrary date" "r d d" #'org-roam-dailies-capture-date
@@ -206,6 +206,7 @@
 (use-package! egg-timer)
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
+(use-package! odin-mode)
 
 ;;; Defuns
 

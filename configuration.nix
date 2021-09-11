@@ -172,6 +172,7 @@
   services.openvpn.servers = {
     tcp = {
       config = "config /root/nixos/openvpn/us8272.nordvpn.com.tcp.conf ";
+      autoStart = false;
     };
   };
 
@@ -184,10 +185,13 @@
     usbutils # lsusb
     # polkit
     # polkit_gnome
-    virt-manager
     # Temporary fix for kde plasma and pipewire
     # kmix
     # plasma-pa
+
+    virt-manager
+    gnome3.dconf # needed for saving settings in virt-manager
+    libguestfs # needed for virt-sparsify
   ]); # ++ (with pkgs.plasma5Packages; [
   #   gwenview
   # ]);

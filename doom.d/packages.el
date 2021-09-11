@@ -67,4 +67,7 @@
 (package! saveplace-pdf-view)
 (package! disk-usage)
 
+(package! odin-mode
+  :recipe (:host github :repo "mattt-b/odin-mode"))
+
 (disable-packages! company-dict)

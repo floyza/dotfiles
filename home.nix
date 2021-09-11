@@ -41,6 +41,12 @@ let
 in {
   home.packages = with pkgs; [
     qjackctl
+    ntfs3g
+    fuse
+    file
+    wineWowPackages.staging
+    libreoffice
+    tldr
 
     mpd
     mpc_cli
@@ -65,6 +71,10 @@ in {
     lispPackages.clwrapper
     ## c++
     ccls
+    ## misc-lang
+    odin
+    zig
+    zls
     ## formatting
     shellcheck
     nixfmt
@@ -78,6 +88,7 @@ in {
       enableFPS = true;
     })
     lutris
+    dolphinEmu
     cataclysm-dda
     cataclysmDDA.stable.curses
     crawl
