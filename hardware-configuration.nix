@@ -12,16 +12,18 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/4a964a46-1ff2-486d-92d2-59095b020e26";
       fsType = "ext4";
     };
 
-    "/home/gavin/mnt" = {
-      device = "/dev/disk/by-uuid/a9abd67e-faab-4241-82de-60fb2c337005";
-      fsType = "ext4";
-    };
+    #"/home/gavin/mnt" = {
+    #  device = "/dev/disk/by-uuid/a9abd67e-faab-4241-82de-60fb2c337005";
+    #  fsType = "ext4";
+    #};
 
     "/boot" = {
       device = "/dev/disk/by-uuid/FE84-A8A6";
