@@ -22,6 +22,7 @@
   (set-irc-server! "irc.libera.chat"
                    `(:tls t
                      :port 6697
+                     :channels '("#emacs" "#haskell" "#osdev")
                      :nick "gdown"
                      :sasl-username "gdown"
                      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))))
@@ -56,6 +57,11 @@
 
 (map! :leader :n ":" #'pp-eval-expression)
 (map! :leader :n ";" #'counsel-M-x)
+
+(map! :map company-active-map "<return>" nil)
+(map! :map company-active-map "RET" nil)
+(map! :map company-active-map "C-<return>" #'company-complete-selection)
+(map! :map company-active-map "C-RET" #'company-complete-selection)
 
 ;;; org-mode configuration
 
@@ -197,6 +203,23 @@
 (setq kill-buffer-query-functions
       (remq 'process-kill-buffer-query-function
             kill-buffer-query-functions))
+
+;; Fix emacs exec-path
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match
+that used by the user's shell.
+
+This is particularly useful under Mac OS X and macOS, where GUI
+apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$" "" (shell-command-to-string
+                                          "$SHELL --login -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(set-exec-path-from-shell-PATH)
+
 
 
 ;; `use-package!' declarations
