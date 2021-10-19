@@ -25,88 +25,12 @@
     firewall.enable = false;
   };
 
-  # programs.firejail = {
-  #   enable = true;
-  #   wrappedBinaries = {
-  #     steam = {
-  #       executable = "${lib.getBin pkgs.steam}/bin/steam";
-  #       profile = "${pkgs.firejail}/etc/firejail/steam.profile";
-  #     };
-  #   };
-  # };
-
-  # services.xserver = {
-  #   enable = true;
-  #   displayManager.sddm.enable = true;
-  #   desktopManager = {
-  #     xfce = {
-  #       enable = true;
-  #       noDesktop = true;
-  #       enableXfwm = false;
-  #     };
-  #   };
-  #   windowManager.i3.enable = true;
-  #   windowManager.i3.extraPackages = with pkgs; [
-  #     feh
-  #   ];
-  #   displayManager.defaultSession = "xfce+i3";
-  # };
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
   };
 
-  services.samba = {
-    enable = true;
-    securityType = "user";
-    extraConfig = ''
-      server string = smbnix
-      netbios name = smbnix
-      security = user
-      hosts allow = 192.168.0  localhost
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
-      public = {
-        path = "/mnt/Shares/Public";
-        browsable = "yes";
-        "read only" = "no";
-        "guest ok" = "yes";
-      };
-    };
-  };
-
-  # programs.sway = {
-  #   enable = true;
-  #   wrapperFeatures.gtk = true;
-  #   extraPackages = with pkgs; [
-  #     swaylock
-  #     swayidle
-  #     wl-clipboard
-  #     mako
-  #     alacritty
-  #     dmenu
-  #   ];
-  #   extraSessionCommands = "exec /run/current-system/sw/libexec/polkit-gnome-authentication-agent-1 &";
-  # };
-
-  # services.greetd = {
-  #   enable = true;
-  #   restart = true;
-  #   vt = 7;
-  #   settings.default_session = {
-  #     command = "${pkgs.greetd.tuigreet}/bin/tuigreet -c sway";
-  #   };
-  # };
-
-  # xdg = { autostart.enable = true; };
-
-  #sound.enable = true; # misleading: enables alsa
-  #hardware.pulseaudio.enable = true;
-  #hardware.pulseaudio.support32Bit = true;
-  #hardware.pulseaudio.package = pkgs.pulseaudioFull;
   # Enable pipewire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -115,17 +39,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-
-    # config.pipewire = {
-    #   "context.properties" = {
-    #     "link.max-buffers" = 64;
-    #     "default.clock.rate" = 48000;
-    #   };
-    # };
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   users.users.gavin = {
     isNormalUser = true;
@@ -134,40 +48,12 @@
     shell = pkgs.zsh;
   };
 
-  # hardware.sane = {
-  #   enable = true;
-  #   extraBackends = [ pkgs.epkowa ];
-  # };
-
   services.locate = {
     enable = true;
     locate = pkgs.mlocate;
     localuser = null; # for pkgs.mlocate
     interval = "hourly"; # fine with mlocate?
   };
-
-  # services.syncthing = {
-  #   enable = true;
-  #   user = "gavin";
-  #   configDir = "/home/gavin/.config/syncthing";
-  #   dataDir = "/home/gavin/syncthing";
-  #   declarative = {
-  #     devices = {
-  #       "home-desktop" = {
-  #         # this is our system
-  #         id =
-  #           "DPHVIJC-2UI6GXX-D2P4TPD-EKYT6RI-VGHQMZE-B6XD5WR-QJC64F4-E75BUAR";
-  #         introducer = true;
-  #       };
-  #     };
-  #     folders = {
-  #       "org" = {
-  #         path = "/home/gavin/syncthing/org";
-  #         devices = [ "home-desktop" ];
-  #       };
-  #     };
-  #   };
-  # };
 
   services.openvpn.servers = {
     tcp = {
@@ -183,18 +69,11 @@
     efibootmgr
     unzip
     usbutils # lsusb
-    # polkit
-    # polkit_gnome
-    # Temporary fix for kde plasma and pipewire
-    # kmix
-    # plasma-pa
 
     virt-manager
     gnome3.dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
-  ]); # ++ (with pkgs.plasma5Packages; [
-  #   gwenview
-  # ]);
+  ]);
 
   # require modification to udev rules
   programs.tilp2.enable = true;
@@ -262,6 +141,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "21.11"; # Did you read the comment?
 
 }

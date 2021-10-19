@@ -2,41 +2,6 @@
 
 let
   tome4-latest = pkgs.tome4.overrideAttrs (oldAttrs: rec {
-    version = "1.7.4";
-    src = pkgs.fetchurl {
-      url = "https://te4.org/dl/t-engine/t-engine4-src-${version}.tar.bz2";
-      sha256 = "sha256-w1NPM/SMnPAnAl6z9E6Xsj3mEqZtXzFe1IMPmlKr8qQ=";
-    };
-    installPhase = let
-      pname = "tome4";
-      desktop = pkgs.makeDesktopItem {
-        desktopName = pname;
-        name = pname;
-        exec = "@out@/bin/${pname}";
-        icon = pname;
-        terminal = "false";
-        comment =
-          "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
-        type = "Application";
-        categories = "Game;RolePlaying;";
-        genericName = pname;
-      };
-    in ''
-      runHook preInstall
-      dir=$out/share/${pname}
-      install -Dm755 t-engine $dir/t-engine
-      cp -r bootstrap game $dir
-      makeWrapper $dir/t-engine $out/bin/${pname} \
-        --run "cd $dir"
-      install -Dm755 ${desktop}/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop
-      substituteInPlace $out/share/applications/${pname}.desktop \
-        --subst-var out
-      unzip -oj -qq game/engines/te4-${version}.teae data/gfx/te4-icon.png
-      install -Dm644 te4-icon.png $out/share/icons/hicolor/64x64/${pname}.png
-      install -Dm644 -t $out/share/doc/${pname} CONTRIBUTING COPYING COPYING-MEDIA CREDITS
-      runHook postInstall
-    '';
-  });
   use-nix-doom = false;
 in {
   home.packages = with pkgs; [
@@ -56,7 +21,6 @@ in {
     pavucontrol
     zip
     gotop
-    nyxt
     krita
     ### programming
     ## haskell
@@ -81,7 +45,6 @@ in {
     ### games
     steam
     steam-run-native
-    #dwarf-fortress-packages.dwarf-fortress-full
     (dwarf-fortress-packages.dwarf-fortress-full.override {
       theme = null;
       enableIntro = false;
@@ -124,8 +87,7 @@ in {
   programs.beets = {
     enable = true;
     settings = {
-      directory = "/home/gavin/Music";
-      #directory = "/mnt/music/beets";
+      directory = "/home/gavin/music";
       library = "/home/gavin/.config/beets/musiclibrary.blb";
       plugins = "fetchart";
       import.move = true;
@@ -186,87 +148,6 @@ in {
       };
     };
   };
-
-  xsession.windowManager.i3 = {
-    enable = true;
-    config = {
-      terminal = "xfce4-terminal";
-      modifier = "Mod4"; # super (called meta in i3 docs)
-      keybindings = let
-        mod = config.xsession.windowManager.i3.config.modifier;
-        amixer = "${pkgs.alsaUtils}/bin/amixer";
-      in lib.mkOptionDefault {
-        "${mod}+Tab" = "workspace back_and_forth";
-        "${mod}+Control+e" = "exec emacsclient -c";
-        # "${mod}+space" =
-        "${mod}+g" = "split h";
-        "${mod}+h" = "focus left";
-        "${mod}+j" = "focus down";
-        "${mod}+k" = "focus up";
-        "${mod}+l" = "focus right";
-        "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
-        "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
-        "XF86AudioMute" = "exec ${amixer} set Master toggle";
-      };
-      startup = [
-        {
-          command = "firefox";
-          workspace = "1:web";
-        }
-        {
-          command = "emacsclient -c";
-          workspace = "2:coding";
-        }
-        { command = "feh --bg-scale ${./nord-bg.png}"; }
-      ];
-    };
-  };
-
-  # wayland.windowManager.sway = {
-  #   enable = true;
-  #   wrapperFeatures.gtk = true;
-  #   config = {
-  #     keybindings = let
-  #       modifier = config.wayland.windowManager.sway.config.modifier;
-  #       amixer = "${pkgs.alsaUtils}/bin/amixer";
-  #     in lib.mkOptionDefault {
-  #       "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
-  #       "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
-  #       "XF86AudioMute" = "exec ${amixer} set Master toggle";
-  #       "${modifier}+Tab" = "workspace back_and_forth";
-  #       "${modifier}+e" = "exec emacsclient -c";
-  #     };
-  #     input."*" = { pointer_accel = "0"; };
-  #     output = {
-  #       "*" = { bg = "${./gruvbox-dark-blue.png} fill"; };
-  #       DP-3 = {
-  #         mode = "1920x1080@144.001Hz";
-  #         bg = "${./gruvbox-dark-blue.png} fill";
-  #       };
-  #     };
-  #     startup = [{ command = "mako"; }];
-  #     terminal = "alacritty";
-  #     modifier = "Mod4"; # super
-  #   };
-  # };
-
-  # services.udiskie = {
-  #   enable = true;
-  #   tray = "never";
-  # };
-
-  ## kde takes care of this
-  # gtk = {
-  #   enable = true;
-  #   iconTheme = {
-  #     package = pkgs.gruvbox-dark-gtk;
-  #     name = "gruvbox-dark-gtk";
-  #   };
-  #   theme = {
-  #     package = pkgs.gruvbox-dark-gtk;
-  #     name = "gruvbox-dark-gtk";
-  #   };
-  # };
 
   programs.direnv = {
     enable = true;
@@ -397,9 +278,6 @@ in {
   };
 
   home.file = {
-    # ".config/common-lisp/source-registry.conf.d/50-luser.lisp.conf".text = ''
-    #   (:tree "$HOME/src/my/lisp/")
-    # '';
     ".sbclrc".text = ''
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
@@ -412,5 +290,5 @@ in {
   home.username = "gavin";
   home.homeDirectory = "/home/gavin";
 
-  home.stateVersion = "21.03";
+  home.stateVersion = "21.11";
 }
