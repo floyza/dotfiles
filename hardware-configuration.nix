@@ -12,21 +12,29 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "ntfs" "btrfs" ];
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/4a964a46-1ff2-486d-92d2-59095b020e26";
-      fsType = "ext4";
+      device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
+      fsType = "btrfs";
+      options = [ "subvol=nixos-home", "compress=zstd", "noatime" ];
     };
 
-    #"/home/gavin/mnt" = {
-    #  device = "/dev/disk/by-uuid/a9abd67e-faab-4241-82de-60fb2c337005";
-    #  fsType = "ext4";
-    #};
+    "/nix" = {
+      device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
+      fsType = "btrfs";
+      options = [ "subvol=nixos-nix", "compress=zstd", "noatime" ];
+    };
+
+    "/home/gavin" = {
+      device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
+      fsType = "btrfs";
+      options = [ "subvol=nixos-home", "compress=zstd", "noatime" ];
+    };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/FE84-A8A6";
+      device = "/dev/disk/by-uuid/7E63-C84E";
       fsType = "vfat";
     };
   };
