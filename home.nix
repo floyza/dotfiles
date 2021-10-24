@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  tome4-latest = pkgs.tome4.overrideAttrs (oldAttrs: rec {
   use-nix-doom = false;
 in {
   home.packages = with pkgs; [
@@ -59,11 +58,12 @@ in {
     hyperrogue
     cockatrice
     wesnoth
-    tome4-latest
     ### other
     calc
     discord
     element-desktop
+    mumble
+    murmur
     ## fonts
     emacs-all-the-icons-fonts
     jetbrains-mono
@@ -79,7 +79,7 @@ in {
     sqlite
     texlive.combined.scheme-full
     texlab
-    (python38.withPackages (ps: with ps; [ jupyter python-language-server ]))
+    #(python37.withPackages (ps: with ps; [ jupyter python-language-server ]))
   ];
 
   programs.password-store = { enable = true; };

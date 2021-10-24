@@ -14,12 +14,12 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking = {
-    hostName = "gavin-nixos";
+    hostName = "dreadnought";
     networkmanager.enable = true;
     enableIPv6 = false; # vpn might leak otherwise
 
     useDHCP = false;
-    interfaces.enp7s0.useDHCP = true;
+    interfaces.enp4s0.useDHCP = true;
     # firewall.allowedTCPPorts = [ ... ];
     # firewall.allowedUDPPorts = [ ... ];
     firewall.enable = false;

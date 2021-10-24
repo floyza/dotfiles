@@ -18,19 +18,31 @@
     "/" = {
       device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
       fsType = "btrfs";
-      options = [ "subvol=nixos-home", "compress=zstd", "noatime" ];
+      options = [ "subvol=nixos-root" "compress=zstd" "noatime" ];
     };
 
     "/nix" = {
       device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
       fsType = "btrfs";
-      options = [ "subvol=nixos-nix", "compress=zstd", "noatime" ];
+      options = [ "subvol=nixos-nix" "compress=zstd" "noatime" ];
     };
 
     "/home/gavin" = {
       device = "/dev/disk/by-uuid/6fc64aeb-0510-49ce-bc24-f113403c5a40";
       fsType = "btrfs";
-      options = [ "subvol=nixos-home", "compress=zstd", "noatime" ];
+      options = [ "subvol=nixos-home" "compress=zstd" "noatime" ];
+    };
+
+    "/home/gavin/my" = {
+      device = "/dev/disk/by-uuid/9db75b93-b1f5-4f8b-a686-aa1833b4bede";
+      fsType = "btrfs";
+      options = [ "subvol=personal" "compress=zstd" "noatime" ];
+    };
+
+    "/home/gavin/games" = {
+      device = "/dev/disk/by-uuid/9db75b93-b1f5-4f8b-a686-aa1833b4bede";
+      fsType = "btrfs";
+      options = [ "subvol=games" "compress=zstd" "noatime" ];
     };
 
     "/boot" = {
