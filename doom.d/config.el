@@ -220,7 +220,12 @@ apps are not started from a shell."
 
 (set-exec-path-from-shell-PATH)
 
+(defun minibuffer-set-register (register)
+  (interactive (list (register-read-with-preview "Set register: ")))
+  (set-register register (read-string "Set: ")))
 
+(map! :leader :n "r s" #'minibuffer-set-register)
+(map! :leader :n "r i" #'insert-register)
 
 ;; `use-package!' declarations
 ;; see `packages.el' for info on packages
