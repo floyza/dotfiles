@@ -46,6 +46,10 @@
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
+(after! projectile
+  (add-to-list 'projectile-globally-ignored-directories "zig-cache")
+  (add-to-list 'projectile-globally-ignored-directories "zig-out"))
+
 ;;; evil config
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
