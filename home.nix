@@ -1,13 +1,12 @@
 { config, pkgs, lib, ... }:
 
-let
-  use-nix-doom = false;
-in {
+{
   home.packages = with pkgs; [
     qjackctl
     ntfs3g
     fuse
     file
+    ffmpeg
     wineWowPackages.staging
     libreoffice
     tldr
@@ -28,6 +27,7 @@ in {
     haskellPackages.hoogle
     haskellPackages.cabal-install
     haskellPackages.ghc
+    haskellPackages.ormolu
     ## lisp
     guile
     sbcl
@@ -87,8 +87,8 @@ in {
   programs.beets = {
     enable = true;
     settings = {
-      directory = "/home/gavin/music";
-      library = "/home/gavin/.config/beets/musiclibrary.blb";
+      directory = "/home/gavin/mnt/music";
+      library = "/home/gavin/mnt/music/library.db";
       plugins = "fetchart";
       import.move = true;
       fetchart.auto = true;
@@ -203,7 +203,7 @@ in {
 
   services.mpd = {
     enable = true;
-    musicDirectory = "/home/gavin/Music";
+    musicDirectory = "/home/gavin/mnt/music";
     extraConfig = ''
       audio_output {
               type            "pulse"
@@ -249,17 +249,10 @@ in {
     };
   };
 
-  programs.doom-emacs = if use-nix-doom then {
-    enable = true;
-    doomPrivateDir = ./doom.d;
-  } else
-    { };
-
-  programs.emacs = if !use-nix-doom then {
-    enable = true;
+  programs.emacs = {
+    enable = false;
     extraPackages = epkgs: [ epkgs.vterm ];
-  } else
-    { };
+  };
 
   home.sessionVariables = {
     # BUG Plugin paths are not automatically added, so we must add them

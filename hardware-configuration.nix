@@ -45,6 +45,11 @@
       options = [ "subvol=games" "compress=zstd" "noatime" ];
     };
 
+    "/home/gavin/mnt" = {
+      device = "/dev/disk/by-uuid/a9abd67e-faab-4241-82de-60fb2c337005";
+      fsType = "ext4";
+    };
+
     "/boot" = {
       device = "/dev/disk/by-uuid/7E63-C84E";
       fsType = "vfat";
