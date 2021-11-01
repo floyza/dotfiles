@@ -69,7 +69,7 @@
 
 ;;; org-mode configuration
 
-(setq org-directory "~/syncthing/org/")
+(setq org-directory "~/my/org/")
 (defun make-youtube-link (youtube_id)
   "Create a youtube link from an the id `YOUTUBE_ID'."
   (browse-url (concat "https://www.youtube.com/embed/" youtube_id)))
@@ -158,6 +158,7 @@
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
 (after! haskell
+  (setq lsp-haskell-formatting-provider "ormolu")
   (setq haskell-interactive-popup-errors nil))
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
