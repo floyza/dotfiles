@@ -114,6 +114,7 @@
   };
 
   nix = {
+    autoOptimiseStore = true;
     package = pkgs.nixFlakes;
     extraOptions = ''
       keep-outputs = true

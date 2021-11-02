@@ -250,7 +250,7 @@
   };
 
   programs.emacs = {
-    enable = false;
+    enable = true;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
@@ -276,7 +276,7 @@
       (push '*default-pathname-defaults* asdf:*central-registry*)
     '';
   };
-  services.emacs.enable = true;
+  services.emacs.enable = false;
 
   programs.home-manager.enable = true;
 
