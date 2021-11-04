@@ -18,14 +18,16 @@
       smtpmail-stream-type  'ssl
       smtpmail-smtp-service 465)
 
+(setq auth-source-pass-filename "~/.local/share/password-store")
+
 (after! circe
   (set-irc-server! "irc.libera.chat"
-                   `(:tls t
-                     :port 6697
-                     :channels '("#emacs" "#haskell" "#osdev")
-                     :nick "gdown"
-                     :sasl-username "gdown"
-                     :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))))
+    `(:tls t
+      :port 6697
+      :channels ("#emacs" "#haskell" "#osdev")
+      :nick "gdown"
+      :sasl-username "gdown"
+      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))))
 
 ;;; Visible changes
 
@@ -70,17 +72,12 @@
 ;;; org-mode configuration
 
 (setq org-directory "~/my/org/")
-(defun make-youtube-link (youtube_id)
-  "Create a youtube link from an the id `YOUTUBE_ID'."
-  (browse-url (concat "https://www.youtube.com/embed/" youtube_id)))
 (defun evil-org-edit-src-exit ()
   "Call `org-edit-src-exit'."
   (interactive)
   (call-interactively #'org-edit-src-exit))
 (after! org
-  ;; (map! :map org-src-mode-map "Z Z" #'org-edit-src-exit)
-  (org-add-link-type "yt" #'make-youtube-link)
-   (setq org-capture-templates
+  (setq org-capture-templates
         '(("t" "Todo [inbox]" entry
            (file+headline "inbox.org" "Inbox")
            "* TODO %?\n%a" :prepend t)
