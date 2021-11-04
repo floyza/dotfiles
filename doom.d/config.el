@@ -6,13 +6,6 @@
 (setq user-full-name "Gavin Downard"
       user-mail-address "gavin.downard@runbox.com")
 
-;; (set-email-account! "runbox.com"
-;;                     '((smtpmail-smtp-user . "gavin.downard@runbox.com"))
-;;                     t)
-
-;; nix-doom-emacs does not add this to the load-path
-;; (add-to-list 'load-path "/etc/profiles/per-user/gavin/share/emacs/site-lisp/mu4e")
-
 (setq send-mail-function    'smtpmail-send-it
       smtpmail-smtp-server  "mail.runbox.com"
       smtpmail-stream-type  'ssl
@@ -84,10 +77,6 @@
           ("T" "Tickler" entry
            (file "tickler.org")
            "* %^t %?\n%a" :prepend t)
-;;; Notes are recorded in org-roam
-          ;; ("n" "Personal notes" entry
-          ;;  (file+headline +org-capture-notes-file "Inbox")
-          ;;  "* %u %?\n%i\n%a" :prepend t)
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend t)
@@ -104,18 +93,7 @@
           ("o" "Centralized templates for projects")
           ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
-  ;; Org-roam
-  ;; (setq org-roam-dailies-capture-templates
-  ;;       `(("d" "default" entry (function org-roam-capture--get-point)
-  ;;          "* %?"
-  ;;          :file-name ,(concat org-roam-dailies-directory "%<%Y-%m-%d>")
-  ;;          :head "#+title: %<%Y-%m-%d>\n")
-  ;;         ("s" "school" entry (function org-roam-capture--get-point)
-  ;;          "* %?"
-  ;;          :file-name ,(concat org-roam-dailies-directory "school/%<%Y-%m-%d>")
-  ;;          :head "#+title: Schoolwork %<%Y-%m-%d>\n")))
-  )
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))))
 
 (map! :map doom-leader-notes-map
       :desc "Capture arbitrary date" "r d d" #'org-roam-dailies-capture-date
@@ -144,14 +122,6 @@
     (lsp--with-workspace-temp-buffer workspace-root
       (list lsp-file-watch-ignored-files (lsp-file-watch-ignored-directories)))))
 
-;; (c-add-style "user"
-;;              '("doom"
-;;                (c-offsets-alist . ((innamespace . [0])))))
-
-;; (after! scheme
-;;   (setq geiser-repl-skip-version-check-p t
-;;         geiser-active-implementations '(guile racket chicken chez mit chibi gambit)))
-
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
 (after! haskell
@@ -159,9 +129,6 @@
   (setq haskell-interactive-popup-errors nil))
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
-
-;; (after! python
-;;   (set-repl-handler! 'python-mode #'+python/open-ipython-repl :persist t))
 
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
@@ -195,9 +162,6 @@
 (after! evil
   (evil-escape-mode -1))
 ;; (setq! ivy-posframe-style 'frame-top-center)
-
-;;; pdf-view mode
-;; (add-hook! 'pdf-view-mode-hook :append #'pdf-view-midnight-minor-mode)
 
 (after! flycheck
   (setq flycheck-global-modes '(not nix-mode)))
