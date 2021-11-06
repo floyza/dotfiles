@@ -10,6 +10,8 @@
     wineWowPackages.staging
     libreoffice
     tldr
+    libnotify
+    units
 
     mpd
     mpc_cli
@@ -41,6 +43,11 @@
     ## formatting
     shellcheck
     nixfmt
+    ## resources
+    godot
+    aseprite-unfree
+    (callPackage ./packages/reaper { })
+    # (callPackage ./packages/aseprite { unfree = true; })
     ### games
     steam
     steam-run-native
@@ -48,6 +55,7 @@
       theme = null;
       enableIntro = false;
       enableFPS = true;
+      enableTWBT = false;
     })
     lutris
     dolphinEmu
@@ -79,7 +87,8 @@
     sqlite
     texlive.combined.scheme-full
     texlab
-    #(python37.withPackages (ps: with ps; [ jupyter python-language-server ]))
+    python3
+    # (python37.withPackages (ps: with ps; [ jupyter ]))
   ];
 
   programs.password-store = { enable = true; };

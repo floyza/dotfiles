@@ -9,6 +9,11 @@
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (self: super: {
+      steam = super.steam.override { extraPkgs = pkgs: [ pkgs.libpng_apng ]; };
+    })
+  ];
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
