@@ -51,9 +51,6 @@
   (map! :map vterm-mode-map :i "C-w" evil-window-map)) ; YASSS!
 (map! :leader "C" #'calc-dispatch)
 
-(map! :n "C-J" #'+workspace/switch-right)
-(map! :n "C-K" #'+workspace/switch-left)
-
 (map! :leader :n ":" #'pp-eval-expression)
 (map! :leader :n ";" #'counsel-M-x)
 
