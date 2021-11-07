@@ -126,6 +126,9 @@
   };
 
   nix = {
+    binaryCachePublicKeys =
+      [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
+    binaryCaches = [ "https://hydra.iohk.io" ];
     autoOptimiseStore = true;
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -146,7 +149,7 @@
     };
   };
 
-  documentation.info.enable = false;
+  documentation.info.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
