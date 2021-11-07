@@ -85,9 +85,6 @@
     virt-manager
     gnome3.dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
-
-    polkit
-    polkit_gnome
   ]);
 
   # require modification to udev rules
