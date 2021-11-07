@@ -122,6 +122,56 @@
     };
   };
 
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    config = {
+      keybindings = let
+        modifier = config.wayland.windowManager.sway.config.modifier;
+        amixer = "${pkgs.alsaUtils}/bin/amixer";
+      in lib.mkOptionDefault {
+        "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
+        "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
+        "XF86AudioMute" = "exec ${amixer} set Master toggle";
+        "${modifier}+Tab" = "workspace back_and_forth";
+        # "${modifier}+e" = "exec emacsclient -c";
+        "${modifier}+e" = "exec emacs";
+      };
+      input."*" = {
+        accel_profile = "flat";
+        pointer_accel = "1";
+      };
+      output = {
+        "*" = { bg = "${./nord-bg.png} fill"; };
+        DP-3 = {
+          mode = "1920x1080@144.001Hz";
+          bg = "${./nord-bg.png} fill";
+        };
+      };
+      startup = [
+        { command = "mako"; }
+        {
+          command =
+            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        }
+      ];
+      terminal = "alacritty";
+      modifier = "Mod4"; # super
+    };
+  };
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark-gtk";
+    };
+    theme = {
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark-gtk";
+    };
+  };
+
   programs.nix-index.enable = true;
 
   programs.firefox = {

@@ -30,10 +30,17 @@
     firewall.enable = false;
   };
 
-  services.xserver = {
+  programs.sway = {
     enable = true;
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
+    wrapperFeatures.gtk = true;
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      alacritty
+      dmenu
+    ];
   };
 
   # Enable pipewire
@@ -78,6 +85,9 @@
     virt-manager
     gnome3.dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
+
+    polkit
+    polkit_gnome
   ]);
 
   # require modification to udev rules
