@@ -128,11 +128,11 @@
     config = {
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
-        amixer = "${pkgs.alsaUtils}/bin/amixer";
+        pactl = "${pkgs.pulseaudio}/bin/pactl";
       in lib.mkOptionDefault {
-        "XF86AudioRaiseVolume" = "exec ${amixer} set Master 5%+ -M";
-        "XF86AudioLowerVolume" = "exec ${amixer} set Master 5%- -M";
-        "XF86AudioMute" = "exec ${amixer} set Master toggle";
+        "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
+        "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
+        "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
         "${modifier}+Tab" = "workspace back_and_forth";
         # "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+e" = "exec emacs";
