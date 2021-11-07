@@ -41,6 +41,8 @@
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
+(setq browse-url-browser-function #'eww-browse-url)
+
 (after! projectile
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
   (add-to-list 'projectile-globally-ignored-directories "zig-out"))
@@ -118,9 +120,18 @@
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
+
 (after! haskell
   (setq lsp-haskell-formatting-provider "ormolu")
-  (setq haskell-interactive-popup-errors nil))
+  (setq haskell-interactive-popup-errors nil)
+  (defun haskell-hoogle-lookup ()
+    (interactive)
+    (haskell-hoogle-start-server)
+    (haskell-hoogle-lookup-from-local))
+  (map! :localleader
+        :map haskell-mode-map
+        "l" #'haskell-hoogle-lookup))
+
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
 
