@@ -12,6 +12,9 @@
     tldr
     libnotify
     units
+    graphviz
+    libsixel
+    foot # terminal emulator
 
     mpd
     mpc_cli
@@ -136,6 +139,7 @@
         "${modifier}+Tab" = "workspace back_and_forth";
         # "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+e" = "exec emacs";
+        "${modifier}+p" = "exec mpc toggle";
       };
       input."*" = {
         accel_profile = "flat";
@@ -155,7 +159,7 @@
             "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         }
       ];
-      terminal = "alacritty";
+      terminal = "foot";
       modifier = "Mod4"; # super
     };
   };
@@ -240,11 +244,11 @@
             && [[ -f "$EMACS_VTERM_PATH"/etc/emacs-vterm-zsh.sh ]]; then
                source "$EMACS_VTERM_PATH"/etc/emacs-vterm-zsh.sh
       fi
-      nrun() {
-             nix-shell -p "$1" --run "$1"
-      }
       weather () {
               curl https://wttr.in/"$1"
+      }
+      idot () {
+              dot -Tpng $*
       }
     '';
     shellAliases = { octal = "stat -c '%a %n'"; };
@@ -333,6 +337,9 @@
     ".sbclrc".text = ''
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
+    '';
+    ".config/foot/foot.ini".text = ''
+      font=JetBrains Mono:pixelsize=13
     '';
   };
   services.emacs.enable = false;

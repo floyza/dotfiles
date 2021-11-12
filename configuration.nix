@@ -57,14 +57,7 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      mako
-      alacritty
-      dmenu
-    ];
+    extraPackages = with pkgs; [ swaylock swayidle wl-clipboard mako dmenu ];
   };
 
   # Enable pipewire
