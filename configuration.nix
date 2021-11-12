@@ -48,6 +48,33 @@
     };
   };
 
+  services.snapper.configs = {
+    home = {
+      subvolume = "/home/gavin";
+      extraConfig = ''
+        ALLOW_USERS="gavin"
+        TIMELINE_CREATE=yes
+        TIMELINE_CLEANUP=yes
+      '';
+    };
+    personal = {
+      subvolume = "/home/gavin/my";
+      extraConfig = ''
+        ALLOW_USERS="gavin"
+        TIMELINE_CREATE=yes
+        TIMELINE_CLEANUP=yes
+      '';
+    };
+    games = {
+      subvolume = "/home/gavin/games";
+      extraConfig = ''
+        ALLOW_USERS="gavin"
+        TIMELINE_CREATE=yes
+        TIMELINE_CLEANUP=yes
+      '';
+    };
+  };
+
   services.murmur = {
     enable = true;
     bonjour = true;
@@ -82,6 +109,7 @@
     locate = pkgs.mlocate;
     localuser = null; # for pkgs.mlocate
     interval = "hourly"; # fine with mlocate?
+    pruneNames = [ ".snapshots" ];
   };
 
   services.openvpn.servers = {
