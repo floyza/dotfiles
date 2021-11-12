@@ -138,8 +138,7 @@
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
         "${modifier}+Tab" = "workspace back_and_forth";
-        # "${modifier}+e" = "exec emacsclient -c";
-        "${modifier}+e" = "exec emacs";
+        "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+p" = "exec mpc toggle";
       };
       input."*" = {
@@ -216,7 +215,6 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
-    nix-direnv.enableFlakes = true;
   };
 
   programs.zsh = {
@@ -343,7 +341,7 @@
       font=JetBrains Mono:pixelsize=13
     '';
   };
-  services.emacs.enable = false;
+  services.emacs.enable = true;
 
   programs.home-manager.enable = true;
 
