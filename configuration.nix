@@ -3,6 +3,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  boot.kernelPackages = pkgs.linuxPackages_5_14;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -21,13 +23,35 @@
   networking = {
     hostName = "dreadnought";
     networkmanager.enable = true;
-    enableIPv6 = false; # vpn might leak otherwise
+    enableIPv6 = true; # vpn might leak if true
 
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
     # firewall.allowedTCPPorts = [ ... ];
     # firewall.allowedUDPPorts = [ ... ];
     firewall.enable = false;
+
+    hosts = {
+      "192.168.0.2" = [ "dadbox" ];
+      "192.168.0.3" = [ "remotehost" ];
+      "192.168.0.4" = [ "donbox" ];
+    };
+  };
+
+  services.avahi = {
+    enable = true;
+    interfaces = [ "enp4s0" ];
+    publish = {
+      enable = true;
+      domain = false;
+      userServices = true;
+    };
+  };
+
+  services.murmur = {
+    enable = true;
+    bonjour = true;
+    welcometext = "Welcome to my humble server.";
   };
 
   programs.sway = {
