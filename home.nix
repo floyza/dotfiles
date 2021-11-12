@@ -14,7 +14,6 @@
     units
     graphviz
     libsixel
-    foot # terminal emulator
 
     mpd
     mpc_cli
@@ -126,6 +125,12 @@
     };
   };
 
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = { main.font = "JetBrains Mono:pixelsize=13"; };
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -159,7 +164,7 @@
             "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         }
       ];
-      terminal = "foot";
+      terminal = "footclient";
       modifier = "Mod4"; # super
     };
   };
@@ -336,9 +341,6 @@
     ".sbclrc".text = ''
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
-    '';
-    ".config/foot/foot.ini".text = ''
-      font=JetBrains Mono:pixelsize=13
     '';
   };
   services.emacs.enable = true;
