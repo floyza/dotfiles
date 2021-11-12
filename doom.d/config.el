@@ -20,7 +20,12 @@
       :channels ("#emacs" "#haskell" "#osdev")
       :nick "gdown"
       :sasl-username "gdown"
-      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat")))))
+      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
+  (set-irc-server! "irc.rizon.net"
+    `(:tls t
+      :port 6697
+      :channels ("#runelite")
+      :nick "gdown")))
 
 ;;; Visible changes
 
@@ -40,8 +45,6 @@
 (setq doom-font (font-spec :family "JetBrains Mono" :size 13 :weight 'semi-bold))
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
-
-(setq browse-url-browser-function #'eww-browse-url)
 
 (after! projectile
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")

@@ -54,6 +54,7 @@
     ### games
     steam
     steam-run-native
+    runelite
     (dwarf-fortress-packages.dwarf-fortress-full.override {
       theme = null;
       enableIntro = false;
