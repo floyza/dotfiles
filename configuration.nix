@@ -158,7 +158,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.forwardX11 = true;
+  services.openssh.passwordAuthentication = true;
 
   security.polkit.enable = true;
 
