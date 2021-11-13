@@ -6,10 +6,16 @@
 (setq user-full-name "Gavin Downard"
       user-mail-address "gavin.downard@runbox.com")
 
-(setq send-mail-function    'smtpmail-send-it
-      smtpmail-smtp-server  "mail.runbox.com"
-      smtpmail-stream-type  'ssl
-      smtpmail-smtp-service 465)
+(setq auth-sources '(password-store))
+(setq auth-source-pass-filename "~/.local/share/password-store")
+
+(after! mu4e
+  (setq send-mail-function    'smtpmail-send-it
+        smtpmail-smtp-user user-mail-address
+        smtpmail-smtp-server  "mail.runbox.com"
+        smtpmail-stream-type  'starttls
+        smtpmail-servers-requiring-authorization ".*" ; Ordinarily it attempts to connect without credentials before using credentials, but that breaks the whole thing, at least with runbox.
+        smtpmail-smtp-service 587))
 
 (setq auth-source-pass-filename "~/.local/share/password-store")
 
@@ -17,7 +23,7 @@
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
-      :channels ("#emacs" "#haskell" "#osdev")
+      :channels ("#emacs" "#haskell" "#nixos") ; #osdev
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
