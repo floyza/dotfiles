@@ -14,6 +14,7 @@
     units
     graphviz
     libsixel
+    nmap
 
     mpd
     mpc_cli

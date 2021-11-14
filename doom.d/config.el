@@ -77,6 +77,7 @@
   "Call `org-edit-src-exit'."
   (interactive)
   (call-interactively #'org-edit-src-exit))
+(setq org-journal-file-type 'monthly)
 (after! org
   (setq org-capture-templates
         '(("t" "Todo [inbox]" entry

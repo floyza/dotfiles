@@ -125,6 +125,7 @@
     tmux
     efibootmgr
     unzip
+    telnet
     usbutils # lsusb
 
     virt-manager
@@ -152,13 +153,32 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryFlavor = "gtk2";
   };
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = true;
+  services.openssh.passwordAuthentication = false;
+  services.openssh.ports = [ 22 ];
+  services.openssh.gatewayPorts = "yes";
+
+  services.vsftpd = {
+    enable = true;
+    # need to learn about rsa certificates first!
+    # localUsers = true;
+    # forceLocalLoginsSSL = true;
+    # forceLocalDataSSL = true;
+    writeEnable = true;
+    anonymousUser = true;
+    anonymousUserNoPassword = true;
+    anonymousUploadEnable = true;
+    anonymousMkdirEnable = true;
+    extraConfig = ''
+      anon_world_readable_only=NO
+    '';
+  };
 
   security.polkit.enable = true;
 
