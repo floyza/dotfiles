@@ -8,7 +8,7 @@
     file
     ffmpeg
     wineWowPackages.staging
-    #libreoffice
+    libreoffice
     tldr
     libnotify
     units
