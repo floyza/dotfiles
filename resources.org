@@ -1,5 +1,8 @@
 #+TITLE: Resources
 
+* Useful configs
+** https://git.sr.ht/~dunklecat/nixos-config
+** https://github.com/hlissner/dotfiles
 * Nix
 ** [[https://sandervanderburg.blogspot.com/2014/07/managing-private-nix-packages-outside.html][Packages Outside Nixpkgs]]
 ** [[https://nix.dev/tutorials/cross-compilation][Cross Compilation]]

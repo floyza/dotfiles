@@ -8,7 +8,7 @@
     file
     ffmpeg
     wineWowPackages.staging
-    libreoffice
+    #libreoffice
     tldr
     libnotify
     units
@@ -319,11 +319,12 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs;
+    package = pkgs.emacsPgtkGcc;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
   home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "1";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
       "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";
