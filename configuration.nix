@@ -99,8 +99,16 @@
 
   users.users.gavin = {
     isNormalUser = true;
-    extraGroups =
-      [ "audio" "wheel" "libvirtd" "networkmanager" "scanner" "lp" "adbusers" ];
+    extraGroups = [
+      "audio"
+      "wheel"
+      "libvirtd"
+      "networkmanager"
+      "scanner"
+      "lp"
+      "adbusers"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -183,6 +191,7 @@
   security.polkit.enable = true;
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
   programs.dconf.enable = true;
 
   hardware.opengl = {
