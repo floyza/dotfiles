@@ -27,9 +27,11 @@
 
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
-    # firewall.allowedTCPPorts = [ ... ];
+    # automatically opened tcp ports: ssh
+    firewall.allowedTCPPorts = [ config.services.murmur.port ];
+    # automatically opened udp ports: mdns
     # firewall.allowedUDPPorts = [ ... ];
-    firewall.enable = false;
+    firewall.enable = true;
 
     hosts = {
       "192.168.0.2" = [ "dadbox" ];
