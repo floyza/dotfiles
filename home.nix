@@ -132,10 +132,24 @@
     settings = { main.font = "JetBrains Mono:pixelsize=13"; };
   };
 
+  programs.waybar = {
+    enable = true;
+    settings = [{
+      position = "bottom";
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" ];
+      modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
+    }];
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
     config = {
+      bars = [{
+        command = "${pkgs.waybar}/bin/waybar";
+        fonts = { };
+      }];
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
         pactl = "${pkgs.pulseaudio}/bin/pactl";
@@ -174,11 +188,11 @@
     enable = true;
     iconTheme = {
       package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark-gtk";
+      name = "gruvbox-dark";
     };
     theme = {
       package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark-gtk";
+      name = "gruvbox-dark";
     };
   };
 
@@ -319,7 +333,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkGcc;
+    package = pkgs.emacs;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
