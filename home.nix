@@ -15,6 +15,7 @@
     graphviz
     libsixel
     nmap
+    whipper
 
     mpd
     mpc_cli
@@ -91,8 +92,7 @@
     sqlite
     texlive.combined.scheme-full
     texlab
-    python3
-    # (python37.withPackages (ps: with ps; [ jupyter ]))
+    (python39.withPackages (ps: with ps; [ sh ]))
   ];
 
   programs.password-store = { enable = true; };
@@ -164,6 +164,7 @@
       input."*" = {
         accel_profile = "flat";
         pointer_accel = "1";
+        xkb_layout = "us";
       };
       output = {
         "*" = { bg = "${./nord-bg.png} fill"; };
@@ -269,8 +270,25 @@
       idot () {
               dot -Tpng $*
       }
+      nr () {
+              nix run nixpkgs#"$1"
+      }
+      nsh () {
+              nix shell --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
+      }
+      ni () {
+              nix flake init -t my#"$1"
+      }
+      nn () {
+              nix flake new $1 -t my#"$1"
+      }
     '';
-    shellAliases = { octal = "stat -c '%a %n'"; };
+    shellAliases = {
+      octal = "stat -c '%a %n'";
+      cp = "cp --reflink=auto";
+      ec = "TERM=xterm-256color emacsclient -c -nw";
+      ns = " nix search nixpkgs";
+    };
   };
 
   programs.git = {
@@ -353,6 +371,8 @@
     VST3_PATH =
       "$HOME/.vst3:$HOME/.nix-profile/lib/vst3:/run/current-system/sw/lib/vst3";
   };
+
+  home.sessionPath = [ "$HOME/bin" ];
 
   home.file = {
     ".sbclrc".text = ''

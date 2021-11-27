@@ -12,7 +12,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  boot.supportedFilesystems = [ "ntfs" "btrfs" ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems = {
     "/" = {
