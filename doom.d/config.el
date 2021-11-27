@@ -54,7 +54,9 @@
 
 (after! projectile
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
-  (add-to-list 'projectile-globally-ignored-directories "zig-out"))
+  (add-to-list 'projectile-globally-ignored-directories "zig-out")
+  (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
+  (add-to-list 'projectile-globally-ignored-directories ".stack-work"))
 
 ;;; evil config
 (map! :i "C-w" evil-window-map) ; YES!!!!!
