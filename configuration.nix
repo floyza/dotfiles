@@ -28,10 +28,17 @@
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
     # automatically opened tcp ports: ssh
-    firewall.allowedTCPPorts = [ config.services.murmur.port ];
-    # automatically opened udp ports: mdns
-    # firewall.allowedUDPPorts = [ ... ];
+    # manually opened: murmur, samba, samba-wsdd
+    # we don't use samba.openFirewall since we only need 445 open: we don't use nmbd so the other ports are unnessesary
+    firewall.allowedTCPPorts = [ config.services.murmur.port 445 5357 ];
+    # automatically opened udp ports: avahi
+    # manually opened: samba-wsdd
+    firewall.allowedUDPPorts = [ 3702 ];
     firewall.enable = true;
+    firewall.allowPing = true;
+    # possibly required for our samba discovery (https://wiki.archlinux.org/index.php/Samba#.22Browsing.22_network_fails_with_.22Failed_to_retrieve_share_list_from_server.22)
+    firewall.extraCommands =
+      "iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns";
 
     hosts = {
       "192.168.0.2" = [ "dadbox" ];
@@ -112,6 +119,9 @@
       "docker"
     ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDx/aVrNg3oc/+UEAOi2D2dbBXQCwQCaVtUBspyuD5O gavin.downard@runbox.com"
+    ];
   };
 
   services.locate = {
@@ -174,26 +184,50 @@
   services.openssh.ports = [ 22 ];
   services.openssh.gatewayPorts = "yes";
 
-  services.vsftpd = {
+  users.users.samba = {
+    isSystemUser = true;
+    group = "samba";
+  };
+  users.groups.samba = { };
+
+  services.samba = {
     enable = true;
-    # need to learn about rsa certificates first!
-    # localUsers = true;
-    # forceLocalLoginsSSL = true;
-    # forceLocalDataSSL = true;
-    writeEnable = true;
-    anonymousUser = true;
-    anonymousUserNoPassword = true;
-    anonymousUploadEnable = true;
-    anonymousMkdirEnable = true;
+    securityType = "user";
+    enableNmbd = false; # we use wsdd instead
+    enableWinbindd = true; # need to look into more
     extraConfig = ''
-      anon_world_readable_only=NO
+      workgroup = WORKGROUP
+      protocol = SMB3
+      # server string = smbnix
+      # netbios name = smbnix # we aren't using nmbd so I think we don't need this
+      hosts allow = 192.168.0.0/24 localhost
+      hosts deny = 0.0.0.0/0
+      guest account = samba
+      map to guest = bad user
     '';
+    shares = {
+      family = {
+        comment = "Public Share";
+        path = "/shares/Public";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+    };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    interface = "enp4s0";
   };
 
   security.polkit.enable = true;
 
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
 
   hardware.opengl = {
