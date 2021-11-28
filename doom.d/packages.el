@@ -70,4 +70,9 @@
 (package! odin-mode
   :recipe (:host github :repo "mattt-b/odin-mode"))
 
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+(unpin! org-roam)
+(unpin! bibtex-completion helm-bibtex ivy-bibtex)
+
 (disable-packages! company-dict)
