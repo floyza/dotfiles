@@ -16,6 +16,7 @@
     libsixel
     nmap
     whipper
+    imagemagick
 
     mpd
     mpc_cli
@@ -167,10 +168,10 @@
         xkb_layout = "us";
       };
       output = {
-        "*" = { bg = "${./nord-bg.png} fill"; };
+        "*" = { bg = "${./background.png} fill"; };
         DP-3 = {
           mode = "1920x1080@144.001Hz";
-          bg = "${./nord-bg.png} fill";
+          bg = "${./background.png} fill";
         };
       };
       startup = [
