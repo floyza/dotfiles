@@ -17,6 +17,7 @@
     nmap
     whipper
     imagemagick
+    yt-dlp
 
     mpd
     mpc_cli
@@ -288,7 +289,7 @@
       octal = "stat -c '%a %n'";
       cp = "cp --reflink=auto";
       ec = "TERM=xterm-256color emacsclient -c -nw";
-      ns = " nix search nixpkgs";
+      ns = "nix search nixpkgs";
     };
   };
 
