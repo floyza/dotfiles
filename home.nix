@@ -136,11 +136,18 @@
 
   programs.waybar = {
     enable = true;
+    style = builtins.readFile ./waybar-style.css;
+    # style = ''
+    #   window#waybar {
+    #     background-color: rgba(40, 40, 40, .8);
+    #   }
+    # '';
     settings = [{
       position = "bottom";
       modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
       modules-center = [ "sway/window" ];
       modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
+      modules.clock.format = "{:%H:%M}";
     }];
   };
 
@@ -168,11 +175,12 @@
         pointer_accel = "1";
         xkb_layout = "us";
       };
-      output = {
-        "*" = { bg = "${./background.png} fill"; };
+      output = let background = ./background.jpg;
+      in {
+        "*" = { bg = "${background} fill"; };
         DP-3 = {
           mode = "1920x1080@144.001Hz";
-          bg = "${./background.png} fill";
+          bg = "${background} fill";
         };
       };
       startup = [
