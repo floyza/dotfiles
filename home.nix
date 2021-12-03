@@ -57,7 +57,7 @@
     ### games
     (factorio.override {
       username = "gdown";
-      token = "422e2bf3a74d869723e9b5d765399a";
+      token = "";
     })
     steam
     steam-run-native
