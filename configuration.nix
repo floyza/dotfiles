@@ -23,7 +23,7 @@
   networking = {
     hostName = "dreadnought";
     networkmanager.enable = true;
-    enableIPv6 = true; # vpn might leak if true
+    enableIPv6 = false; # vpn might leak if true
 
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
@@ -134,8 +134,8 @@
 
   services.openvpn.servers = {
     tcp = {
-      config = "config /root/nixos/openvpn/us8272.nordvpn.com.tcp.conf ";
-      autoStart = false;
+      config = "config /root/nix/openvpn/us8272.nordvpn.com.tcp.conf ";
+      autoStart = true;
     };
   };
 
