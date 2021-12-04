@@ -1,0 +1,3 @@
+;;; Elfeed score file                                     -*- emacs-lisp -*-
+(("title"
+  (:text "emacs" :value 100 :type s)))

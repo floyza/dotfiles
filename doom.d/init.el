@@ -112,7 +112,7 @@
        :lang
        ;;agda                         ; types of types of types of types...
        ;;beancount                    ; mind the GAAP
-       (cc +lsp)                      ; C/C++/Obj-C madness
+       ;; (cc +lsp)                      ; C/C++/Obj-C madness
        ;;(clojure +lsp)                      ; java with a lisp
        common-lisp                    ; if you've seen one lisp, you've seen them all
        ;;coq                          ; proofs-as-programs
@@ -178,7 +178,7 @@
        :app
        ;;calendar
        irc                            ; how neckbeards socialize
-       ;;(rss +org)                   ; emacs as an RSS reader
+       rss                   ; emacs as an RSS reader
        ;;twitter                      ; twitter client https://twitter.com/vnought
        ;;emms
        everywhere        ; *leave* Emacs!? You must be joking

@@ -75,4 +75,7 @@
 (unpin! org-roam)
 (unpin! bibtex-completion helm-bibtex ivy-bibtex)
 
+(package! elfeed-score
+  :recipe (:host github :repo "sp1ff/elfeed-score"))
+
 (disable-packages! company-dict)

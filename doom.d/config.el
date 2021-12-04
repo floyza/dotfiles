@@ -72,6 +72,8 @@
 (map! :map company-active-map "C-<return>" #'company-complete-selection)
 (map! :map company-active-map "C-RET" #'company-complete-selection)
 
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+
 ;;; org-mode configuration
 
 (setq org-directory "~/my/org/")
@@ -197,8 +199,12 @@
 ;; `use-package!' declarations
 ;; see `packages.el' for info on packages
 
-(defconst bib-library "~/my/bib/lib.bib")
-(defconst bib-library-path "~/my/bib/pdfs/")
+(defconst bib-library "~/my/org/bib/lib.bib")
+(defconst bib-library-path "~/my/org/bib/pdfs/")
+(setq elfeed-feeds
+      '("https://export.arxiv.org/rss/cs"))
+(after! elfeed
+  (add-hook! 'elfeed-search-mode-hook #'elfeed-update))
 
 (use-package! hackernews)
 (use-package! egg-timer)
@@ -212,7 +218,14 @@
   (bibtex-set-dialect 'BibTeX)
   (setq bibtex-completion-bibliography (list bib-library)
         bibtex-completion-library-path bib-library-path
-        bibtex-completion-notes-path "~/my/org/roam"))
+        bibtex-completion-notes-path "~/my/org/roam")
+  (org-roam-bibtex-mode))
+(use-package! elfeed-score
+  :after elfeed
+  :config
+  (setq elfeed-score-serde-score-file "~/src/dotfiles/doom.d/elfeed.score")
+  (elfeed-score-enable)
+  (map! :map elfeed-search-mode-map :n "=" elfeed-score-map))
 
 ;;; Defuns
 
