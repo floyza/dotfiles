@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [ ./modules/home/zsh ];
   home.packages = with pkgs; [
     qjackctl
     ntfs3g
@@ -166,6 +167,9 @@
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
         pactl = "${pkgs.pulseaudio}/bin/pactl";
+        slurp = "${pkgs.slurp}/bin/slurp";
+        grim = "${pkgs.grim}/bin/grim";
+        date = "${pkgs.coreutils}/bin/date";
       in lib.mkOptionDefault {
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
@@ -173,6 +177,10 @@
         "${modifier}+Tab" = "workspace back_and_forth";
         "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+p" = "exec mpc toggle";
+        "${modifier}+i" =
+          "exec ${grim} -t png ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";
+        "${modifier}+Shift+i" = ''
+          exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
       };
       input."*" = {
         accel_profile = "flat";
@@ -250,59 +258,6 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    autocd = true;
-    defaultKeymap = "emacs";
-    plugins = (with pkgs; [
-      {
-        name = "zsh-syntax-highlighting";
-        src = zsh-syntax-highlighting;
-      }
-      {
-        name = "zsh-powerlevel10k";
-        src = zsh-powerlevel10k;
-      }
-      {
-        name = "zsh-history-substring-search";
-        src = zsh-history-substring-search;
-      }
-    ]);
-    initExtra = ''
-      if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-         && [[ -n "$EMACS_VTERM_PATH" ]] \
-            && [[ -f "$EMACS_VTERM_PATH"/etc/emacs-vterm-zsh.sh ]]; then
-               source "$EMACS_VTERM_PATH"/etc/emacs-vterm-zsh.sh
-      fi
-      weather () {
-              curl https://wttr.in/"$1"
-      }
-      idot () {
-              dot -Tpng $*
-      }
-      nr () {
-              nix run nixpkgs#"$1"
-      }
-      nsh () {
-              nix shell --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
-      }
-      ni () {
-              nix flake init -t my#"$1"
-      }
-      nn () {
-              nix flake new $1 -t my#"$1"
-      }
-    '';
-    shellAliases = {
-      octal = "stat -c '%a %n'";
-      cp = "cp --reflink=auto";
-      ec = "TERM=xterm-256color emacsclient -c -nw";
-      ns = "nix search nixpkgs";
-    };
   };
 
   programs.git = {
