@@ -6,7 +6,8 @@
 (setq user-full-name "Gavin Downard"
       user-mail-address "gavin.downard@runbox.com")
 
-(setq auth-sources '(password-store))
+(setq auth-sources '())
+(auth-source-pass-enable)
 (setq auth-source-pass-filename "~/.local/share/password-store")
 
 (after! mu4e
