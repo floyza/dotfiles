@@ -44,6 +44,9 @@
       nn () {
               nix flake new $1 -t my#"$1"
       }
+      nbp () {
+              nix build --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); pkgs.callPackage $1 {}"
+      }
       bindkey -M emacs '^P' history-substring-search-up
       bindkey -M emacs '^N' history-substring-search-down
       if [[ -r "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh" ]]; then

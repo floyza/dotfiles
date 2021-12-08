@@ -70,7 +70,7 @@
       enableTWBT = false;
     })
     lutris
-    dolphinEmu
+    dolphin-emu-beta
     cataclysm-dda
     cataclysmDDA.stable.curses
     crawl
@@ -78,6 +78,7 @@
     hyperrogue
     cockatrice
     wesnoth
+    retroarchFull
     ### other
     calc
     discord
@@ -210,7 +211,7 @@
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.gruvbox-dark-gtk;
+      package = pkgs.gruvbox-dark-icons-gtk;
       name = "gruvbox-dark";
     };
     theme = {
