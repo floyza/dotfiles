@@ -103,6 +103,8 @@
     (python39.withPackages (ps: with ps; [ sh ]))
   ];
 
+  programs.man.generateCaches = true;
+
   programs.password-store = { enable = true; };
 
   programs.beets = {
@@ -171,10 +173,13 @@
         slurp = "${pkgs.slurp}/bin/slurp";
         grim = "${pkgs.grim}/bin/grim";
         date = "${pkgs.coreutils}/bin/date";
+        dmenu-bin = "${pkgs.dmenu}/bin";
       in lib.mkOptionDefault {
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
+        "${modifier}+d" =
+          "exec ${dmenu-bin}/dmenu_path | ${dmenu-bin}/dmenu | zsh -i -s";
         "${modifier}+Tab" = "workspace back_and_forth";
         "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+p" = "exec mpc toggle";
@@ -197,7 +202,7 @@
         };
       };
       startup = [
-        { command = "mako"; }
+        { command = "${pkgs.mako}/bin/mako"; }
         {
           command =
             "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
