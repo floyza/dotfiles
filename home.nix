@@ -56,10 +56,6 @@
     (callPackage ./packages/reaper { })
     # (callPackage ./packages/aseprite { unfree = true; })
     ### games
-    (factorio.override {
-      username = "gdown";
-      token = "";
-    })
     steam
     steam-run-native
     runelite
