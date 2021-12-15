@@ -20,6 +20,10 @@
     imagemagick
     yt-dlp
 
+    swaylock
+    swayidle
+    wl-clipboard
+
     mpd
     mpc_cli
     killall
@@ -232,6 +236,7 @@
     ];
     profiles.main = {
       settings = {
+        "layout.frame_rate" = 144;
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;

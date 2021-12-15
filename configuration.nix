@@ -3,7 +3,7 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_14;
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -90,11 +90,7 @@
     welcometext = "Welcome to my humble server.";
   };
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [ swaylock swayidle wl-clipboard ];
-  };
+  programs.sway = { enable = true; };
 
   # Enable pipewire
   security.rtkit.enable = true;
