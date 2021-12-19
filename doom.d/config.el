@@ -231,11 +231,11 @@
         '("citekey" "title" "url" "author-or-editor" "keywords" "file")
         orb-process-file-keyword t
         orb-attached-file-extensions '("pdf"))
-  (setq org-roam-capture-templates
-        '(("r" "bibliography reference" plain
+  (add-to-list 'org-roam-capture-templates
+        '("r" "bibliography reference" plain
            (file "~/src/dotfiles/doom.d/templates/bibref.org")
            :target
-           (file+head "references/${citekey}.org" "#+title: ${title}\n"))))
+           (file+head "references/${citekey}.org" "#+title: ${title}\n")))
   (org-roam-bibtex-mode))
 
 (after! org-noter
