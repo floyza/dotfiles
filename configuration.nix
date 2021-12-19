@@ -8,6 +8,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.extraModulePackages = [ pkgs.linuxPackages.gcadapter-oc-kmod ];
+
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;
@@ -156,6 +158,8 @@
     gnome3.dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
   ]);
+
+  services.udev.packages = [ pkgs.dolphin-emu-beta ];
 
   # require modification to udev rules
   programs.tilp2.enable = true;
