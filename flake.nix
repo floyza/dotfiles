@@ -7,8 +7,9 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    ssbm.url = "github:djanatyn/ssbm-nix";
   };
-  outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ... }:
+  outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, ... }:
     let
       common = { pkgs, config, ... }: {
         nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ];
@@ -21,6 +22,8 @@
           modules = [
             ./configuration.nix
             ./modules/duckdns
+            ssbm.nixosModule
+            ./modules/ssbm
             common
             home-manager.nixosModules.home-manager
             {

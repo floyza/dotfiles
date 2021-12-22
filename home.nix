@@ -71,6 +71,7 @@
     })
     lutris
     dolphin-emu-beta
+    slippi-netplay
     cataclysm-dda
     cataclysmDDA.stable.curses
     crawl
