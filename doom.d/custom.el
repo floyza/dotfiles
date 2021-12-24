@@ -4,7 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((eval c-set-offset 'inlambda 0)
+   '((haskell-process-type quote stack-ghci)
+     (haskell-compiler-type quote stack)
+     (eval c-set-offset 'inlambda 0)
      (eval c-set-offset 'access-label '-)
      (eval c-set-offset 'substatement-open 0)
      (eval c-set-offset 'arglist-cont-nonempty '+)

@@ -57,6 +57,8 @@
     };
   };
 
+  services.invidious.enable = true;
+
   services.snapper.configs = {
     home = {
       subvolume = "/home/gavin";
