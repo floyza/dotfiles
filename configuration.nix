@@ -141,7 +141,7 @@
   services.openvpn.servers = {
     tcp = {
       config = "config /root/nix/openvpn/us8272.nordvpn.com.tcp.conf ";
-      autoStart = true;
+      autoStart = false;
     };
   };
 
