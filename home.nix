@@ -102,6 +102,7 @@
     texlive.combined.scheme-full
     texlab
     (python39.withPackages (ps: with ps; [ sh ]))
+    python-language-server
   ];
 
   programs.man.generateCaches = true;
