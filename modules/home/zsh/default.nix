@@ -57,7 +57,7 @@
     shellAliases = {
       octal = "stat -c '%a %n'";
       cp = "cp --reflink=auto";
-      ec = "TERM=xterm-256color emacsclient -c -nw";
+      ec = "emacsclient -c -nw";
       ns = "nix search nixpkgs";
     };
     shellGlobalAliases = { G = "| grep -i"; };

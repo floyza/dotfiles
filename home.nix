@@ -141,7 +141,13 @@
   programs.foot = {
     enable = true;
     server.enable = true;
-    settings = { main.font = "JetBrains Mono:pixelsize=13"; };
+    settings = {
+      main = {
+        term = "xterm-256color";
+        font = "JetBrains Mono:pixelsize=13";
+        bold-text-in-bright = true;
+      };
+    };
   };
 
   programs.waybar = {
