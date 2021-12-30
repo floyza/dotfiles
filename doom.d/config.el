@@ -54,6 +54,7 @@
 (setq display-line-numbers-type t)
 
 (after! projectile
+  (setq projectile-track-known-projects-automatically nil)
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
   (add-to-list 'projectile-globally-ignored-directories "zig-out")
   (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
