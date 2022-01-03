@@ -75,7 +75,17 @@
     cataclysm-dda
     cataclysmDDA.stable.curses
     crawl
-    angband
+    (lib.overrideDerivation angband (oldAttrs: rec {
+      # buildInputs = [ x11 ] ++ oldAttrs.buildInputs;
+      version = "4.2.3-dev";
+      src = fetchFromGitHub {
+        owner = "angband";
+        repo = "angband";
+        rev = "ce314075ed78e8fb7fcc6352c4f4bd232b61f2f4";
+        sha256 = "sha256-8d2miabaU5pwlCzUrdprJ/OjHgfhrKTvnn8Ll/aIEZE=";
+      };
+    }))
+    nethack
     hyperrogue
     cockatrice
     wesnoth

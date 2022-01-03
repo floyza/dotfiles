@@ -47,6 +47,10 @@
     };
   };
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+  '';
+
   services.avahi = {
     enable = true;
     interfaces = [ "enp4s0" ];
