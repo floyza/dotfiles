@@ -181,7 +181,7 @@
        rss                   ; emacs as an RSS reader
        ;;twitter                      ; twitter client https://twitter.com/vnought
        ;;emms
-       everywhere        ; *leave* Emacs!? You must be joking
+       ;; everywhere        ; *leave* Emacs!? You must be joking
 
 
        :config
