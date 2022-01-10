@@ -19,6 +19,7 @@
     whipper
     imagemagick
     yt-dlp
+    wl-mirror
 
     swaylock
     swayidle
@@ -180,7 +181,10 @@
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    config = {
+    config = let
+      output-primary = "DP-3";
+      output-secondary = "HDMI-A-1";
+    in {
       bars = [{
         command = "${pkgs.waybar}/bin/waybar";
         fonts = { };
@@ -214,11 +218,22 @@
       output = let background = ./background.jpg;
       in {
         "*" = { bg = "${background} fill"; };
-        DP-3 = {
+        "${output-primary}" = {
+          mode = "1920x1080@144.001Hz";
+          bg = "${background} fill";
+        };
+        "${output-secondary}" = {
           mode = "1920x1080@144.001Hz";
           bg = "${background} fill";
         };
       };
+      workspaceOutputAssign = map (name: {
+        output = output-primary;
+        workspace = name;
+      }) [ "1" "2" "3" "4" "5" ] ++ map (name: {
+        output = output-secondary;
+        workspace = name;
+      }) [ "6" "7" "8" "9" ];
       startup = [
         { command = "${pkgs.mako}/bin/mako"; }
         {
