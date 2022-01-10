@@ -19,6 +19,7 @@
     whipper
     imagemagick
     yt-dlp
+    mpv
     wl-mirror
 
     swaylock
@@ -360,7 +361,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs;
+    package = pkgs.emacsGcc;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
