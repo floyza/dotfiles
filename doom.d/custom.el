@@ -4,7 +4,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((haskell-process-type quote stack-ghci)
+   '((lsp-haskell-formatting-provider . "fourmolu")
+     (eval setq-local org-roam-db-location
+           (concat
+            (locate-dominating-file default-directory ".dir-locals.el")
+            "org-roam.db"))
+     (eval setq-local org-roam-directory
+           (locate-dominating-file default-directory ".dir-locals.el"))
+     (org-roam-directory locate-dominating-file default-directory ".dir-locals.el")
+     (haskell-process-type quote stack-ghci)
      (haskell-compiler-type quote stack)
      (eval c-set-offset 'inlambda 0)
      (eval c-set-offset 'access-label '-)
