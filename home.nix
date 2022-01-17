@@ -223,10 +223,12 @@
         "${output-primary}" = {
           mode = "1920x1080@144.001Hz";
           bg = "${background} fill";
+          pos = "1920 0";
         };
         "${output-secondary}" = {
           mode = "1920x1080@144.001Hz";
           bg = "${background} fill";
+          pos = "0 0";
         };
       };
       workspaceOutputAssign = map (name: {
