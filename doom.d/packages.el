@@ -67,8 +67,8 @@
 (package! saveplace-pdf-view)
 (package! disk-usage)
 
-(package! odin-mode
-  :recipe (:host github :repo "mattt-b/odin-mode"))
+(package! sdcv-mode
+  :recipe (:host github :repo "gucong/emacs-sdcv"))
 
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))

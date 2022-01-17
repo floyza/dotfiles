@@ -214,18 +214,17 @@
 (use-package! egg-timer)
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
-(use-package! odin-mode)
 (use-package! elfeed-score
   :after elfeed
   :config
   (setq elfeed-score-serde-score-file "~/src/dotfiles/doom.d/elfeed.score")
   (elfeed-score-enable)
   (map! :map elfeed-search-mode-map :n "=" elfeed-score-map))
+(use-package! sdcv-mode)
 
 (use-package! org-roam-bibtex
   :after org-roam
   :config
-  (require 'org-ref)
   (bibtex-set-dialect 'BibTeX)
   (setq bibtex-completion-bibliography (list bib-library)
         bibtex-completion-library-path bib-library-path

@@ -21,6 +21,7 @@
     yt-dlp
     mpv
     wl-mirror
+    sdcv
 
     swaylock
     swayidle
