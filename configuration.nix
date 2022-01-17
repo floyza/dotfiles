@@ -163,6 +163,8 @@
     libguestfs # needed for virt-sparsify
   ]);
 
+  services.udev.packages = [ pkgs.qmk-udev-rules ];
+
   services.udev.extraRules = ''
     ACTION=="add", ATTR{idVendor}=="26ce", ATTR{idProduct}=="01a2", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
     ACTION=="add", ATTR{idVendor}=="1b1c", ATTR{idProduct}=="0c1a", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"

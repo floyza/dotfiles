@@ -3,6 +3,13 @@
 {
   imports = [ ./modules/home/zsh ];
   home.packages = with pkgs; [
+    gcc-arm-embedded
+    avrdude
+    arduino_core
+    dfu-programmer
+    dfu-util
+    qmk
+
     qjackctl
     ntfs3g
     fuse
@@ -35,6 +42,10 @@
     pavucontrol
     zip
     gotop
+    s-tui
+
+    xdg_utils
+
     krita
     ### programming
     ## haskell
@@ -63,6 +74,7 @@
     (callPackage ./packages/reaper { })
     # (callPackage ./packages/aseprite { unfree = true; })
     ### games
+    yuzu
     steam
     steam-run-native
     runelite
