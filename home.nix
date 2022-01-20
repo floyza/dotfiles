@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./modules/home/zsh ];
+  imports = [ ./modules/home/zsh ./modules/home/sway ];
   home.packages = with pkgs; [
     gcc-arm-embedded
     avrdude
@@ -29,10 +29,6 @@
     mpv
     wl-mirror
     sdcv
-
-    swaylock
-    swayidle
-    wl-clipboard
 
     mpd
     mpc_cli
@@ -172,93 +168,6 @@
         font = "JetBrains Mono:pixelsize=13";
         bold-text-in-bright = true;
       };
-    };
-  };
-
-  programs.waybar = {
-    enable = true;
-    style = builtins.readFile ./waybar-style.css;
-    # style = ''
-    #   window#waybar {
-    #     background-color: rgba(40, 40, 40, .8);
-    #   }
-    # '';
-    settings = [{
-      position = "bottom";
-      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
-      modules.clock.format = "{:%H:%M}";
-    }];
-  };
-
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    config = let
-      output-primary = "DP-3";
-      output-secondary = "HDMI-A-1";
-    in {
-      bars = [{
-        command = "${pkgs.waybar}/bin/waybar";
-        fonts = { };
-      }];
-      keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
-        pactl = "${pkgs.pulseaudio}/bin/pactl";
-        slurp = "${pkgs.slurp}/bin/slurp";
-        grim = "${pkgs.grim}/bin/grim";
-        date = "${pkgs.coreutils}/bin/date";
-        dmenu-bin = "${pkgs.dmenu}/bin";
-      in lib.mkOptionDefault {
-        "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
-        "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
-        "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
-        "${modifier}+d" =
-          "exec ${dmenu-bin}/dmenu_path | ${dmenu-bin}/dmenu | zsh -i -s";
-        "${modifier}+Tab" = "workspace back_and_forth";
-        "${modifier}+e" = "exec emacsclient -c";
-        "${modifier}+p" = "exec mpc toggle";
-        "${modifier}+i" =
-          "exec ${grim} -t png ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";
-        "${modifier}+Shift+i" = ''
-          exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
-      };
-      input."*" = {
-        accel_profile = "flat";
-        pointer_accel = "1";
-        xkb_layout = "us";
-      };
-      output = let background = ./background.jpg;
-      in {
-        "*" = { bg = "${background} fill"; };
-        "${output-primary}" = {
-          mode = "1920x1080@144.001Hz";
-          bg = "${background} fill";
-          pos = "1920 0";
-        };
-        "${output-secondary}" = {
-          mode = "1920x1080@144.001Hz";
-          bg = "${background} fill";
-          pos = "0 0";
-        };
-      };
-      workspaceOutputAssign = map (name: {
-        output = output-primary;
-        workspace = name;
-      }) [ "1" "2" "3" "4" "5" ] ++ map (name: {
-        output = output-secondary;
-        workspace = name;
-      }) [ "6" "7" "8" "9" ];
-      startup = [
-        { command = "${pkgs.mako}/bin/mako"; }
-        {
-          command =
-            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        }
-      ];
-      terminal = "footclient";
-      modifier = "Mod4"; # super
     };
   };
 
