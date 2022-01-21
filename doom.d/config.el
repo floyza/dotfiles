@@ -83,7 +83,6 @@
   "Call `org-edit-src-exit'."
   (interactive)
   (call-interactively #'org-edit-src-exit))
-(setq org-journal-file-type 'monthly)
 (after! org
   (setq org-capture-templates
         '(("t" "Todo [inbox]" entry
@@ -92,6 +91,12 @@
           ("T" "Tickler" entry
            (file "tickler.org")
            "* %^t %?\n%a" :prepend t)
+          ("j" "School Log" entry
+           (file+olp+datetree "school-log.org")
+           "* %?" :unnarrowed t)
+          ("J" "School Log" plain
+           (file+olp+datetree "school-log.org")
+           "%?" :unnarrowed t :time-prompt t)
           ("p" "Templates for projects")
           ("pt" "Project-local todo" entry
            (file+headline +org-capture-project-todo-file "Inbox")
