@@ -110,9 +110,20 @@
           ("o" "Centralized templates for projects")
           ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
-  (map! :leader "m q" nil)
-  )
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))))
+(after! org-noter
+  (map! :leader "m q" nil))
+
+(assq-delete-all ?* +ligatures-composition-alist)
+(setq +ligatures-extra-symbols (doom-plist-delete +ligatures-extra-symbols
+                                                  :true
+                                                  :false
+                                                  :bool
+                                                  :list
+                                                  :pipe))
+
+(set-ligatures! 'haskell-mode
+  :lambda "\\")
 
 (map! :map doom-leader-notes-map
       :desc "Capture arbitrary date" "r d d" #'org-roam-dailies-capture-date
