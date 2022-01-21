@@ -46,10 +46,18 @@
         grim = "${pkgs.grim}/bin/grim";
         date = "${pkgs.coreutils}/bin/date";
         dmenu-bin = "${pkgs.dmenu}/bin";
+        jq = "${pkgs.jq}/bin/jq";
       in lib.mkOptionDefault {
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
+        "${modifier}+Shift+a" =
+          "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
+        "${modifier}+Shift+s" =
+          "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
+        "${modifier}+Shift+d" = ''
+          exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.node") | .subject'"'"'); do pw-metadata -d $id target.node ; done'
+        '';
         "${modifier}+d" =
           "exec ${dmenu-bin}/dmenu_path | ${dmenu-bin}/dmenu | zsh -i -s";
         "${modifier}+Tab" = "workspace back_and_forth";

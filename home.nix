@@ -28,6 +28,7 @@
     yt-dlp
     mpv
     wl-mirror
+    jq
     sdcv
 
     mpd
