@@ -286,7 +286,7 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsGcc;
+    package = pkgs.emacsPgtkGcc;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
