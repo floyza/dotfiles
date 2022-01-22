@@ -71,6 +71,11 @@
         ALLOW_USERS="gavin"
         TIMELINE_CREATE=yes
         TIMELINE_CLEANUP=yes
+        TIMELINE_LIMIT_HOURLY="5"
+        TIMELINE_LIMIT_DAILY="7"
+        TIMELINE_LIMIT_WEEKLY="0"
+        TIMELINE_LIMIT_MONTHLY="5"
+        TIMELINE_LIMIT_YEARLY="0"
       '';
     };
     personal = {
@@ -79,6 +84,11 @@
         ALLOW_USERS="gavin"
         TIMELINE_CREATE=yes
         TIMELINE_CLEANUP=yes
+        TIMELINE_LIMIT_HOURLY="10"
+        TIMELINE_LIMIT_DAILY="10"
+        TIMELINE_LIMIT_WEEKLY="0"
+        TIMELINE_LIMIT_MONTHLY="10"
+        TIMELINE_LIMIT_YEARLY="10"
       '';
     };
     games = {
@@ -87,6 +97,11 @@
         ALLOW_USERS="gavin"
         TIMELINE_CREATE=yes
         TIMELINE_CLEANUP=yes
+        TIMELINE_LIMIT_HOURLY="5"
+        TIMELINE_LIMIT_DAILY="7"
+        TIMELINE_LIMIT_WEEKLY="0"
+        TIMELINE_LIMIT_MONTHLY="0"
+        TIMELINE_LIMIT_YEARLY="0"
       '';
     };
   };
