@@ -160,7 +160,7 @@
     usbutils # lsusb
 
     virt-manager
-    gnome3.dconf # needed for saving settings in virt-manager
+    dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
   ]);
 
