@@ -4,7 +4,7 @@
   home.packages = with pkgs; [ wl-clipboard ];
 
   services.swayidle = {
-    enable = true;
+    enable = false;
     timeouts = [{
       timeout = 300;
       command = "${pkgs.swaylock}/bin/swaylock -fF -c 1D2021";
