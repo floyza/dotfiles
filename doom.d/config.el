@@ -111,8 +111,6 @@
           ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
           ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))))
-(after! org-noter
-  (map! :leader "m q" nil))
 
 (assq-delete-all ?* +ligatures-composition-alist)
 (setq +ligatures-extra-symbols (doom-plist-delete +ligatures-extra-symbols
@@ -142,15 +140,7 @@
 (after! lsp-mode
   (add-function :around (symbol-function 'lsp-file-watch-ignored-directories)
                 (lambda (orig)
-                  (append lsp-file-watch-ignored-directories-additional (funcall orig))))
-
-  ;; use `lsp-file-watch-ignored-directories' function instead of variable
-  (defun lsp--get-ignored-regexes-for-workspace-root (workspace-root)
-    "Return a list of the form (lsp-file-watch-ignored-files lsp-file-watch-ignored-directories) for the given WORKSPACE-ROOT."
-    ;; The intent of this function is to provide per-root workspace-level customization of the
-    ;; lsp-file-watch-ignored-directories and lsp-file-watch-ignored-files variables.
-    (lsp--with-workspace-temp-buffer workspace-root
-      (list lsp-file-watch-ignored-files (lsp-file-watch-ignored-directories)))))
+                  (append lsp-file-watch-ignored-directories-additional (funcall orig)))))
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))

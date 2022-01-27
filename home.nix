@@ -10,6 +10,8 @@
     dfu-util
     qmk
 
+    (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
+
     qjackctl
     ntfs3g
     fuse
