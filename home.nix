@@ -3,13 +3,6 @@
 {
   imports = [ ./modules/home/zsh ./modules/home/sway ];
   home.packages = with pkgs; [
-    gcc-arm-embedded
-    avrdude
-    arduino_core
-    dfu-programmer
-    dfu-util
-    qmk
-
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
     qjackctl
