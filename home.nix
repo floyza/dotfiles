@@ -25,6 +25,7 @@
     wl-mirror
     jq
     sdcv
+    easyeffects
 
     mpd
     mpc_cli
