@@ -34,13 +34,13 @@
     config = let
       output-primary = "DP-3";
       output-secondary = "HDMI-A-1";
+      modifier = config.wayland.windowManager.sway.config.modifier;
     in {
       bars = [{
         command = "${pkgs.waybar}/bin/waybar";
         fonts = { };
       }];
       keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
         pactl = "${pkgs.pulseaudio}/bin/pactl";
         slurp = "${pkgs.slurp}/bin/slurp";
         grim = "${pkgs.grim}/bin/grim";
@@ -67,7 +67,9 @@
           "exec ${grim} -t png ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";
         "${modifier}+Shift+i" = ''
           exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
+        "${modifier}+m" = "mode passthrough";
       };
+      modes = { passthrough = { "${modifier}+m" = "mode default"; }; };
       input."*" = {
         accel_profile = "flat";
         pointer_accel = "1";
