@@ -31,7 +31,7 @@
     # automatically opened tcp ports: ssh
     # manually opened: murmur, samba, samba-wsdd
     # we don't use samba.openFirewall since we only need 445 open: we don't use nmbd so the other ports are unnessesary
-    firewall.allowedTCPPorts = [ config.services.murmur.port 445 5357 ];
+    firewall.allowedTCPPorts = [ config.services.murmur.port 445 5357 41230 ];
     # automatically opened udp ports: avahi
     # manually opened: samba-wsdd
     firewall.allowedUDPPorts = [ 3702 ];
