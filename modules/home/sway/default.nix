@@ -32,7 +32,7 @@
     enable = true;
     wrapperFeatures.gtk = true;
     config = let
-      output-primary = "DP-3";
+      output-primary = "DP-1";
       output-secondary = "HDMI-A-1";
       modifier = config.wayland.windowManager.sway.config.modifier;
     in {
