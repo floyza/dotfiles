@@ -67,6 +67,10 @@
     (callPackage ./packages/reaper { })
     # (callPackage ./packages/aseprite { unfree = true; })
     ### games
+    (factorio.override {
+      username = "gdown";
+      token = "";
+    })
     yuzu
     steam
     steam-run-native
