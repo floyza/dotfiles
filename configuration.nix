@@ -187,7 +187,6 @@
   '';
 
   # require modification to udev rules
-  programs.tilp2.enable = true;
   programs.adb.enable = true;
 
   environment.pathsToLink = [
