@@ -48,6 +48,8 @@
     };
   };
 
+  services.chrony.enable = true;
+
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
   '';

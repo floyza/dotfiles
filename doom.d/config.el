@@ -16,7 +16,8 @@
         smtpmail-smtp-server  "mail.runbox.com"
         smtpmail-stream-type  'starttls
         smtpmail-servers-requiring-authorization ".*" ; Ordinarily it attempts to connect without credentials before using credentials, but that breaks the whole thing, at least with runbox.
-        smtpmail-smtp-service 587))
+        smtpmail-smtp-service 587
+        +mu4e-alert-bell-cmd nil))
 
 (setq auth-source-pass-filename "~/.local/share/password-store")
 
@@ -28,10 +29,10 @@
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
-  (set-irc-server! "irc.rizon.net"
+  (set-irc-server! "irc.pine64.org"
     `(:tls t
       :port 6697
-      :channels ("#runelite")
+      :channels ("#pine64" "#pinetime" "#pinetime-dev")
       :nick "gdown")))
 
 ;;; Visible changes

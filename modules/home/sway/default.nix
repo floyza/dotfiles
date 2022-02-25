@@ -51,6 +51,7 @@
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
+        "${modifier}+c" = "exec emacsclient -c -e '(full-calc)'";
         "${modifier}+Shift+a" =
           "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
         "${modifier}+Shift+s" =
