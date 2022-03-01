@@ -85,7 +85,6 @@
     dolphin-emu-beta
     slippi-netplay
     cataclysm-dda
-    cataclysmDDA.stable.curses
     crawl
     (lib.overrideDerivation angband (oldAttrs: rec {
       # buildInputs = [ x11 ] ++ oldAttrs.buildInputs;
