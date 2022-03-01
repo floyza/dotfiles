@@ -137,7 +137,8 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "ssbm": "ssbm"
+        "ssbm": "ssbm",
+        "sway": "sway"
       }
     },
     "slippi-desktop": {
@@ -174,6 +175,18 @@
         "owner": "djanatyn",
         "repo": "ssbm-nix",
         "type": "github"
+      }
+    },
+    "sway": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-aoGTvzW58Utx+ieexqtMcWbztcWNafE0lgpm4UhayG8=",
+        "path": "/home/gavin/src/sway",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/gavin/src/sway",
+        "type": "path"
       }
     }
   },
