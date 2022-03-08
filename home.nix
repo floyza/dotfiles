@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
+    golly
     qjackctl
     ntfs3g
     fuse
@@ -287,6 +288,11 @@
     enable = true;
     package = pkgs.emacsGcc;
     extraPackages = epkgs: [ epkgs.vterm ];
+  };
+
+  xdg = {
+    enable = true;
+    mimeApps.enable = true;
   };
 
   home.sessionVariables = {
