@@ -33,7 +33,7 @@
               dot -Tpng $*
       }
       nr () {
-              nix run nixpkgs#"$1"
+              nix run "nixpkgs#$1"
       }
       nsh () {
               nix shell --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"

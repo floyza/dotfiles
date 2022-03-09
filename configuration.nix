@@ -173,7 +173,7 @@
     tmux
     efibootmgr
     unzip
-    telnet
+    inetutils
     usbutils # lsusb
 
     virt-manager
