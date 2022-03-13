@@ -45,7 +45,7 @@
         slurp = "${pkgs.slurp}/bin/slurp";
         grim = "${pkgs.grim}/bin/grim";
         date = "${pkgs.coreutils}/bin/date";
-        dmenu-bin = "${pkgs.dmenu}/bin";
+        wofi = "${pkgs.wofi}/bin/wofi";
         jq = "${pkgs.jq}/bin/jq";
       in lib.mkOptionDefault {
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
@@ -56,11 +56,11 @@
           "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
         "${modifier}+Shift+s" =
           "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
-        "${modifier}+Shift+d" = ''
-          exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.node") | .subject'"'"'); do pw-metadata -d $id target.node ; done'
+        "${modifier}+Shift+r" = ''
+          exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.node") | .subject'"'"'); do pw-metadata -- $id target.node -1 ; done'
         '';
-        "${modifier}+d" =
-          "exec ${dmenu-bin}/dmenu_path | ${dmenu-bin}/dmenu | zsh -i -s";
+        "${modifier}+d" = "exec ${wofi} --show=drun";
+        "${modifier}+Shift+d" = "exec ${wofi} --show=run";
         "${modifier}+Tab" = "workspace back_and_forth";
         "${modifier}+e" = "exec emacsclient -c";
         "${modifier}+p" = "exec mpc toggle";
@@ -69,6 +69,7 @@
         "${modifier}+Shift+i" = ''
           exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
         "${modifier}+m" = "mode passthrough";
+        "${modifier}+t" = "output ${output-secondary} toggle";
       };
       modes = { passthrough = { "${modifier}+m" = "mode default"; }; };
       input."*" = {

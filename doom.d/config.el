@@ -50,7 +50,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 13 :weight 'semi-bold))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 10.0))
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
