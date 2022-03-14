@@ -62,6 +62,8 @@
   (add-to-list 'projectile-globally-ignored-directories ".stack-work"))
 
 ;;; evil config
+(setq evil-move-cursor-back nil         ; typing in insert mode -> ESC -> org-insert-link
+      evil-move-beyond-eol t)
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
   (map! :map vterm-mode-map :i "C-w" evil-window-map)) ; YASSS!
