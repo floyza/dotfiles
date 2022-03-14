@@ -7,7 +7,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    ssbm.url = "github:djanatyn/ssbm-nix";
+    # ssbm.url = "github:djanatyn/ssbm-nix";
+    ssbm.url = "/home/gavin/src/ssbm-nix";
   };
   outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, ... }:
     let
