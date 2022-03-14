@@ -212,10 +212,10 @@
 ;; `use-package!' declarations
 ;; see `packages.el' for info on packages
 
-(defconst bib-library "~/my/org/bib/lib.bib")
-(defconst bib-library-path "~/my/org/bib/pdfs/")
 (setq elfeed-feeds
-      '("https://export.arxiv.org/rss/cs"))
+      '("https://export.arxiv.org/rss/cs"
+        "https://hnrss.org/frontpage?comments=25"
+        "https://hnrss.org/bestcomments"))
 (after! elfeed
   (add-hook! 'elfeed-search-mode-hook #'elfeed-update))
 
@@ -223,51 +223,7 @@
 (use-package! egg-timer)
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
-(use-package! elfeed-score
-  :after elfeed
-  :config
-  (setq elfeed-score-serde-score-file "~/src/dotfiles/doom.d/elfeed.score")
-  (elfeed-score-enable)
-  (map! :map elfeed-search-mode-map :n "=" elfeed-score-map))
 (use-package! sdcv-mode)
-
-(use-package! org-roam-bibtex
-  :after org-roam
-  :config
-  (bibtex-set-dialect 'BibTeX)
-  (setq bibtex-completion-bibliography (list bib-library)
-        bibtex-completion-library-path bib-library-path
-        bibtex-completion-notes-path "~/my/org/roam")
-  (setq orb-preformat-keywords
-        '("citekey" "title" "url" "author-or-editor" "keywords" "file")
-        orb-process-file-keyword t
-        orb-attached-file-extensions '("pdf"))
-  (add-to-list 'org-roam-capture-templates
-        '("r" "bibliography reference" plain
-           (file "~/src/dotfiles/doom.d/templates/bibref.org")
-           :target
-           (file+head "references/${citekey}.org" "#+title: ${title}\n")))
-  (org-roam-bibtex-mode))
-
-(after! org-noter
-  (setq org-noter-notes-search-path '("~/my/org/roam/references")
-        org-noter-separate-notes-from-heading nil)
-  ;; (map!
-  ;;  :map org-noter-doc-mode-map
-  ;;  :leader
-  ;;  :desc "Insert note"
-  ;;  "m i" #'org-noter-insert-note
-  ;;  :desc "Insert precise note"
-  ;;  "m p" #'org-noter-insert-precise-note
-  ;;  :desc "Go to previous note"
-  ;;  "m k" #'org-noter-sync-prev-note
-  ;;  :desc "Go to next note"
-  ;;  "m j" #'org-noter-sync-next-note
-  ;;  :desc "Create skeleton"
-  ;;  "m s" #'org-noter-create-skeleton
-  ;;  :desc "Kill session"
-  ;;  "m q" #'org-noter-kill-session)
-  )
 
 ;;; Defuns
 
