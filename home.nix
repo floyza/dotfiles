@@ -17,7 +17,6 @@
     libnotify
     units
     graphviz
-    libsixel
     nmap
     whipper
     imagemagick
@@ -27,6 +26,7 @@
     jq
     sdcv
     easyeffects
+    magic-wormhole
 
     mpd
     mpc_cli
@@ -36,7 +36,6 @@
     pavucontrol
     zip
     gotop
-    s-tui
 
     xdg_utils
 
@@ -65,8 +64,6 @@
     ## resources
     godot
     aseprite-unfree
-    (callPackage ./packages/reaper { })
-    # (callPackage ./packages/aseprite { unfree = true; })
     ### games
     (factorio.override {
       username = "gdown";
@@ -76,6 +73,7 @@
     steam
     steam-run-native
     runelite
+    airshipper
     (dwarf-fortress-packages.dwarf-fortress-full.override {
       theme = null;
       enableIntro = false;
@@ -87,20 +85,10 @@
     slippi-netplay
     cataclysm-dda
     crawl
-    (lib.overrideDerivation angband (oldAttrs: rec {
-      # buildInputs = [ x11 ] ++ oldAttrs.buildInputs;
-      version = "4.2.3-dev";
-      src = fetchFromGitHub {
-        owner = "angband";
-        repo = "angband";
-        rev = "ce314075ed78e8fb7fcc6352c4f4bd232b61f2f4";
-        sha256 = "sha256-8d2miabaU5pwlCzUrdprJ/OjHgfhrKTvnn8Ll/aIEZE=";
-      };
-    }))
+    angband
     nethack
     hyperrogue
     cockatrice
-    wesnoth
     retroarchFull
     ### other
     calc
