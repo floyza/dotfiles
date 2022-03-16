@@ -81,6 +81,7 @@
       enableTWBT = false;
     })
     lutris
+    mangohud
     dolphin-emu-beta
     slippi-netplay
     cataclysm-dda
