@@ -65,6 +65,7 @@
     godot
     aseprite-unfree
     ### games
+    endless-sky
     (factorio.override {
       username = "gdown";
       token = "";
