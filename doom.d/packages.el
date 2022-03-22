@@ -70,12 +70,5 @@
 (package! sdcv-mode
   :recipe (:host github :repo "gucong/emacs-sdcv"))
 
-(package! org-roam-bibtex
-  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
-(unpin! org-roam)
-(unpin! bibtex-completion helm-bibtex ivy-bibtex)
-
-(package! elfeed-score
-  :recipe (:host github :repo "sp1ff/elfeed-score"))
-
-(disable-packages! company-dict)
+(disable-packages! company-dict
+                   mu4e-alert)

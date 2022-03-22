@@ -97,9 +97,9 @@
           ("j" "School Log" entry
            (file+olp+datetree "school-log.org")
            "* %?" :unnarrowed t)
-          ("J" "School Log" plain
+          ("J" "School Log" entry
            (file+olp+datetree "school-log.org")
-           "%?" :unnarrowed t :time-prompt t)
+           "* %?" :unnarrowed t :time-prompt t)
           ("p" "Templates for projects")
           ("pt" "Project-local todo" entry
            (file+headline +org-capture-project-todo-file "Inbox")
