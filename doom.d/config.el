@@ -213,9 +213,9 @@
 ;; see `packages.el' for info on packages
 
 (setq elfeed-feeds
-      '("https://export.arxiv.org/rss/cs"
-        "https://hnrss.org/frontpage?comments=25"
-        "https://hnrss.org/bestcomments"))
+      '("https://hnrss.org/frontpage?comments=25"
+        "https://hnrss.org/bestcomments"
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UC3ts8coMP645hZw9JSD3pqQ"))
 (after! elfeed
   (add-hook! 'elfeed-search-mode-hook #'elfeed-update))
 
@@ -242,3 +242,22 @@
       (set-keymap-parent newmap oldmap))
     (define-key newmap key command)
     (use-local-map newmap)))
+
+(defun update-turns--modify (name file location)
+    (save-window-excursion
+      (find-file file)
+      (goto-char location)
+      (org-end-of-subtree)
+      (org-insert-item)
+      (condition-case err
+          (org-time-stamp-inactive)
+        (quit
+         (delete-region (line-beginning-position) (1+ (line-end-position))))
+        (:success
+         (end-of-line)
+         (insert name)))
+      (save-buffer)))
+
+(defun update-turns (name)
+  (interactive "MName of person: ")
+  (doom-completing-read-org-headings "Task: " "~/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
