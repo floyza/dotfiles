@@ -225,6 +225,14 @@
 (use-package! disk-usage)
 (use-package! sdcv-mode)
 
+(use-package! tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  (pushnew! tree-sitter-major-mode-language-alist
+            '(haskell-mode . haskell)))
+
 ;;; Defuns
 
 (defun nix-generate-project ()
@@ -261,3 +269,4 @@
 (defun update-turns (name)
   (interactive "MName of person: ")
   (doom-completing-read-org-headings "Task: " "~/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
+

@@ -70,5 +70,8 @@
 (package! sdcv-mode
   :recipe (:host github :repo "gucong/emacs-sdcv"))
 
+(package! tree-sitter)
+(package! tree-sitter-langs)
+
 (disable-packages! company-dict
                    mu4e-alert)
