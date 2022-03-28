@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixpkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -272,6 +272,7 @@
   hardware.steam-hardware.enable = true;
 
   nix = {
+    nixPath = [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
     settings = {
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
