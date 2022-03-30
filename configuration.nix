@@ -14,7 +14,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (self: super: {
-      steam = super.steam.override { extraPkgs = pkgs: [ pkgs.libpng_apng ]; };
+      steam = super.steam.override { extraPkgs = pkgs: [ pkgs.libpng ]; };
     })
   ];
 

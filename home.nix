@@ -66,7 +66,7 @@
     aseprite-unfree
     ### games
     endless-sky
-    (factorio.override {
+    (factorio-experimental.override {
       username = "gdown";
       token = "";
     })
