@@ -54,6 +54,10 @@
 (setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
+(setq next-error-message-highlight t
+      read-minibuffer-restore-windows nil
+      mouse-wheel-progressive-speed nil)
+
 (after! projectile
   (setq projectile-track-known-projects-automatically nil)
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
