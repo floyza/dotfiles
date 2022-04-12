@@ -234,7 +234,7 @@
       protocol = SMB3
       # server string = smbnix
       # netbios name = smbnix # we aren't using nmbd so I think we don't need this
-      hosts allow = 192.168.0.0/24 localhost
+      hosts allow = 192.168.0.0/24 127.0.0.1
       hosts deny = 0.0.0.0/0
       guest account = samba
       map to guest = bad user
