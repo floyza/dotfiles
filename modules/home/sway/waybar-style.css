@@ -78,6 +78,7 @@ window#waybar.chromium {
 #tray,
 #mode,
 #idle_inhibitor,
+#custom-emacs-clock,
 #mpd {
     padding: 0 10px;
     margin: 0 4px;
@@ -252,4 +253,12 @@ label:focus {
 
 #keyboard-state > label.locked {
     background: rgba(0, 0, 0, 0.2);
+}
+
+#custom-emacs-clock.in {
+    background: #00bfff;
+}
+
+#custom-emacs-clock.out {
+    background: #a52a2a;
 }

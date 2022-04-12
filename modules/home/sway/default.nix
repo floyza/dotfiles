@@ -23,8 +23,23 @@
       position = "bottom";
       modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
       modules-center = [ "sway/window" ];
-      modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
+      modules-right =
+        [ "cpu" "memory" "custom/emacs-clock" "clock" "pulseaudio" "mpd" ];
       modules.clock.format = "{:%H:%M}";
+      modules."custom/emacs-clock" = {
+        exec = ''
+          jq -c -n --arg text "$(emacsclient -e '(org-duration-from-minutes (org-clock-get-clocked-time))' | tr -d '"')" ''
+          + ''
+            --arg class "$(emacsclient -e "(if (org-clocking-p) 'in 'out)")" ''
+          + ''
+            '{"text": $text, "class": $class, "tooltip": "Emacs clock time"}' '';
+
+        return-type = "json";
+
+        exec-if = "pgrep emacs";
+        on-click = "emacsclient -e '(+org/toggle-last-clock nil)'";
+        interval = 10;
+      };
     }];
   };
 
