@@ -27,7 +27,7 @@
     enableIPv6 = false; # vpn might leak if true
 
     useDHCP = false;
-    interfaces.enp5s0.useDHCP = true;
+    interfaces.enp4s0.useDHCP = true;
     # automatically opened tcp ports: ssh
     # manually opened: murmur, samba, samba-wsdd
     # we don't use samba.openFirewall since we only need 445 open: we don't use nmbd so the other ports are unnessesary
@@ -56,7 +56,7 @@
 
   services.avahi = {
     enable = true;
-    interfaces = [ "enp5s0" ];
+    interfaces = [ "enp4s0" ];
     publish = {
       enable = true;
       domain = false;
@@ -234,7 +234,7 @@
       protocol = SMB3
       # server string = smbnix
       # netbios name = smbnix # we aren't using nmbd so I think we don't need this
-      hosts allow = 192.168.0.0/24 127.0.0.1
+      hosts allow = 192.168.0.0/24 10.42.0.0/24 127.0.0.1
       hosts deny = 0.0.0.0/0
       guest account = samba
       map to guest = bad user
@@ -254,7 +254,7 @@
 
   services.samba-wsdd = {
     enable = true;
-    interface = "enp5s0";
+    interface = "enp4s0";
   };
 
   security.polkit.enable = true;

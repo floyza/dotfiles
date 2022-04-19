@@ -4,7 +4,35 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((lsp-haskell-formatting-provider . "fourmolu")
+   '((eval
+      (lambda nil
+        (when
+            (and buffer-file-name
+                 (string-match-p "\\.jack\\'" buffer-file-name)
+                 (not
+                  (string= major-mode "jack-mode")))
+          (progn
+            (load "/home/gavin/my/courses/nand2tetris/editor/jack-mode.el")
+            (jack-mode)))))
+     (eval
+      (lambda nil
+        (when
+            (and
+             (string-match-p "\\.jack\\'" buffer-file-name)
+             (not
+              (string= major-mode "jack-mode")))
+          (progn
+            (load "/home/gavin/my/courses/nand2tetris/editor/jack-mode.el")
+            (jack-mode)))))
+     (eval
+      (lambda nil
+        (when
+            (and
+             (string-match-p "\\.jack\\'" buffer-file-name)
+             (not
+              (string= major-mode "prog-mode")))
+          (prog-mode))))
+     (lsp-haskell-formatting-provider . "fourmolu")
      (eval setq-local org-roam-db-location
            (concat
             (locate-dominating-file default-directory ".dir-locals.el")

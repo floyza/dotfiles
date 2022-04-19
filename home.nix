@@ -66,6 +66,7 @@
     aseprite-unfree
     ### games
     endless-sky
+    polymc
     (factorio-experimental.override {
       username = "gdown";
       token = "";
