@@ -94,15 +94,17 @@
       };
       output = let background = ./background.jpg;
       in {
-        "*" = { bg = "${background} fill"; };
+        "*" = {
+          bg = "${background} fill";
+          adaptive_sync = "off";
+        };
         "${output-primary}" = {
           mode = "1920x1080@144.001Hz";
-          bg = "${background} fill";
           pos = "1920 0";
+          subpixel = "rgb";
         };
         "${output-secondary}" = {
           mode = "1920x1080@144.001Hz";
-          bg = "${background} fill";
           pos = "0 0";
         };
       };
