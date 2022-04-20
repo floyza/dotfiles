@@ -3,7 +3,7 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  boot.kernelPackages = pkgs.linuxPackages;
   boot.kernel.sysctl = { "kernel.sysrq" = "1"; };
 
   boot.loader.systemd-boot.enable = true;
