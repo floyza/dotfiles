@@ -220,7 +220,8 @@
       '("https://hnrss.org/frontpage?comments=25"
         "https://hnrss.org/bestcomments"
         "https://www.youtube.com/feeds/videos.xml?channel_id=UC3ts8coMP645hZw9JSD3pqQ"
-        "https://factorio.com/blog/rss"))
+        "https://factorio.com/blog/rss"
+        "https://xkcd.com/rss.xml"))
 (after! elfeed
   (add-hook! 'elfeed-search-mode-hook #'elfeed-update))
 

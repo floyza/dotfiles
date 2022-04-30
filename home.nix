@@ -12,6 +12,8 @@
     file
     ffmpeg
     wineWowPackages.staging
+    winetricks
+    protontricks
     libreoffice
     tldr
     libnotify
@@ -67,6 +69,7 @@
     ### games
     endless-sky
     polymc
+    tome4
     (factorio-experimental.override {
       username = "gdown";
       token = "";
@@ -157,8 +160,8 @@
     settings = {
       main = {
         term = "xterm-256color";
-        # font = "JetBrains Mono:pixelsize=13";
-        font = "Monospace:size=10";
+        font = "JetBrains Mono:size=10";
+        # font = "Monospace:size=10";
         bold-text-in-bright = "palette-based";
       };
       colors = {
