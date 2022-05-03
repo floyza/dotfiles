@@ -99,7 +99,7 @@
           adaptive_sync = "off";
         };
         "${output-primary}" = {
-          mode = "3440x1440@144.001Hz";
+          mode = "1920x1080@144.001Hz";
           pos = "1920 0";
           subpixel = "rgb";
         };
