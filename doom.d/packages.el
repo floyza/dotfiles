@@ -73,5 +73,7 @@
 (package! tree-sitter)
 (package! tree-sitter-langs)
 
+(package! leuven-theme)
+
 (disable-packages! company-dict
                    mu4e-alert)

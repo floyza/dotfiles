@@ -160,7 +160,7 @@
     settings = {
       main = {
         term = "xterm-256color";
-        font = "JetBrains Mono:size=10";
+        font = "JetBrains Mono:size=10.0";
         # font = "Monospace:size=10";
         bold-text-in-bright = "palette-based";
       };
@@ -190,12 +190,12 @@
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.gruvbox-dark-icons-gtk;
-      name = "gruvbox-dark";
+      package = pkgs.gnome3.adwaita-icon-theme;
+      name = "Adwaita";
     };
     theme = {
-      package = pkgs.gruvbox-dark-gtk;
-      name = "gruvbox-dark";
+      package = pkgs.gnome3.gnome-themes-extra;
+      name = "Adwaita";
     };
   };
 
@@ -206,7 +206,7 @@
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       https-everywhere
       ublock-origin
-      clearurls
+      greasemonkey
     ];
     profiles.main = {
       settings = {
