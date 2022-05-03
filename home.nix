@@ -72,19 +72,19 @@
     tome4
     (factorio-experimental.override {
       username = "gdown";
-      token = "";
+      token = "313489f9bcbeaab8aa364335fe4f7d";
     })
     yuzu
     steam
     steam-run-native
     runelite
     airshipper
-    (dwarf-fortress-packages.dwarf-fortress-full.override {
-      theme = null;
-      enableIntro = false;
-      enableFPS = true;
-      enableTWBT = false;
-    })
+    # (dwarf-fortress-packages.dwarf-fortress-full.override {
+    #   theme = null;
+    #   enableIntro = false;
+    #   enableFPS = true;
+    #   enableTWBT = false;
+    # })
     lutris
     mangohud
     dolphin-emu-beta

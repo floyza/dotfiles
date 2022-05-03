@@ -64,7 +64,7 @@
     };
   };
 
-  services.invidious.enable = true;
+  services.invidious.enable = false;
 
   services.snapper.configs = {
     home = {
