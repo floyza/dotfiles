@@ -73,7 +73,7 @@
     tome4
     (factorio-experimental.override {
       username = "gdown";
-      token = "313489f9bcbeaab8aa364335fe4f7d";
+      token = "";
     })
     yuzu
     steam
