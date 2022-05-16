@@ -145,6 +145,9 @@
   "Additional ignored directories added to lsp-file-watch-ignored-directories.")
 (put 'lsp-file-watch-ignored-directories-additional 'safe-local-variable #'listp)
 (after! lsp-mode
+  (setq! lsp-ui-sideline-show-code-actions t
+         lsp-ui-doc-show-with-cursor t
+         lsp-ui-doc-delay 0.2)
   (add-function :around (symbol-function 'lsp-file-watch-ignored-directories)
                 (lambda (orig)
                   (append lsp-file-watch-ignored-directories-additional (funcall orig)))))
@@ -152,6 +155,7 @@
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
 
+(setq debug-on-error t)                 ; workaround bug in haskell-mode inferior lol
 (after! haskell
   (setq lsp-haskell-formatting-provider "ormolu")
   (setq haskell-interactive-popup-errors nil)
@@ -190,7 +194,9 @@
                               additional-movement ; could put under visual only
                               (prettify insert)
                               (atom-movement t)
-                              slurp/barf-lispy additional additional-insert)))
+                              slurp/barf-lispy additional additional-insert))
+  (add-to-list 'lispy-elisp-modes 'minibuffer-mode)
+  (add-to-list 'lispy-no-indent-modes 'minibuffer-mode))
 
 ;; (setq-default indent-tabs-mode t)
 (setq-default tab-width 2)

@@ -68,7 +68,7 @@
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
         "${modifier}+c" = "exec emacsclient -c -e '(full-calc)'";
         "${modifier}+Shift+a" =
-          "exec ${pactl} set-default-sink alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
+          "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
         "${modifier}+Shift+s" =
           "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
         "${modifier}+Shift+r" = ''
@@ -92,14 +92,14 @@
         pointer_accel = "1";
         xkb_layout = "us";
       };
-      output = let background = ./background.jpg;
+      output = let background = ./wallpaper.png;
       in {
         "*" = {
           bg = "${background} fill";
-          adaptive_sync = "off";
+          adaptive_sync = "on";
         };
         "${output-primary}" = {
-          mode = "1920x1080@144.001Hz";
+          mode = "3440x1440@160.000hz";
           pos = "1920 0";
           subpixel = "rgb";
         };

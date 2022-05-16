@@ -4,7 +4,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((eval
+   '((eval my-buffer-local-set-key
+           (kbd "<normal-state> SPC m r")
+           (lambda nil "Reflex-specific run project"
+             (interactive)
+             (haskell-process-restart)
+             (haskell-process-load-file)
+             (haskell-process-queue-without-filters
+              (haskell-commands-process)
+              "main")))
+     (eval
       (lambda nil
         (when
             (and buffer-file-name

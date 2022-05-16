@@ -54,6 +54,8 @@
       device = "/dev/disk/by-uuid/7E63-C84E";
       fsType = "vfat";
     };
+
+    #"/mnt/sansa-sport" = { device = "/dev/disk/by-uuid/DAB4-B9BF"; };
   };
 
   swapDevices = [ ];

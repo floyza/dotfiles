@@ -29,6 +29,7 @@
     sdcv
     easyeffects
     magic-wormhole
+    gnome.nautilus
 
     mpd
     mpc_cli
@@ -308,6 +309,10 @@
   xdg = {
     enable = true;
     mimeApps.enable = true;
+    mimeApps.defaultApplications = {
+      "text/plain" = "emacsclient.desktop";
+      "text/org" = "emacsclient.desktop";
+    };
   };
 
   home.sessionVariables = {
