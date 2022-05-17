@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     # ssbm.url = "github:djanatyn/ssbm-nix";
     ssbm.url = "/home/gavin/src/ssbm-nix";
   };
