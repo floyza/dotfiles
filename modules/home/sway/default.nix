@@ -48,7 +48,6 @@
     wrapperFeatures.gtk = true;
     config = let
       output-primary = "DP-1";
-      output-secondary = "HDMI-A-1";
       modifier = config.wayland.windowManager.sway.config.modifier;
     in {
       bars = [{
@@ -84,7 +83,6 @@
         "${modifier}+Shift+i" = ''
           exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
         "${modifier}+m" = "mode passthrough";
-        "${modifier}+t" = "output ${output-secondary} toggle";
       };
       modes = { passthrough = { "${modifier}+m" = "mode default"; }; };
       input."*" = {
@@ -100,21 +98,14 @@
         };
         "${output-primary}" = {
           mode = "3440x1440@160.000hz";
-          pos = "1920 0";
+          # pos = "0 0";
           subpixel = "rgb";
         };
-        "${output-secondary}" = {
-          mode = "1920x1080@144.001Hz";
-          pos = "0 0";
-        };
       };
-      workspaceOutputAssign = map (name: {
-        output = output-primary;
-        workspace = name;
-      }) [ "1" "2" "3" "4" "5" ] ++ map (name: {
-        output = output-secondary;
-        workspace = name;
-      }) [ "6" "7" "8" "9" ];
+      # workspaceOutputAssign = map (name: {
+      #   output = output-primary;
+      #   workspace = name;
+      # }) [ "1" "2" "3" "4" "5" ];
       startup = [
         { command = "${pkgs.mako}/bin/mako"; }
         {
