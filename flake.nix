@@ -11,8 +11,12 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     # ssbm.url = "github:djanatyn/ssbm-nix";
     ssbm.url = "/home/gavin/src/ssbm-nix";
+
+    secrets.url = "/home/gavin/src/dotfiles/secrets";
+    secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, ... }:
+  outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, secrets
+    , ... }@attrs:
     let
       common = { pkgs, config, ... }: {
         nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ];
@@ -22,7 +26,7 @@
       nixosConfigurations = {
         dreadnought = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit nixpkgs; };
+          specialArgs = attrs;
           modules = [
             ./configuration.nix
             ./modules/duckdns
@@ -35,6 +39,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.gavin = { imports = [ ./home.nix ]; };
+                extraSpecialArgs = attrs;
               };
             }
           ];

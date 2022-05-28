@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secrets, ... }:
 
 {
   imports = [ ./modules/home/zsh ./modules/home/sway ];
@@ -73,7 +73,7 @@
     tome4
     (factorio-experimental.override {
       username = "gdown";
-      token = "";
+      token = (import secrets).factorio-token;
     })
     yuzu
     steam

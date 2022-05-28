@@ -158,7 +158,21 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "secrets": "secrets",
         "ssbm": "ssbm"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1653504499,
+        "narHash": "sha256-lZWmkilE6rLKsj6sb+fF6BoAPXhtJlMRje17d26jCwc=",
+        "path": "/home/gavin/src/dotfiles/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/gavin/src/dotfiles/secrets",
+        "type": "path"
       }
     },
     "slippi-desktop": {
