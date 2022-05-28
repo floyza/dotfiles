@@ -145,12 +145,14 @@
   "Additional ignored directories added to lsp-file-watch-ignored-directories.")
 (put 'lsp-file-watch-ignored-directories-additional 'safe-local-variable #'listp)
 (after! lsp-mode
-  (setq! lsp-ui-sideline-show-code-actions t
-         lsp-ui-doc-show-with-cursor t
-         lsp-ui-doc-delay 0.2)
   (add-function :around (symbol-function 'lsp-file-watch-ignored-directories)
                 (lambda (orig)
                   (append lsp-file-watch-ignored-directories-additional (funcall orig)))))
+
+(after! lsp-ui
+  (setq! lsp-ui-sideline-show-code-actions t
+         lsp-ui-doc-show-with-cursor t
+         lsp-ui-doc-delay 0.2))
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
