@@ -79,7 +79,6 @@
     steam
     steam-run-native
     runelite
-    airshipper
     # (dwarf-fortress-packages.dwarf-fortress-full.override {
     #   theme = null;
     #   enableIntro = false;
