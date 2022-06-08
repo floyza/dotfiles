@@ -1,0 +1,14 @@
+#+title: dotfiles
+
+My [[https://nixos.org/][NixOS]] dotfiles.
+
+To use, just clone and run =nixos-rebuild --use-remote-sudo --flake '.#dreadnought' switch=.
+
+Or, =nixos-rebuild --use-remote-sudo --flake 'github:floyza/dotfiles#dreadnought' switch= if you don't want to clone it. How cool.
+
+The only thing here that isn't managed by nixos is my [[https://github.com/doomemacs/doomemacs][doom emacs]] configuration. I just have it manually symlinked to =~/.doom.d=.
+
+I used nix-doom-emacs for a while but there were some pain points and it ultimately didn't provide to much in terms of benefits.
+
+The structure of my dotfiles is basically a normal =configuration.nix= and =home.nix= with flakes layered on top.
+I try to avoid unnessesary abstractions as well, so it should be pretty readable if you're just getting into flakes.
