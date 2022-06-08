@@ -12,29 +12,29 @@
     # ssbm.url = "github:djanatyn/ssbm-nix";
     ssbm.url = "/home/gavin/src/ssbm-nix";
 
+    # My secrets are currently stored plaintext in my nix store, but I at least don't want to commit them to git
+    # so I split them off here
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
   outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, secrets
-    , ... }@attrs:
-    let
-      common = { pkgs, config, ... }: {
-        nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ];
-        nix.registry.nixpkgs.flake = nixpkgs;
-      };
-    in {
+    , ... }@attrs: {
       nixosConfigurations = {
         dreadnought = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = attrs;
+          specialArgs =
+            attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
             ./configuration.nix
             ./modules/duckdns
-            ssbm.nixosModule
             ./modules/ssbm
-            common
+            ssbm.nixosModule
             home-manager.nixosModules.home-manager
             {
+              nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ];
+              nix.registry.nixpkgs.flake = nixpkgs;
+              nix.nixPath =
+                [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;

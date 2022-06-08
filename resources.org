@@ -5,7 +5,7 @@
 ** https://github.com/hlissner/dotfiles
 * Nix
 ** [[https://sandervanderburg.blogspot.com/2014/07/managing-private-nix-packages-outside.html][Packages Outside Nixpkgs]]
-** [[https://nix.dev/tutorials/cross-compilation][Cross Compilation]]
+** [[https://nixos.org/guides/cross-compilation.html][Cross Compilation]]
 ** MkDerivation
 *** Esp https://nixos.org/manual/nixpkgs/stable/#chap-stdenv
 *** https://nixos.org/manual/nix/stable/#ssec-derivation

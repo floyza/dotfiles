@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nixpkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -163,7 +163,7 @@
   services.openvpn.servers = {
     tcp = {
       config = "config /root/nix/openvpn/us8272.nordvpn.com.tcp.conf ";
-      autoStart = false;
+      autoStart = false; # my auth doesn't work right now
     };
   };
 
@@ -272,7 +272,6 @@
   hardware.steam-hardware.enable = true;
 
   nix = {
-    nixPath = [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
     settings = {
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
