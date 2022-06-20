@@ -120,12 +120,7 @@
           ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))))
 
 (assq-delete-all ?* +ligatures-composition-alist)
-(setq +ligatures-extra-symbols (doom-plist-delete +ligatures-extra-symbols
-                                                  :true
-                                                  :false
-                                                  :bool
-                                                  :list
-                                                  :pipe))
+(mapc (lambda (p) (cl-remf +ligatures-extra-symbols p)) '(:true :false :bool :list :pipe))
 
 (set-ligatures! 'haskell-mode
   :lambda "\\")

@@ -39,6 +39,7 @@
     pavucontrol
     zip
     gotop
+    nethogs
 
     xdg_utils
 
