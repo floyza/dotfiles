@@ -23,23 +23,8 @@
       position = "bottom";
       modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
       modules-center = [ "sway/window" ];
-      modules-right =
-        [ "cpu" "memory" "custom/emacs-clock" "clock" "pulseaudio" "mpd" ];
+      modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
       modules.clock.format = "{:%H:%M}";
-      modules."custom/emacs-clock" = {
-        exec = ''
-          jq -c -n --arg text "$(emacsclient -e '(org-duration-from-minutes (org-clock-get-clocked-time))' | tr -d '"')" ''
-          + ''
-            --arg class "$(emacsclient -e "(if (org-clocking-p) 'in 'out)")" ''
-          + ''
-            '{"text": $text, "class": $class, "tooltip": "Emacs clock time"}' '';
-
-        return-type = "json";
-
-        exec-if = "pgrep emacs";
-        on-click = "emacsclient -e '(+org/toggle-last-clock nil)'";
-        interval = 10;
-      };
     }];
   };
 
@@ -65,7 +50,7 @@
         "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
         "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
-        "${modifier}+c" = "exec emacsclient -c -e '(full-calc)'";
+        "${modifier}+c" = "exec emacs --eval '(full-calc)'";
         "${modifier}+Shift+a" =
           "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
         "${modifier}+Shift+s" =
@@ -76,7 +61,7 @@
         "${modifier}+d" = "exec ${wofi} --show=drun";
         "${modifier}+Shift+d" = "exec ${wofi} --show=run";
         "${modifier}+Tab" = "workspace back_and_forth";
-        "${modifier}+e" = "exec emacsclient -c";
+        "${modifier}+e" = "exec emacs";
         "${modifier}+p" = "exec mpc toggle";
         "${modifier}+i" =
           "exec ${grim} -t png ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";

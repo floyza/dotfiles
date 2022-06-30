@@ -315,8 +315,8 @@
     enable = true;
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
-      "text/plain" = "emacsclient.desktop";
-      "text/org" = "emacsclient.desktop";
+      "text/plain" = "emacs.desktop";
+      "text/org" = "emacs.desktop";
     };
   };
 
@@ -345,7 +345,6 @@
       (push '*default-pathname-defaults* asdf:*central-registry*)
     '';
   };
-  services.emacs.enable = true;
 
   programs.home-manager.enable = true;
 
