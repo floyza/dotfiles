@@ -28,7 +28,6 @@
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
             ./configuration.nix
-            ./modules/duckdns
             ./modules/ssbm
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
