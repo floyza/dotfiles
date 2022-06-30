@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.05";
     # nixpkgs.url = "/home/gavin/src/nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,11 +18,12 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, emacs-overlay, ssbm, secrets
-    , ... }@attrs: {
-      nixosConfigurations = {
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-stable, emacs-overlay
+    , ssbm, secrets, ... }@attrs: {
+      nixosConfigurations = let system = "x86_64-linux";
+      in {
         dreadnought = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
           specialArgs =
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
@@ -31,7 +33,13 @@
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ];
+              nixpkgs.overlays = [
+                nur.overlay
+                emacs-overlay.overlay
+                (self: super: {
+                  mu = nixpkgs-stable.legacyPackages."${system}".mu;
+                })
+              ];
               nix.registry.nixpkgs.flake = nixpkgs;
               nix.nixPath =
                 [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
