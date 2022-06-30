@@ -14,7 +14,9 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (self: super: {
-      steam = super.steam.override { extraPkgs = pkgs: [ pkgs.libpng ]; };
+      steam = super.steam.override {
+        extraPkgs = pkgs: [ pkgs.libpng pkgs.libsecret ];
+      };
     })
   ];
 
@@ -178,6 +180,7 @@
     unzip
     inetutils
     usbutils # lsusb
+    man-pages
 
     virt-manager
     dconf # needed for saving settings in virt-manager
@@ -213,10 +216,15 @@
     pinentryFlavor = "gtk2";
   };
 
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock.enable = true;
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh.enable = false;
   services.openssh.passwordAuthentication = false;
   services.openssh.ports = [ 22 ];
   services.openssh.gatewayPorts = "yes";

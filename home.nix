@@ -58,6 +58,11 @@
     lispPackages.clwrapper
     ## c++
     ccls
+    clang-tools
+    # lua+fennel
+    lua
+    fennel
+    sumneko-lua-language-server
     ## misc-lang
     odin
     zig

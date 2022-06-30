@@ -1,5 +1,8 @@
 ;;; $DOOMDIR/config.el --- My private config -*- lexical-binding: t; -*-
 
+(require 's)
+(require 'f)
+
 ;;; Identification
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -29,6 +32,12 @@
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
+  (set-irc-server! "irc.rizon.net"
+    `(:tls t
+      :port 6697
+      :nick "gdown"
+      :sasl-username "gdown"
+      :sasl-password (lambda (&rest _) (+pass-get-secret "irc/rizon.net"))))
   (set-irc-server! "irc.pine64.org"
     `(:tls t
       :port 6697
@@ -155,6 +164,7 @@
 (setq debug-on-error t)                 ; workaround bug in haskell-mode inferior lol
 (after! haskell
   (setq lsp-haskell-formatting-provider "ormolu")
+  (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
   (setq haskell-interactive-popup-errors nil)
   (defun haskell-hoogle-lookup ()
     (interactive)
@@ -163,6 +173,12 @@
   (map! :localleader
         :map haskell-mode-map
         "l" #'haskell-hoogle-lookup))
+
+(after! lua-mode
+  (let ((lua-language-server-path
+         (f-dirname (f-dirname (s-trim (shell-command-to-string "readlink -f `which lua-language-server`"))))))
+    (setq lsp-clients-lua-language-server-bin (f-join lua-language-server-path "bin" "lua-language-server")
+          lsp-clients-lua-language-server-main-location (f-join lua-language-server-path "share" "lua-language-server" "main.lua"))))
 
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
