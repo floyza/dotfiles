@@ -29,6 +29,7 @@
           modules = [
             ./configuration.nix
             ./modules/ssbm
+            # ./modules/hotspot
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
             {
