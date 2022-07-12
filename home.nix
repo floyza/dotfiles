@@ -61,8 +61,9 @@
     clang-tools
     # lua+fennel
     lua
-    fennel
     sumneko-lua-language-server
+    fennel
+    fnlfmt
     ## misc-lang
     odin
     zig
@@ -216,7 +217,7 @@
     ];
     profiles.main = {
       settings = {
-        "layout.frame_rate" = 144;
+        "layout.frame_rate" = 160;
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;
@@ -249,9 +250,13 @@
 
   programs.git = {
     enable = true;
+    package = pkgs.gitAndTools.gitFull;
     userEmail = "gavin.downard@runbox.com";
     userName = "Gavin Downard";
-    extraConfig = { github.user = "floyza"; };
+    extraConfig = {
+      github.user = "floyza";
+      sendemail.identity = "runbox";
+    };
     ignores = [ ".direnv/" ];
   };
 
@@ -322,6 +327,7 @@
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
+    EDITOR = "emacs";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
       "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";

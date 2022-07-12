@@ -180,6 +180,13 @@
     (setq lsp-clients-lua-language-server-bin (f-join lua-language-server-path "bin" "lua-language-server")
           lsp-clients-lua-language-server-main-location (f-join lua-language-server-path "share" "lua-language-server" "main.lua"))))
 
+(after! fennel-mode
+  (define-format-all-formatter fnlfmt
+    (:executable "fnlfmt")
+    (:install "nix profile install 'nixpkgs#fnlfmt'")
+    (:modes fennel-mode)
+    (:format (format-all--buffer-easy executable "-"))))
+
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
 
@@ -209,7 +216,8 @@
                               (atom-movement t)
                               slurp/barf-lispy additional additional-insert))
   (add-to-list 'lispy-elisp-modes 'minibuffer-mode)
-  (add-to-list 'lispy-no-indent-modes 'minibuffer-mode))
+  (add-to-list 'lispy-no-indent-modes 'minibuffer-mode)
+  (add-to-list 'lispy-colon-no-space-regex '(fennel-mode . "")))
 
 ;; (setq-default indent-tabs-mode t)
 (setq-default tab-width 2)
