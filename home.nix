@@ -217,6 +217,7 @@
     ];
     profiles.main = {
       settings = {
+        "trr.mode" = 5; # disable builtin dns-over-https
         "layout.frame_rate" = 160;
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
