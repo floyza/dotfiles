@@ -28,7 +28,7 @@
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
-      :channels ("#emacs" "#haskell" "#nixos") ; #osdev
+      :channels ("#emacs" "#haskell" "#nixos" "#crawl") ; #osdev
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
@@ -100,6 +100,8 @@
   (interactive)
   (call-interactively #'org-edit-src-exit))
 (after! org
+  (setq org-blank-before-new-entry '((heading . nil)
+                                     (plain-list-item . nil)))
   (setq org-capture-templates
         '(("t" "Todo [inbox]" entry
            (file+headline "inbox.org" "Inbox")
