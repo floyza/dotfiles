@@ -77,3 +77,5 @@
 
 (disable-packages! company-dict
                    mu4e-alert)
+
+(unpin! fennel-mode)

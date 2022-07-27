@@ -132,6 +132,15 @@
 
   programs.password-store = { enable = true; };
 
+  programs.tmux = {
+    enable = true;
+    escapeTime = 0;
+    baseIndex = 1;
+    keyMode = "vi";
+    shortcut = "z";
+    terminal = "xterm-256color";
+  };
+
   programs.beets = {
     enable = true;
     settings = {
