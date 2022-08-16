@@ -210,9 +210,12 @@
     virt-manager
     dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
+
+    # packages using udev rules
+    antimicrox
   ]);
 
-  services.udev.packages = [ pkgs.qmk-udev-rules ];
+  services.udev.packages = [ pkgs.qmk-udev-rules pkgs.antimicrox ];
 
   services.udev.extraRules = ''
     ACTION=="add", ATTR{idVendor}=="26ce", ATTR{idProduct}=="01a2", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
