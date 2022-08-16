@@ -28,7 +28,7 @@
     jq
     sdcv
     easyeffects
-    magic-wormhole
+    # magic-wormhole
     gnome.nautilus
 
     mpd
@@ -124,8 +124,7 @@
     sqlite
     texlive.combined.scheme-full
     texlab
-    (python39.withPackages (ps: with ps; [ sh ]))
-    python-language-server
+    (python39.withPackages (ps: with ps; [ sh python-lsp-server ]))
   ];
 
   programs.man.generateCaches = true;
