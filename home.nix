@@ -219,10 +219,13 @@
 
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-wayland; # sets MOX_ENABLE_WAYLAND=1
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       https-everywhere
       ublock-origin
       greasemonkey
+      redirector
+      tree-style-tab
     ];
     profiles.main = {
       settings = {
@@ -336,7 +339,6 @@
   };
 
   home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
     EDITOR = "emacs";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
