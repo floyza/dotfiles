@@ -33,12 +33,10 @@
 
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
-    # automatically opened tcp ports: ssh
-    # manually opened: murmur, samba, samba-wsdd
-    # we don't use samba.openFirewall since we only need 445 open: we don't use nmbd so the other ports are unnessesary
-    # 4321 is a custom port used for whatever stuff i temporarily need: games, etc
-    firewall.allowedTCPPorts = [ config.services.murmur.port 445 5357 41230 ]
-      ++ [ 4321 ];
+    # automatically opened tcp ports: ssh, murmur, samba
+    # manually opened: samba-wsdd
+    # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
+    firewall.allowedTCPPorts = [ 5357 41230 ];
     # automatically opened udp ports: avahi
     # manually opened: samba-wsdd
     firewall.allowedUDPPorts = [ 3702 ];
@@ -140,6 +138,7 @@
 
   services.murmur = {
     enable = true;
+    openFirewall = true;
     bonjour = true;
     welcometext = "Welcome to my humble server.";
   };
@@ -263,6 +262,7 @@
 
   services.samba = {
     enable = true;
+    openFirewall = true;
     securityType = "user";
     enableNmbd = false; # we use wsdd instead
     enableWinbindd = true; # need to look into more
