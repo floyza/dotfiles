@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.05";
     # nixpkgs.url = "/home/gavin/src/nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -18,9 +19,18 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-stable, emacs-overlay
-    , ssbm, secrets, ... }@attrs: {
-      nixosConfigurations = let system = "x86_64-linux";
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-stable, nixpkgs-master
+    , emacs-overlay, ssbm, secrets, ... }@attrs: {
+      nixosConfigurations = let
+        system = "x86_64-linux";
+        master = (import nixpkgs-master {
+          inherit system;
+          config.allowUnfree = true;
+        });
+        stable = (import nixpkgs-stable {
+          inherit system;
+          config.allowUnfree = true;
+        });
       in {
         dreadnought = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -37,7 +47,8 @@
                 nur.overlay
                 emacs-overlay.overlay
                 (self: super: {
-                  mu = nixpkgs-stable.legacyPackages."${system}".mu;
+                  mu = stable.mu;
+                  discord = master.discord;
                 })
               ];
               nix.registry.nixpkgs.flake = nixpkgs;
