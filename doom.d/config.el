@@ -163,7 +163,7 @@
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
 
-(setq debug-on-error t)                 ; workaround bug in haskell-mode inferior lol
+;; (setq debug-on-error t)                 ; workaround bug in haskell-mode inferior lol
 (after! haskell
   (setq lsp-haskell-formatting-provider "ormolu")
   (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
@@ -191,8 +191,6 @@
 
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
-
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
 (after! counsel
   (setq counsel-compile-local-builds
@@ -229,6 +227,7 @@
 ;; (setq! ivy-posframe-style 'frame-top-center)
 
 (after! flycheck
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc haskell-stack-ghc))
   (setq flycheck-global-modes '(not nix-mode)))
 
 (setq kill-buffer-query-functions
@@ -248,7 +247,8 @@
 (setq elfeed-feeds
       '("https://hnrss.org/frontpage?comments=25"
         "https://hnrss.org/bestcomments"
-        "https://www.youtube.com/feeds/videos.xml?channel_id=UC3ts8coMP645hZw9JSD3pqQ"
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UC3ts8coMP645hZw9JSD3pqQ" ; andreas kling
+        "https://www.youtube.com/feeds/videos.xml?channel_id=UCvVnz4iBRxBtVI2oe80S3kg" ; mhayashi
         "https://factorio.com/blog/rss"
         "https://xkcd.com/rss.xml"))
 (after! elfeed
