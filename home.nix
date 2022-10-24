@@ -34,14 +34,14 @@
     mpd
     mpc_cli
     killall
-    alsaUtils
+    alsa-utils
     gparted
     pavucontrol
     zip
     gotop
     nethogs
 
-    xdg_utils
+    xdg-utils
 
     krita
     ### programming
@@ -51,7 +51,6 @@
     haskellPackages.hoogle
     haskellPackages.cabal-install
     haskellPackages.ghc
-    haskellPackages.ormolu
     ## lisp
     guile
     sbcl
@@ -82,21 +81,21 @@
       username = "gdown";
       token = (import secrets).factorio-token;
     })
-    yuzu
+    yuzu-mainline
     steam
     steam-run-native
     runelite
-    # (dwarf-fortress-packages.dwarf-fortress-full.override {
-    #   theme = null;
-    #   enableIntro = false;
-    #   enableFPS = true;
-    #   enableTWBT = false;
-    # })
+    (dwarf-fortress-packages.dwarf-fortress-full.override {
+      theme = null;
+      enableIntro = false;
+      enableFPS = true;
+      enableTWBT = false;
+    })
     lutris
     mangohud
     dolphin-emu-beta
     slippi-netplay
-    cataclysm-dda
+    # cataclysm-dda
     crawl
     angband
     nethack
@@ -124,7 +123,7 @@
     sqlite
     texlive.combined.scheme-full
     texlab
-    (python39.withPackages (ps: with ps; [ sh python-lsp-server ]))
+    (python3.withPackages (ps: with ps; [ sh python-lsp-server ]))
   ];
 
   programs.man.generateCaches = true;
@@ -205,11 +204,11 @@
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.gnome3.adwaita-icon-theme;
+      package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita";
     };
     theme = {
-      package = pkgs.gnome3.gnome-themes-extra;
+      package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita";
     };
   };
@@ -293,7 +292,20 @@
 
   programs.ncmpcpp = {
     enable = true;
-    package = pkgs.ncmpcpp.override { visualizerSupport = true; };
+    package =
+      (pkgs.ncmpcpp.override { visualizerSupport = true; }) # .overrideAttrs
+      # (oldAttrs: {
+      #   version = "master";
+      #   nativeBuildInputs = oldAttrs.nativeBuildInputs
+      #     ++ [ pkgs.autoconf pkgs.automake ];
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "ncmpcpp";
+      #     repo = "ncmpcpp";
+      #     rev = "417d7172e5587f4302f92ea6377268dca7f726ad";
+      #     sha256 = "sha256-LRf/iWxRO9zX+MZxIQbscslicaWzN7kokzJLUVg7T38=";
+      #   };
+      # })
+    ;
     bindings = [
       {
         key = "j";
@@ -319,6 +331,7 @@
       visualizer_in_stereo = "yes";
       visualizer_type = "spectrum";
       visualizer_look = "+|";
+      visualizer_fps = 144;
     };
   };
 
@@ -335,6 +348,7 @@
       "text/plain" = "emacs.desktop";
       "text/org" = "emacs.desktop";
     };
+    configFile."mimeapps.list".force = true;
   };
 
   home.sessionVariables = {

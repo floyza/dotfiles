@@ -70,12 +70,6 @@
 (package! sdcv-mode
   :recipe (:host github :repo "gucong/emacs-sdcv"))
 
-(package! tree-sitter)
-(package! tree-sitter-langs)
-
 (package! leuven-theme)
 
-(disable-packages! company-dict
-                   mu4e-alert)
-
-(unpin! fennel-mode)
+(disable-packages! mu4e-alert)

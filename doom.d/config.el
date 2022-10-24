@@ -28,7 +28,7 @@
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
-      :channels ("#emacs" "#haskell" "#nixos" "#crawl") ; #osdev
+      :channels ("#emacs" "#haskell" "#nixos" "#crawl" "#magicjudges-rules") ; #osdev
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
@@ -166,7 +166,7 @@
 ;; (setq debug-on-error t)                 ; workaround bug in haskell-mode inferior lol
 (after! haskell
   (setq lsp-haskell-formatting-provider "ormolu")
-  (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
+  ;; (setq-hook! 'haskell-mode-hook +format-with 'ormolu)
   (setq haskell-interactive-popup-errors nil)
   (defun haskell-hoogle-lookup ()
     (interactive)
@@ -259,14 +259,6 @@
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
 (use-package! sdcv-mode)
-
-(use-package! tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-  (pushnew! tree-sitter-major-mode-language-alist
-            '(haskell-mode . haskell)))
 
 ;;; Defuns
 

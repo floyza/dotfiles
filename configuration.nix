@@ -307,11 +307,16 @@
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = [ pkgs.rocm-opencl-icd ];
   };
 
   hardware.steam-hardware.enable = true;
 
   nix = {
+    gc = {
+      automatic = true;
+      dates = weekly;
+    };
     settings = {
       trusted-public-keys = [
         "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
@@ -325,7 +330,6 @@
       ];
       auto-optimise-store = true;
     };
-    package = pkgs.nixFlakes;
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
