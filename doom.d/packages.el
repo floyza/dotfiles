@@ -72,4 +72,5 @@
 
 (package! leuven-theme)
 
+(package! rustic :pin "ab685bfcac7e549748bca22f3e87dd4779c06278")
 (disable-packages! mu4e-alert)

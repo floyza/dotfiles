@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
+    pandoc
     golly
     qjackctl
     ntfs3g
@@ -45,6 +46,12 @@
 
     krita
     ### programming
+    ## rust
+    rustup
+    # cargo
+    # rustc
+    # rustfmt
+    # rust-analyzer
     ## haskell
     haskellPackages.stack
     haskellPackages.haskell-language-server
@@ -74,8 +81,8 @@
     godot
     aseprite-unfree
     ### games
+    ivan
     endless-sky
-    polymc
     tome4
     (factorio-experimental.override {
       username = "gdown";
@@ -94,11 +101,12 @@
     lutris
     mangohud
     dolphin-emu-beta
-    slippi-netplay
+    # slippi-netplay
     # cataclysm-dda
     crawl
     angband
     nethack
+    sil-q
     hyperrogue
     cockatrice
     retroarchFull

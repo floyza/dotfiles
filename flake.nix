@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.05";
     # nixpkgs.url = "/home/gavin/src/nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -19,15 +18,11 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-stable, nixpkgs-master
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master
     , emacs-overlay, ssbm, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
         master = (import nixpkgs-master {
-          inherit system;
-          config.allowUnfree = true;
-        });
-        stable = (import nixpkgs-stable {
           inherit system;
           config.allowUnfree = true;
         });
@@ -38,7 +33,7 @@
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
             ./configuration.nix
-            ./modules/ssbm
+            # ./modules/ssbm
             # ./modules/hotspot
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
@@ -46,7 +41,6 @@
               nixpkgs.overlays = [
                 nur.overlay
                 emacs-overlay.overlay
-                (self: super: { mu = stable.mu; })
               ];
               nix.registry.nixpkgs.flake = nixpkgs;
               nix.nixPath =

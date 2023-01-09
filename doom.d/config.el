@@ -147,6 +147,9 @@
       :desc "Find yesterday"         "r d Y" #'org-roam-dailies-find-yesterday)
 
 
+(after! format
+  (setq +format-on-save-enabled-modes (append +format-on-save-enabled-modes '(haskell-mode))))
+
 (defvar lsp-file-watch-ignored-directories-additional nil
   "Additional ignored directories added to lsp-file-watch-ignored-directories.")
 (put 'lsp-file-watch-ignored-directories-additional 'safe-local-variable #'listp)
@@ -175,6 +178,9 @@
   (map! :localleader
         :map haskell-mode-map
         "l" #'haskell-hoogle-lookup))
+
+(after! rust-mode
+  (setq rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
 
 (after! lua-mode
   (let ((lua-language-server-path

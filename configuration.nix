@@ -134,6 +134,19 @@
         TIMELINE_LIMIT_YEARLY="0"
       '';
     };
+    games-other = {
+      subvolume = "/home/gavin/games-other";
+      extraConfig = ''
+        ALLOW_USERS="gavin"
+        TIMELINE_CREATE=yes
+        TIMELINE_CLEANUP=yes
+        TIMELINE_LIMIT_HOURLY="5"
+        TIMELINE_LIMIT_DAILY="7"
+        TIMELINE_LIMIT_WEEKLY="0"
+        TIMELINE_LIMIT_MONTHLY="0"
+        TIMELINE_LIMIT_YEARLY="0"
+      '';
+    };
   };
 
   services.murmur = {
@@ -222,9 +235,6 @@
     ACTION=="add", ATTR{idVendor}=="1b1c", ATTR{idProduct}=="0c1a", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
   '';
 
-  # require modification to udev rules
-  programs.adb.enable = true;
-
   environment.pathsToLink = [
     "/share/zsh" # for zsh completion
     "/libexec"
@@ -256,6 +266,8 @@
   services.openssh.passwordAuthentication = false;
   services.openssh.ports = [ 22 ];
   services.openssh.gatewayPorts = "yes";
+
+  services.fail2ban.enable = true; # for ssh
 
   users.users.samba = {
     isSystemUser = true;
@@ -301,13 +313,14 @@
 
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
 
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = [ pkgs.rocm-opencl-icd ];
+    # extraPackages = [ pkgs.rocm-opencl-icd ];
   };
 
   hardware.steam-hardware.enable = true;
@@ -315,7 +328,7 @@
   nix = {
     gc = {
       automatic = true;
-      dates = weekly;
+      dates = "weekly";
     };
     settings = {
       trusted-public-keys = [
