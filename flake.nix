@@ -33,6 +33,7 @@
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
             ./configuration.nix
+            ./modules/japanese
             # ./modules/ssbm
             # ./modules/hotspot
             ssbm.nixosModule
