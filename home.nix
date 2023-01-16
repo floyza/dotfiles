@@ -81,6 +81,7 @@
     godot
     #aseprite-unfree
     ### games
+    prismlauncher
     ivan
     endless-sky
     tome4
