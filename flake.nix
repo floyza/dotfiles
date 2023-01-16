@@ -18,14 +18,15 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master
-    , emacs-overlay, ssbm, secrets, ... }@attrs: {
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master, emacs-overlay
+    , ssbm, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
         master = (import nixpkgs-master {
           inherit system;
           config.allowUnfree = true;
         });
+        fix-overlay = self: super: { nix-index = master.nix-index; };
       in {
         dreadnought = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -39,10 +40,8 @@
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays = [
-                nur.overlay
-                emacs-overlay.overlay
-              ];
+              nixpkgs.overlays =
+                [ nur.overlay emacs-overlay.overlay fix-overlay ];
               nix.registry.nixpkgs.flake = nixpkgs;
               nix.nixPath =
                 [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel

@@ -79,7 +79,7 @@
     nixfmt
     ## resources
     godot
-    aseprite-unfree
+    #aseprite-unfree
     ### games
     ivan
     endless-sky
@@ -227,7 +227,6 @@
     enable = true;
     package = pkgs.firefox-wayland; # sets MOX_ENABLE_WAYLAND=1
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      https-everywhere
       ublock-origin
       greasemonkey
       redirector
