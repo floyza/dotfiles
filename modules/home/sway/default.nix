@@ -56,7 +56,7 @@
         "${modifier}+Shift+s" =
           "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
         "${modifier}+Shift+r" = ''
-          exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.node") | .subject'"'"'); do pw-metadata -- $id target.node -1 ; done'
+          exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.object") | .subject'"'"'); do pw-metadata -- $id target.node -1 ; pw-metadata -- $id target.object -1 ; done'
         '';
         "${modifier}+d" = "exec ${wofi} --show=drun";
         "${modifier}+Shift+d" = "exec ${wofi} --show=run";
