@@ -52,7 +52,7 @@
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
         "${modifier}+c" = "exec emacs --eval '(full-calc)'";
         "${modifier}+Shift+a" =
-          "exec ${pactl} set-default-sink alsa_output.pci-0000_09_00.4.analog-stereo";
+          "exec ${pactl} set-default-sink alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
         "${modifier}+Shift+s" =
           "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
         "${modifier}+Shift+r" = ''
