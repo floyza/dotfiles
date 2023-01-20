@@ -178,6 +178,7 @@
   users.users.gavin = {
     isNormalUser = true;
     extraGroups = [
+      "cdrom"
       "audio"
       "wheel"
       "libvirtd"

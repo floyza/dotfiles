@@ -32,7 +32,6 @@
     # magic-wormhole
     gnome.nautilus
 
-    mpd
     mpc_cli
     killall
     alsa-utils
@@ -294,6 +293,12 @@
           name                    "my_fifo"
           path                    "/tmp/mpd.fifo"
           format                  "44100:16:2"
+      }
+
+      input {
+          plugin "cdio_paranoia"
+          enabled "yes"
+          speed "1"
       }
     '';
   };
