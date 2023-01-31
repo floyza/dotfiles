@@ -101,7 +101,7 @@
     lutris
     mangohud
     dolphin-emu-beta
-    # slippi-netplay
+    slippi-netplay
     # cataclysm-dda
     crawl
     angband

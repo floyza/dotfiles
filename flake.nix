@@ -10,8 +10,8 @@
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    ssbm.url = "github:djanatyn/ssbm-nix";
-    # ssbm.url = "/home/gavin/src/ssbm-nix";
+    # ssbm.url = "github:djanatyn/ssbm-nix";
+    ssbm.url = "/home/gavin/src/ssbm-nix";
 
     # My secrets are currently stored plaintext in my nix store, but I at least don't want to commit them to git
     # so I split them off here
@@ -35,7 +35,7 @@
           modules = [
             ./configuration.nix
             ./modules/japanese
-            # ./modules/ssbm
+            ./modules/ssbm
             # ./modules/hotspot
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
