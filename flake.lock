@@ -107,6 +107,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-custom": {
+      "locked": {
+        "lastModified": 1677708514,
+        "narHash": "sha256-kHuTSXO/PraNv2p2FvZhlYPn+8naOsOX8xaHZpQk3io=",
+        "ref": "refs/heads/nixos-unstable",
+        "rev": "c0ee74bb7550ca4c140c3adb4da4c6fd19e5f8be",
+        "revCount": 458395,
+        "type": "git",
+        "url": "file:///home/gavin/src/nixpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/gavin/src/nixpkgs"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1677221361,
@@ -174,6 +189,7 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-custom": "nixpkgs-custom",
         "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "secrets": "secrets",

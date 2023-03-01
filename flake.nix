@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    # nixpkgs.url = "/home/gavin/src/nixpkgs";
+    nixpkgs-custom.url = "/home/gavin/src/nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
@@ -18,30 +18,34 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master, emacs-overlay
-    , ssbm, secrets, ... }@attrs: {
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master, nixpkgs-custom
+    , emacs-overlay, ssbm, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
         master = (import nixpkgs-master {
           inherit system;
           config.allowUnfree = true;
         });
-        fix-overlay = self: super: {
-          nix-index = master.nix-index;
-          aseprite-unfree =
-            self.callPackage ./packages/aseprite { unfree = true; };
-          ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
-            version = "master-thing";
-            nativeBuildInputs = oldAttrs.nativeBuildInputs
-              ++ [ self.autoreconfHook ];
-            src = self.fetchFromGitHub {
-              owner = "ncmpcpp";
-              repo = "ncmpcpp";
-              rev = "9f44edf0b1d74da7cefbd498341d59bc52f6043f";
-              sha256 = "sha256-PjCzo3OSj/QIi2fdeV28ZjPiqLf6XAnZeNrDyjXt5wU=";
-            };
-          });
-        };
+        custom = (import nixpkgs-custom {
+          inherit system;
+          config.allowUnfree = true;
+        });
+        update-overlays = [
+          (self: super: {
+            ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
+              version = "master-thing";
+              nativeBuildInputs = oldAttrs.nativeBuildInputs
+                ++ [ self.autoreconfHook ];
+              src = self.fetchFromGitHub {
+                owner = "ncmpcpp";
+                repo = "ncmpcpp";
+                rev = "9f44edf0b1d74da7cefbd498341d59bc52f6043f";
+                sha256 = "sha256-PjCzo3OSj/QIi2fdeV28ZjPiqLf6XAnZeNrDyjXt5wU=";
+              };
+            });
+          })
+          (self: super: { cataclysm-dda = custom.cataclysm-dda; })
+        ];
       in {
         dreadnought = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -55,8 +59,8 @@
             ssbm.nixosModule
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays =
-                [ nur.overlay emacs-overlay.overlay fix-overlay ];
+              nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ]
+                ++ update-overlays;
               nix.registry.nixpkgs.flake = nixpkgs;
               nix.nixPath =
                 [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
