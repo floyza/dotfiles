@@ -97,7 +97,8 @@
           command =
             "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         }
-        { command = "fcitx5 -d"; }
+        # { command = "fcitx5 -d"; }
+        { command = "show-me.sh"; }
       ];
       terminal = "footclient";
       modifier = "Mod4"; # super

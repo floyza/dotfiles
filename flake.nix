@@ -26,7 +26,11 @@
           inherit system;
           config.allowUnfree = true;
         });
-        fix-overlay = self: super: { nix-index = master.nix-index; };
+        fix-overlay = self: super: {
+          nix-index = master.nix-index;
+          aseprite-unfree =
+            self.callPackage ./packages/aseprite { unfree = true; };
+        };
       in {
         dreadnought = nixpkgs.lib.nixosSystem {
           inherit system;

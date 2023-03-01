@@ -5,6 +5,9 @@
   home.packages = with pkgs; [
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
+    tcpdump
+    wireshark
+
     pandoc
     golly
     qjackctl
@@ -31,6 +34,7 @@
     easyeffects
     # magic-wormhole
     gnome.nautilus
+    anki
 
     mpc_cli
     killall
@@ -69,17 +73,24 @@
     sumneko-lua-language-server
     fennel
     fnlfmt
+    ## web
+    nodePackages.eslint
+    nodejs
     ## misc-lang
     odin
     zig
     zls
     ## formatting
+    nodePackages.prettier
     shellcheck
     nixfmt
+    html-tidy
     ## resources
     godot
-    #aseprite-unfree
+    # aseprite-unfree
     ### games
+    mudlet
+    libstrangle
     prismlauncher
     ivan
     endless-sky
@@ -92,17 +103,11 @@
     steam
     steam-run-native
     runelite
-    (dwarf-fortress-packages.dwarf-fortress-full.override {
-      theme = null;
-      enableIntro = false;
-      enableFPS = true;
-      enableTWBT = false;
-    })
     lutris
     mangohud
     dolphin-emu-beta
     slippi-netplay
-    # cataclysm-dda
+    cataclysm-dda
     crawl
     angband
     nethack
@@ -121,6 +126,8 @@
     jetbrains-mono
     ### doom dependencies
     gcc # need for emacsql-sqlite
+    gnumake
+    cmake
     fd
     ripgrep
     gnutls
@@ -225,14 +232,13 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland; # sets MOX_ENABLE_WAYLAND=1
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      ublock-origin
-      greasemonkey
-      redirector
-      tree-style-tab
-    ];
     profiles.main = {
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        ublock-origin
+        greasemonkey
+        redirector
+        tree-style-tab
+      ];
       settings = {
         "trr.mode" = 5; # disable builtin dns-over-https
         "layout.frame_rate" = 160;
@@ -336,6 +342,14 @@
         key = "K";
         command = [ "select_item" "scroll_up" ];
       }
+      {
+        key = "l";
+        command = [ "next_column" "slave_screen" ];
+      }
+      {
+        key = "r";
+        command = [ "previous_column" "master_screen" ];
+      }
     ];
     settings = {
       user_interface = "alternative";
@@ -344,7 +358,7 @@
       visualizer_in_stereo = "yes";
       visualizer_type = "spectrum";
       visualizer_look = "+|";
-      visualizer_fps = 144;
+      visualizer_fps = 160;
     };
   };
 

@@ -10,7 +10,7 @@
 let skia = callPackage ./skia.nix { };
 in stdenv.mkDerivation rec {
   pname = "aseprite";
-  version = if unfree then "1.3-beta7" else "1.1.7";
+  version = if unfree then "1.3-beta21" else "1.1.7";
 
   src = fetchFromGitHub {
     owner = "aseprite";
@@ -18,7 +18,7 @@ in stdenv.mkDerivation rec {
     rev = "v${version}";
     fetchSubmodules = true;
     sha256 = if unfree then
-      "sha256-VDQDrgxAiIyNzLSdy9mwik/SJItQHL6+btcwPHGO8ns="
+      "sha256-aaaaagxAiIyNzLSdy9mwik/SJItQHL6+btcwPHGO8ns="
     else
       "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
   };
@@ -131,10 +131,10 @@ in stdenv.mkDerivation rec {
                 - Multiple editors support.
                 - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
                 - Onion skinning.
-            '' + lib.optionalString unfree ''
-        This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
-        Consider supporting the developer: https://aseprite.org/#buy
-      '';
+    '' + lib.optionalString unfree ''
+      This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
+      Consider supporting the developer: https://aseprite.org/#buy
+    '';
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
   };
