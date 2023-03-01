@@ -311,20 +311,7 @@
 
   programs.ncmpcpp = {
     enable = true;
-    package =
-      (pkgs.ncmpcpp.override { visualizerSupport = true; }) # .overrideAttrs
-      # (oldAttrs: {
-      #   version = "master";
-      #   nativeBuildInputs = oldAttrs.nativeBuildInputs
-      #     ++ [ pkgs.autoconf pkgs.automake ];
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "ncmpcpp";
-      #     repo = "ncmpcpp";
-      #     rev = "417d7172e5587f4302f92ea6377268dca7f726ad";
-      #     sha256 = "sha256-LRf/iWxRO9zX+MZxIQbscslicaWzN7kokzJLUVg7T38=";
-      #   };
-      # })
-    ;
+    package = pkgs.ncmpcpp.override { visualizerSupport = true; };
     bindings = [
       {
         key = "j";

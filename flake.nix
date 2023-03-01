@@ -30,6 +30,17 @@
           nix-index = master.nix-index;
           aseprite-unfree =
             self.callPackage ./packages/aseprite { unfree = true; };
+          ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
+            version = "master-thing";
+            nativeBuildInputs = oldAttrs.nativeBuildInputs
+              ++ [ self.autoreconfHook ];
+            src = self.fetchFromGitHub {
+              owner = "ncmpcpp";
+              repo = "ncmpcpp";
+              rev = "9f44edf0b1d74da7cefbd498341d59bc52f6043f";
+              sha256 = "sha256-PjCzo3OSj/QIi2fdeV28ZjPiqLf6XAnZeNrDyjXt5wU=";
+            };
+          });
         };
       in {
         dreadnought = nixpkgs.lib.nixosSystem {
