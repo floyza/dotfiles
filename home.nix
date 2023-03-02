@@ -334,7 +334,7 @@
         command = [ "next_column" "slave_screen" ];
       }
       {
-        key = "r";
+        key = "h";
         command = [ "previous_column" "master_screen" ];
       }
     ];
