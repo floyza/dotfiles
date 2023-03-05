@@ -185,13 +185,14 @@
 
   programs.foot = {
     enable = true;
-    server.enable = true;
+    server.enable = false;
     settings = {
       main = {
         term = "xterm-256color";
         font = "JetBrains Mono:size=10.0";
         # font = "Monospace:size=10";
         bold-text-in-bright = "palette-based";
+        initial-window-size-chars = "80x25";
       };
       colors = {
         regular0 = "000000";

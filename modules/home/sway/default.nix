@@ -100,7 +100,7 @@
         # { command = "fcitx5 -d"; }
         { command = "show-me.sh"; }
       ];
-      terminal = "footclient";
+      terminal = "foot";
       modifier = "Mod4"; # super
     };
   };
