@@ -338,6 +338,10 @@
         key = "h";
         command = [ "previous_column" "master_screen" ];
       }
+      {
+        key = "'";
+        command = [ "show_lyrics" ];
+      }
     ];
     settings = {
       user_interface = "alternative";
@@ -347,6 +351,8 @@
       visualizer_type = "spectrum";
       visualizer_look = "+|";
       visualizer_fps = 160;
+      lyrics_fetchers =
+        "musixmatch, genius, azlyrics, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet";
     };
   };
 
