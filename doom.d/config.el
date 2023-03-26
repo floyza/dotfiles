@@ -298,3 +298,4 @@
   (interactive "MName of person: ")
   (doom-completing-read-org-headings "Task: " "~/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
 
+(load-file "~/.doom.d/project-specific/blog.el")

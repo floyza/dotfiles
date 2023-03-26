@@ -49,6 +49,7 @@
 
     krita
     ### programming
+    gdb
     ## rust
     rustup
     # cargo
@@ -95,7 +96,7 @@
     ivan
     endless-sky
     tome4
-    (factorio-experimental.override {
+    (factorio.override {
       username = "gdown";
       token = (import secrets).factorio-token;
     })
@@ -395,6 +396,9 @@
     ".sbclrc".text = ''
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
+    '';
+    ".config/gdb/gdbinit".text = ''
+      set history save on
     '';
   };
 

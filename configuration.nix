@@ -38,8 +38,8 @@
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
     firewall.allowedTCPPorts = [ 5357 41230 ];
     # automatically opened udp ports: avahi
-    # manually opened: samba-wsdd
-    firewall.allowedUDPPorts = [ 3702 ];
+    # manually opened: samba-wsdd, factorio, custom
+    firewall.allowedUDPPorts = [ 3702 34197 41230 ];
     firewall.enable = true;
     firewall.allowPing = true;
     # possibly required for our samba discovery (https://wiki.archlinux.org/index.php/Samba#.22Browsing.22_network_fails_with_.22Failed_to_retrieve_share_list_from_server.22)
@@ -105,7 +105,7 @@
         TIMELINE_LIMIT_HOURLY="5"
         TIMELINE_LIMIT_DAILY="7"
         TIMELINE_LIMIT_WEEKLY="0"
-        TIMELINE_LIMIT_MONTHLY="5"
+        TIMELINE_LIMIT_MONTHLY="0"
         TIMELINE_LIMIT_YEARLY="0"
       '';
     };
@@ -119,7 +119,7 @@
         TIMELINE_LIMIT_DAILY="10"
         TIMELINE_LIMIT_WEEKLY="0"
         TIMELINE_LIMIT_MONTHLY="10"
-        TIMELINE_LIMIT_YEARLY="10"
+        TIMELINE_LIMIT_YEARLY="1"
       '';
     };
     games = {
@@ -323,7 +323,7 @@
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    # extraPackages = [ pkgs.rocm-opencl-icd ];
+    extraPackages = [ pkgs.rocm-opencl-icd ];
   };
 
   hardware.steam-hardware.enable = true;

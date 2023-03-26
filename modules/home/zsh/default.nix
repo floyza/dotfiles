@@ -61,6 +61,7 @@
       cp = "cp --reflink=auto";
       ec = "emacs -nw";
       ns = "nix search nixpkgs";
+      sway = "sway -Dnoscanout";
     };
     shellGlobalAliases = { G = "| grep -i"; };
   };
