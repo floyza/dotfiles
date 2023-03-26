@@ -85,7 +85,7 @@
 
   services.avahi = {
     enable = true;
-    interfaces = [ "enp4s0" ];
+    allowInterfaces = [ "enp4s0" ];
     publish = {
       enable = true;
       domain = false;
@@ -266,9 +266,11 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
   services.openssh.ports = [ 22 ];
-  services.openssh.gatewayPorts = "yes";
+  services.openssh.settings = {
+    PasswordAuthentication = false;
+    GatewayPorts = "yes";
+  };
 
   services.fail2ban.enable = true; # for ssh
 
