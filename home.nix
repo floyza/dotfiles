@@ -117,7 +117,7 @@
     cockatrice
     retroarchFull
     ### other
-    calc
+    libqalculate
     discord
     element-desktop
     mumble
