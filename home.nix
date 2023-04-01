@@ -67,7 +67,6 @@
     sbcl
     lispPackages.clwrapper
     ## c++
-    ccls
     clang-tools
     # lua+fennel
     lua

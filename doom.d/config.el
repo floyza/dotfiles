@@ -157,6 +157,13 @@
          lsp-ui-doc-show-with-cursor t
          lsp-ui-doc-delay 0.2))
 
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"))
+  (set-lsp-priority! 'clangd 2))
+
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
 
@@ -225,6 +232,17 @@
 (after! evil
   (evil-escape-mode -1))
 ;; (setq! ivy-posframe-style 'frame-top-center)
+
+(defun insert-kbd-macro-in-register (register)
+  "insert macro from register. prompt for register key
+if no argument passed. you may need to revise inserted s-expression."
+  (interactive "cthe register key:")
+  (let* ((macro (cdr (assoc register register-alist)))
+         (macro-string (with-temp-buffer
+                         (setf last-kbd-macro macro)
+                         (insert-kbd-macro '##)
+                         (buffer-string))))
+    (insert macro-string)))
 
 (after! flycheck
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc haskell-stack-ghc))
