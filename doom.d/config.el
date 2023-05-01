@@ -3,6 +3,10 @@
 (require 's)
 (require 'f)
 
+;;; Library of useful functions
+(defun g/pp (&rest stuff)
+  (pp stuff))
+
 ;;; Identification
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -181,6 +185,28 @@
         "l" #'haskell-hoogle-lookup))
 
 (after! rust-mode
+  (defvar g/rustic-cargo-3ds nil
+    "Set as t if we are in a cargo-3ds project.")
+  (defun g/rustic-compilation-start-around (fn command &optional args)
+    (funcall fn
+             (if (and g/rustic-cargo-3ds (consp command))
+                 (cons (car command) (cons "3ds" (cdr command)))
+               command)
+             args))
+  (defun g/rustic-cargo-doc ()
+    "Open the documentation for the current project in a browser.
+The documentation is built if necessary."
+    (interactive)
+    (if (y-or-n-p "Open docs for dependencies as well?")
+        ;; open docs only works with synchronous process
+        (if g/rustic-cargo-3ds
+            (shell-command (format "%s 3ds doc --open" (rustic-cargo-bin)))
+          (shell-command (format "%s doc --open" (rustic-cargo-bin))))
+      (if g/rustic-cargo-3ds
+          (shell-command (format "%s 3ds doc --open --no-deps" (rustic-cargo-bin)))
+        (shell-command (format "%s doc --open --no-deps" (rustic-cargo-bin))))))
+  (advice-add #'rustic-cargo-doc :override #'g/rustic-cargo-doc)
+  (advice-add #'rustic-compilation-start :around #'g/rustic-compilation-start-around)
   (setq rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
 
 (after! lua-mode

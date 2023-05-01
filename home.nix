@@ -106,7 +106,7 @@
     lutris
     mangohud
     dolphin-emu-beta
-    slippi-netplay
+    # slippi-netplay
     cataclysm-dda
     crawl
     angband
@@ -160,7 +160,6 @@
       directory = "/home/gavin/mnt/music";
       library = "/home/gavin/mnt/music/library.db";
       plugins = "fetchart";
-      import.move = true;
       fetchart.auto = true;
     };
   };
