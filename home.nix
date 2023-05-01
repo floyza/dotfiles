@@ -86,7 +86,7 @@
     nixfmt
     html-tidy
     ## resources
-    godot
+    godot_4
     # aseprite-unfree
     ### games
     mudlet
