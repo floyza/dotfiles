@@ -95,10 +95,10 @@
     ivan
     endless-sky
     tome4
-    (factorio.override {
-      username = "gdown";
-      token = (import secrets).factorio-token;
-    })
+    # (factorio.override {
+    #   username = "gdown";
+    #   token = (import secrets).factorio-token;
+    # })
     yuzu-mainline
     steam
     steam-run-native

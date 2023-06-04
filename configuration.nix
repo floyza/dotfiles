@@ -337,11 +337,9 @@
     };
     settings = {
       trusted-public-keys = [
-        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      substituters =
-        [ "https://hydra.iohk.io" "https://nix-community.cachix.org" ];
+      substituters = [ "https://nix-community.cachix.org" ];
       auto-optimise-store = true;
     };
     extraOptions = ''
@@ -362,7 +360,8 @@
     };
   };
 
-  documentation.info.enable = true;
+  documentation.dev.enable = true;
+  documentation.man.generateCaches = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
