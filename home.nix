@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, ... }:
+{ config, pkgs, lib, secrets, ssbm, ... }:
 
 {
   imports = [ ./modules/home/zsh ./modules/home/sway ];
@@ -107,6 +107,7 @@
     mangohud
     dolphin-emu-beta
     # slippi-netplay
+    ssbm.packages.x86_64-linux.slippi-netplay # why doesn't the overlay work?
     cataclysm-dda
     crawl
     angband
