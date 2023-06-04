@@ -97,56 +97,48 @@
 
   services.snapper.configs = {
     home = {
-      subvolume = "/home/gavin";
-      extraConfig = ''
-        ALLOW_USERS="gavin"
-        TIMELINE_CREATE=yes
-        TIMELINE_CLEANUP=yes
-        TIMELINE_LIMIT_HOURLY="5"
-        TIMELINE_LIMIT_DAILY="7"
-        TIMELINE_LIMIT_WEEKLY="0"
-        TIMELINE_LIMIT_MONTHLY="0"
-        TIMELINE_LIMIT_YEARLY="0"
-      '';
+      SUBVOLUME = "/home/gavin";
+      ALLOW_USERS = [ "gavin" ];
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+      TIMELINE_LIMIT_HOURLY = "5";
+      TIMELINE_LIMIT_DAILY = "7";
+      TIMELINE_LIMIT_WEEKLY = "0";
+      TIMELINE_LIMIT_MONTHLY = "0";
+      TIMELINE_LIMIT_YEARLY = "0";
     };
     personal = {
-      subvolume = "/home/gavin/my";
-      extraConfig = ''
-        ALLOW_USERS="gavin"
-        TIMELINE_CREATE=yes
-        TIMELINE_CLEANUP=yes
-        TIMELINE_LIMIT_HOURLY="10"
-        TIMELINE_LIMIT_DAILY="10"
-        TIMELINE_LIMIT_WEEKLY="0"
-        TIMELINE_LIMIT_MONTHLY="10"
-        TIMELINE_LIMIT_YEARLY="1"
-      '';
+      SUBVOLUME = "/home/gavin/my";
+      ALLOW_USERS = [ "gavin" ];
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+      TIMELINE_LIMIT_HOURLY = "10";
+      TIMELINE_LIMIT_DAILY = "10";
+      TIMELINE_LIMIT_WEEKLY = "0";
+      TIMELINE_LIMIT_MONTHLY = "10";
+      TIMELINE_LIMIT_YEARLY = "1";
     };
     games = {
-      subvolume = "/home/gavin/games";
-      extraConfig = ''
-        ALLOW_USERS="gavin"
-        TIMELINE_CREATE=yes
-        TIMELINE_CLEANUP=yes
-        TIMELINE_LIMIT_HOURLY="5"
-        TIMELINE_LIMIT_DAILY="7"
-        TIMELINE_LIMIT_WEEKLY="0"
-        TIMELINE_LIMIT_MONTHLY="0"
-        TIMELINE_LIMIT_YEARLY="0"
-      '';
+      SUBVOLUME = "/home/gavin/games";
+      ALLOW_USERS = [ "gavin" ];
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+      TIMELINE_LIMIT_HOURLY = "5";
+      TIMELINE_LIMIT_DAILY = "7";
+      TIMELINE_LIMIT_WEEKLY = "0";
+      TIMELINE_LIMIT_MONTHLY = "0";
+      TIMELINE_LIMIT_YEARLY = "0";
     };
     games-other = {
-      subvolume = "/home/gavin/games-other";
-      extraConfig = ''
-        ALLOW_USERS="gavin"
-        TIMELINE_CREATE=yes
-        TIMELINE_CLEANUP=yes
-        TIMELINE_LIMIT_HOURLY="5"
-        TIMELINE_LIMIT_DAILY="7"
-        TIMELINE_LIMIT_WEEKLY="0"
-        TIMELINE_LIMIT_MONTHLY="0"
-        TIMELINE_LIMIT_YEARLY="0"
-      '';
+      SUBVOLUME = "/home/gavin/games-other";
+      ALLOW_USERS = [ "gavin" ];
+      TIMELINE_CREATE = true;
+      TIMELINE_CLEANUP = true;
+      TIMELINE_LIMIT_HOURLY = "5";
+      TIMELINE_LIMIT_DAILY = "7";
+      TIMELINE_LIMIT_WEEKLY = "0";
+      TIMELINE_LIMIT_MONTHLY = "0";
+      TIMELINE_LIMIT_YEARLY = "0";
     };
   };
 
