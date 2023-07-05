@@ -67,7 +67,7 @@
     sbcl
     lispPackages.clwrapper
     ## c++
-    clang-tools
+    ccls
     # lua+fennel
     lua
     sumneko-lua-language-server

@@ -161,12 +161,9 @@
          lsp-ui-doc-show-with-cursor t
          lsp-ui-doc-delay 0.2))
 
-(after! lsp-clangd
-  (setq lsp-clients-clangd-args
-        '("--background-index"
-          "--clang-tidy"
-          "--completion-style=detailed"))
-  (set-lsp-priority! 'clangd 2))
+(after! ccls
+  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
