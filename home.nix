@@ -8,6 +8,9 @@
     tcpdump
     wireshark
 
+    filezilla
+    kiwix
+
     pandoc
     golly
     qjackctl
@@ -50,6 +53,8 @@
     krita
     ### programming
     gdb
+    ## java
+    openjdk17
     ## rust
     rustup
     # cargo

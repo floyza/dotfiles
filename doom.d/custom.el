@@ -82,7 +82,8 @@
  '(org-agenda-files
    '("~/my/org/birthdays.org" "/home/gavin/my/org/inbox.org" "/home/gavin/my/org/plan.org" "/home/gavin/my/org/someday.org" "/home/gavin/my/org/tickler.org"))
  '(safe-local-variable-values
-   '((g/rustic-cargo-3ds . t)
+   '((indent-tabs-mode 1)
+     (g/rustic-cargo-3ds . t)
      (eval my-buffer-local-set-key
       (kbd "<normal-state> SPC m r")
       (lambda nil "Reflex-specific run project"

@@ -314,6 +314,9 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
 
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.epkowa ];
+
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
