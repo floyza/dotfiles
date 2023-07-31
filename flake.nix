@@ -51,11 +51,17 @@
           specialArgs =
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
-            ./configuration.nix
+            # TODO autogenerate each system in ./systems/*
+            ./systems/dreadnought/configuration.nix
+            ./systems/dreadnought/hardware-configuration.nix
+
+            ./common/settings.nix
             ./modules/japanese
             ./modules/ssbm
-            # ./modules/hotspot
             ssbm.nixosModule
+            ./common/configuration.nix
+            { home-manager.users.gavin = { imports = [ ./common/home.nix ]; }; }
+
             home-manager.nixosModules.home-manager
             {
               nixpkgs.overlays = [ nur.overlay emacs-overlay.overlay ]
@@ -66,7 +72,6 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.gavin = { imports = [ ./home.nix ]; };
                 extraSpecialArgs = attrs;
               };
             }

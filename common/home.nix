@@ -1,7 +1,9 @@
-{ config, pkgs, lib, secrets, ssbm, ... }:
+{ config, osConfig, pkgs, lib, secrets, ssbm, ... }:
 
-{
-  imports = [ ./modules/home/zsh ./modules/home/sway ];
+let cfg = osConfig.my.customData;
+in {
+  imports = [ ../modules/home/zsh ../modules/home/sway ];
+  # CHG (trim unnessesary stuff)
   home.packages = with pkgs; [
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
@@ -161,6 +163,7 @@
     terminal = "xterm-256color";
   };
 
+  # CHG has home dir hardcoded, plus music dir might be different
   programs.beets = {
     enable = true;
     settings = {
@@ -248,7 +251,7 @@
       ];
       settings = {
         "trr.mode" = 5; # disable builtin dns-over-https
-        "layout.frame_rate" = 160;
+        "layout.frame_rate" = cfg.primaryOutput.fps;
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;
@@ -295,7 +298,7 @@
 
   services.mpd = {
     enable = true;
-    musicDirectory = "/home/gavin/mnt/music";
+    musicDirectory = "/home/gavin/mnt/music"; # CHG we need a music dir
     extraConfig = ''
       audio_output {
               type            "pulse"
@@ -356,7 +359,7 @@
       visualizer_in_stereo = "yes";
       visualizer_type = "spectrum";
       visualizer_look = "+|";
-      visualizer_fps = 160;
+      visualizer_fps = cfg.primaryOutput.fps;
       lyrics_fetchers =
         "musixmatch, genius, azlyrics, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet";
     };

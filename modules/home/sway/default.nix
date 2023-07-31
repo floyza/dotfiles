@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, osConfig, lib, pkgs, ... }:
 
-{
+let cfg = osConfig.my.customData;
+in {
   home.packages = with pkgs; [ wl-clipboard ];
 
   services.swayidle = {
@@ -31,9 +32,7 @@
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    config = let
-      output-primary = "DP-1";
-      modifier = config.wayland.windowManager.sway.config.modifier;
+    config = let modifier = config.wayland.windowManager.sway.config.modifier;
     in {
       bars = [{
         command = "${pkgs.waybar}/bin/waybar";
@@ -52,9 +51,9 @@
         "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
         "${modifier}+c" = "exec emacs --eval '(full-calc)'";
         "${modifier}+Shift+a" =
-          "exec ${pactl} set-default-sink alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
+          "exec ${pactl} set-default-sink ${cfg.primaryAudio}";
         "${modifier}+Shift+s" =
-          "exec ${pactl} set-default-sink alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
+          "exec ${pactl} set-default-sink ${cfg.secondaryAudio}";
         "${modifier}+Shift+r" = ''
           exec 'for id in $(pw-dump | ${jq} '"'"'.[] | select(.props."metadata.name" == "default") | .metadata | .[] | select (.key == "target.object") | .subject'"'"'); do pw-metadata -- $id target.node -1 ; pw-metadata -- $id target.object -1 ; done'
         '';
@@ -81,8 +80,8 @@
           bg = "${background} fill";
           adaptive_sync = "on";
         };
-        "${output-primary}" = {
-          mode = "3440x1440@160.000hz";
+        "${cfg.primaryOutput.id}" = {
+          mode = "${cfg.primaryOutput.mode}";
           # pos = "0 0";
           subpixel = "rgb";
         };

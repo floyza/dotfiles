@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
-
   boot.kernelPackages = pkgs.linuxPackages;
   boot.kernel.sysctl = { "kernel.sysrq" = "1"; };
 
@@ -27,25 +25,18 @@
     nameserver 127.0.0.1
   '';
   networking = {
-    hostName = "dreadnought";
     networkmanager.enable = true;
     enableIPv6 = false; # vpn might leak if true
 
     useDHCP = false;
-    interfaces.enp4s0.useDHCP = true;
     # automatically opened tcp ports: murmur, samba
-    # manually opened: samba-wsdd
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
-    firewall.allowedTCPPorts = [ 5357 41230 ];
+    firewall.allowedTCPPorts = [ 41230 ];
     # automatically opened udp ports: avahi
-    # manually opened: samba-wsdd, factorio, custom
-    firewall.allowedUDPPorts = [ 3702 34197 41230 ];
+    # manually opened: factorio, custom
+    firewall.allowedUDPPorts = [ 34197 41230 ];
     firewall.enable = true;
     firewall.allowPing = true;
-    # possibly required for our samba discovery (https://wiki.archlinux.org/index.php/Samba#.22Browsing.22_network_fails_with_.22Failed_to_retrieve_share_list_from_server.22)
-    firewall.extraCommands = ''
-      iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns
-    '';
 
     hosts = {
       "192.168.0.2" = [ "dadbox" ];
@@ -78,11 +69,6 @@
 
   services.chrony.enable = true;
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleRebootKey=ignore
-  '';
-
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ brlaser ];
 
@@ -90,7 +76,6 @@
     enable = true;
     openFirewall = true;
     nssmdns = true;
-    allowInterfaces = [ "enp4s0" ];
     publish = {
       enable = true;
       domain = false;
@@ -99,53 +84,6 @@
   };
 
   services.invidious.enable = false;
-
-  services.snapper.configs = {
-    home = {
-      SUBVOLUME = "/home/gavin";
-      ALLOW_USERS = [ "gavin" ];
-      TIMELINE_CREATE = true;
-      TIMELINE_CLEANUP = true;
-      TIMELINE_LIMIT_HOURLY = "5";
-      TIMELINE_LIMIT_DAILY = "7";
-      TIMELINE_LIMIT_WEEKLY = "0";
-      TIMELINE_LIMIT_MONTHLY = "0";
-      TIMELINE_LIMIT_YEARLY = "0";
-    };
-    personal = {
-      SUBVOLUME = "/home/gavin/my";
-      ALLOW_USERS = [ "gavin" ];
-      TIMELINE_CREATE = true;
-      TIMELINE_CLEANUP = true;
-      TIMELINE_LIMIT_HOURLY = "10";
-      TIMELINE_LIMIT_DAILY = "10";
-      TIMELINE_LIMIT_WEEKLY = "0";
-      TIMELINE_LIMIT_MONTHLY = "10";
-      TIMELINE_LIMIT_YEARLY = "1";
-    };
-    games = {
-      SUBVOLUME = "/home/gavin/games";
-      ALLOW_USERS = [ "gavin" ];
-      TIMELINE_CREATE = true;
-      TIMELINE_CLEANUP = true;
-      TIMELINE_LIMIT_HOURLY = "5";
-      TIMELINE_LIMIT_DAILY = "7";
-      TIMELINE_LIMIT_WEEKLY = "0";
-      TIMELINE_LIMIT_MONTHLY = "0";
-      TIMELINE_LIMIT_YEARLY = "0";
-    };
-    games-other = {
-      SUBVOLUME = "/home/gavin/games-other";
-      ALLOW_USERS = [ "gavin" ];
-      TIMELINE_CREATE = true;
-      TIMELINE_CLEANUP = true;
-      TIMELINE_LIMIT_HOURLY = "5";
-      TIMELINE_LIMIT_DAILY = "7";
-      TIMELINE_LIMIT_WEEKLY = "0";
-      TIMELINE_LIMIT_MONTHLY = "0";
-      TIMELINE_LIMIT_YEARLY = "0";
-    };
-  };
 
   services.murmur = {
     enable = true;
@@ -265,51 +203,11 @@
 
   services.fail2ban.enable = true; # for ssh
 
-  users.users.samba = {
-    isSystemUser = true;
-    group = "samba";
-  };
-  users.groups.samba = { };
-
-  services.samba = {
-    enable = true;
-    openFirewall = true;
-    securityType = "user";
-    enableNmbd = false; # we use wsdd instead
-    enableWinbindd = true; # need to look into more
-    extraConfig = ''
-      workgroup = WORKGROUP
-      protocol = SMB3
-      # server string = smbnix
-      # netbios name = smbnix # we aren't using nmbd so I think we don't need this
-      hosts allow = 192.168.0.0/24 10.42.0.0/24 127.0.0.1
-      hosts deny = 0.0.0.0/0
-      guest account = samba
-      map to guest = bad user
-    '';
-    shares = {
-      family = {
-        comment = "Public Share";
-        path = "/shares/Public";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-      };
-    };
-  };
-
-  services.samba-wsdd = {
-    enable = true;
-    interface = "enp4s0";
-  };
-
   security.polkit.enable = true;
 
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
 
