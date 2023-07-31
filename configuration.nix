@@ -203,13 +203,6 @@
     pruneNames = [ ".snapshots" ];
   };
 
-  services.openvpn.servers = {
-    tcp = {
-      config = "config /root/nix/openvpn/us8272.nordvpn.com.tcp.conf ";
-      autoStart = false; # my auth doesn't work right now
-    };
-  };
-
   environment.systemPackages = (with pkgs; [
     wget
     vim
