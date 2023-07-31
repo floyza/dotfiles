@@ -405,6 +405,8 @@
     ".config/gdb/gdbinit".text = ''
       set history save on
     '';
+    ".doom.d".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/src/dotfiles/doom.d"; # NOTE: based on location of repo
   };
 
   programs.home-manager.enable = true;
