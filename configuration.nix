@@ -33,7 +33,7 @@
 
     useDHCP = false;
     interfaces.enp4s0.useDHCP = true;
-    # automatically opened tcp ports: ssh, murmur, samba
+    # automatically opened tcp ports: murmur, samba
     # manually opened: samba-wsdd
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
     firewall.allowedTCPPorts = [ 5357 41230 ];
@@ -83,8 +83,13 @@
     HandleRebootKey=ignore
   '';
 
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ brlaser ];
+
   services.avahi = {
     enable = true;
+    openFirewall = true;
+    nssmdns = true;
     allowInterfaces = [ "enp4s0" ];
     publish = {
       enable = true;
@@ -259,6 +264,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.ports = [ 22 ];
+  services.openssh.openFirewall = false;
   services.openssh.settings = {
     PasswordAuthentication = false;
     GatewayPorts = "yes";

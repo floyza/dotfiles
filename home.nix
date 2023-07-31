@@ -11,6 +11,7 @@
     filezilla
     kiwix
 
+    gtypist
     pandoc
     golly
     qjackctl
