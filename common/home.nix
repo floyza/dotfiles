@@ -362,7 +362,7 @@ in {
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsUnstable;
+    package = pkgs.emacs-unstable;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
 
