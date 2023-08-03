@@ -1,4 +1,4 @@
-{ config, osConfig, pkgs, lib, secrets, ssbm, ... }:
+{ config, osConfig, pkgs, lib, secrets, ... }:
 
 let cfg = osConfig.my.customData;
 in {
@@ -94,7 +94,6 @@ in {
     nixfmt
     html-tidy
     ## resources
-    godot_4
     # aseprite-unfree
     ### games
     mudlet
@@ -107,15 +106,12 @@ in {
     #   username = "gdown";
     #   token = (import secrets).factorio-token;
     # })
-    yuzu-mainline
     steam
     steam-run-native
     runelite
     lutris
     mangohud
     dolphin-emu-beta
-    # slippi-netplay
-    ssbm.packages.x86_64-linux.slippi-netplay # why doesn't the overlay work?
     cataclysm-dda
     crawl
     angband
@@ -123,7 +119,6 @@ in {
     sil-q
     hyperrogue
     cockatrice
-    retroarchFull
     ### other
     libqalculate
     discord

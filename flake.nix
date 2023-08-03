@@ -58,9 +58,13 @@
             ./common/settings.nix
             ./modules/japanese
             ./modules/ssbm
-            ssbm.nixosModule
+            ssbm.nixosModule # this seems wrong to have outside of ./modules/ssbm
             ./common/configuration.nix
-            { home-manager.users.gavin = { imports = [ ./common/home.nix ]; }; }
+            {
+              home-manager.users.gavin = {
+                imports = [ ./common/home.nix ./systems/dreadnought/home.nix ];
+              };
+            }
 
             home-manager.nixosModules.home-manager
             {
