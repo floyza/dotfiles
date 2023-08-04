@@ -128,8 +128,6 @@
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID94ckwO1qnrewCT8QBou/8x+Wj7IUg9x+1/qn25IhVz gavin@Acer-Nitro-5" # acer laptop
-      # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDx/aVrNg3oc/+UEAOi2D2dbBXQCwQCaVtUBspyuD5O gavin.downard@runbox.com"
-      # "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/rby0TesyqNRmgZPxbFWBkJH81kaaF0mFavRfNPlAlBtYm1a2VuT7758fg8J2b/qr1OA976nPEBwn9j3uL5NmkH0RWlr+R88Ob5KO9pux6G9WRvgUixWFYupL/BioZpXGsQ5+6jDK10xz1iY5fUwrA0LtGqguv5gYLDDI5KPaSudNm6P3Rd0vfJnw700xywgR/nD7Fw6gFGbb0v/utq5TFH6wRin62BWtUaJ4vlEtLuk5I7BxFB2aREbfjci57Nj1/zHoE+4QZshhn41zuRyH3Va+yjjhBFWm48q4bykOoLUb/CQiAhnmtdWjamWPohpQWtX1c2fWAeYYepRRzpZ5pl2e430aKsivsAB/wwbvjRLOTtSpvWc41hFRUitqtPk7R4uSXd+/BPVu8JuPGt4SziNVeTcvTEqz52vV1fSv1dAb4z55bA+h0WI1aKtkvmMemfeRD/4Ljk/yADkjGflYo94NsnpVWmadBJtIKFVPpsy9sN/mVk+xP096ShqJRdk= mobian@mobian"
     ];
   };
 
