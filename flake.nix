@@ -45,15 +45,15 @@
             });
           })
         ];
-      in {
-        dreadnought = nixpkgs.lib.nixosSystem {
+      in builtins.mapAttrs (sys: _:
+        let sys-path = ./. + "/systems/${sys}";
+        in nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs =
             attrs; # pass each of out inputs to each module, eg. configuration.nix
           modules = [
-            # TODO autogenerate each system in ./systems/*
-            ./systems/dreadnought/configuration.nix
-            ./systems/dreadnought/hardware-configuration.nix
+            (sys-path + "/configuration.nix")
+            (sys-path + "/hardware-configuration.nix")
 
             ./common/settings.nix
             ./modules/japanese
@@ -62,7 +62,7 @@
             ./common/configuration.nix
             {
               home-manager.users.gavin = {
-                imports = [ ./common/home.nix ./systems/dreadnought/home.nix ];
+                imports = [ ./common/home.nix (sys-path + "/home.nix") ];
               };
             }
 
@@ -80,7 +80,6 @@
               };
             }
           ];
-        };
-      };
+        }) (builtins.readDir ./systems);
     };
 }

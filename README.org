@@ -2,13 +2,11 @@
 
 My [[https://nixos.org/][NixOS]] dotfiles.
 
-To use, just clone and run =nixos-rebuild --use-remote-sudo --flake '.#dreadnought' switch=.
+To use, just clone and run =sudo nixos-rebuild --flake '.#<system>' switch=, with =<system>= replaced with the desired system.
 
-Or, =nixos-rebuild --use-remote-sudo --flake 'github:floyza/dotfiles#dreadnought' switch= if you don't want to clone it. How cool.
+Or, =sudo nixos-rebuild --flake 'github:floyza/dotfiles#<system>' switch= if you don't want to clone it. How cool.
 
-The only thing here that isn't managed by nixos is my [[https://github.com/doomemacs/doomemacs][doom emacs]] configuration. I just have it manually symlinked to =~/.doom.d=.
+The structure of my dotfiles basically maintains the =configuration.nix=, =home.nix= and =hardware-configuration.nix= setup, only with added support for multiple systems.
+Common settings are stored in ./common, and each system is stored in ./systems, defined by the three =configuration.nix=, =home.nix= and =hardware-configuration.nix= files.
 
-I used nix-doom-emacs for a while but there were some pain points and it ultimately didn't provide to much in terms of benefits.
-
-The structure of my dotfiles is basically a normal =configuration.nix= and =home.nix= with flakes layered on top.
-I try to avoid unnessesary abstractions as well, so it should be pretty readable if you're just getting into flakes.
+Modules in ./modules are essentially just blocks of =configuration.nix= and =home.nix= split into separate files. They are not full nixos modules with an =enable= option to actually enable them. Because of this, to use/not use them you simply need to import/not import them into the system configuration.
