@@ -11,6 +11,7 @@
       mode = "3440x1440@160.000hz";
       fps = 160;
     };
+    musicDirectory = "/home/gavin/mnt/music";
   };
 
   networking.hostName = "dreadnought";

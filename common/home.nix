@@ -3,7 +3,6 @@
 let cfg = osConfig.my.customData;
 in {
   imports = [ ../modules/home/zsh ../modules/home/sway ];
-  # CHG (trim unnessesary stuff)
   home.packages = with pkgs; [
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
@@ -158,12 +157,11 @@ in {
     terminal = "xterm-256color";
   };
 
-  # CHG has home dir hardcoded, plus music dir might be different
   programs.beets = {
     enable = true;
     settings = {
-      directory = "/home/gavin/mnt/music";
-      library = "/home/gavin/mnt/music/library.db";
+      directory = config.services.mpd.musicDirectory;
+      library = "${config.services.mpd.musicDirectory}/library.db";
       plugins = "fetchart";
       fetchart.auto = true;
     };
@@ -293,7 +291,7 @@ in {
 
   services.mpd = {
     enable = true;
-    musicDirectory = "/home/gavin/mnt/music"; # CHG we need a music dir
+    musicDirectory = cfg.musicDirectory;
     extraConfig = ''
       audio_output {
               type            "pulse"

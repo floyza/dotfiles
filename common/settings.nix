@@ -29,5 +29,10 @@ with lib; {
       type = lib.types.int;
       description = "Primary display refresh rate.";
     };
+
+    musicDirectory = mkOption {
+      type = lib.types.str;
+      description = "Location of music directory.";
+    };
   };
 }
