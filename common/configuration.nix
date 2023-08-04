@@ -4,9 +4,6 @@
   boot.kernelPackages = pkgs.linuxPackages;
   boot.kernel.sysctl = { "kernel.sysrq" = "1"; };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;

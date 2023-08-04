@@ -14,6 +14,10 @@
     musicDirectory = "/home/gavin/mnt/music";
   };
 
+  # setup uefi
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   networking.hostName = "dreadnought";
   networking.interfaces.enp4s0.useDHCP = true;
 
