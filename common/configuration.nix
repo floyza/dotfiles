@@ -184,17 +184,6 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.ports = [ 22 ];
-  services.openssh.openFirewall = false;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    GatewayPorts = "yes";
-  };
-
-  services.fail2ban.enable = true; # for ssh
-
   security.polkit.enable = true;
 
   virtualisation.libvirtd.enable = true;
