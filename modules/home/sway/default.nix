@@ -38,6 +38,8 @@ in {
         command = "${pkgs.waybar}/bin/waybar";
         fonts = { };
       }];
+      window.titlebar = false;
+      floating.titlebar = false;
       keybindings = let
         pactl = "${pkgs.pulseaudio}/bin/pactl";
         slurp = "${pkgs.slurp}/bin/slurp";
