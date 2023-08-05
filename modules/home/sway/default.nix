@@ -20,13 +20,13 @@ in {
     #     background-color: rgba(40, 40, 40, .8);
     #   }
     # '';
-    #settings = [{
-    #  position = "bottom";
-    #  modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-    #  modules-center = [ "sway/window" ];
-    #  modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
-    #  modules.clock.format = "{:%H:%M}";
-    #}];
+    settings = {
+      position = "bottom";
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" ];
+      modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
+      modules.clock.format = "{:%H:%M}";
+    };
   };
 
   wayland.windowManager.sway = {

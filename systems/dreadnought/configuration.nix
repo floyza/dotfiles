@@ -26,6 +26,22 @@
     HandleRebootKey=ignore
   '';
 
+  users.users.gavin.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID94ckwO1qnrewCT8QBou/8x+Wj7IUg9x+1/qn25IhVz gavin@Acer-Nitro-5" # acer laptop
+  ];
+
+  services.openssh.enable = true;
+  services.openssh.ports = [ 22 ];
+  services.openssh.openFirewall = false;
+  services.openssh.settings = {
+    PasswordAuthentication = false;
+    GatewayPorts = "yes";
+  };
+
+  virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
+
+  services.fail2ban.enable = true; # for ssh
+
   services.snapper.configs = {
     home = {
       SUBVOLUME = "/home/gavin";
