@@ -10,3 +10,10 @@ The structure of my dotfiles basically maintains the =configuration.nix=, =home.
 Common settings are stored in ./common, and each system is stored in ./systems, defined by the three =configuration.nix=, =home.nix= and =hardware-configuration.nix= files.
 
 Modules in ./modules are essentially just blocks of =configuration.nix= and =home.nix= split into separate files. They are not full nixos modules with an =enable= option to actually enable them. Because of this, to use/not use them you simply need to import/not import them into the system configuration.
+
+* Extra installation instructions
+Ultimately, you can run =sudo nixos-install --flake '.#<system>'=, but there are some extra stuff to do beforehand.
+
+First, you have to partition stuff, including swap, and then generate =hardware-configuration.nix= and put it in the system dir.
+
+You also have to manually install doom emacs.
