@@ -339,4 +339,4 @@ if no argument passed. you may need to revise inserted s-expression."
   (interactive "MName of person: ")
   (doom-completing-read-org-headings "Task: " "~/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
 
-(load-file "~/.doom.d/project-specific/blog.el")
+(load-file "~/.config/doom/project-specific/blog.el")
