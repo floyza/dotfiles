@@ -119,4 +119,6 @@
   };
 
   services.samba-wsdd = { enable = true; };
+
+  system.stateVersion = "21.11";
 }

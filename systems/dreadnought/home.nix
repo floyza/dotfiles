@@ -12,4 +12,6 @@
     yuzu-mainline
     retroarchFull
   ];
+
+  home.stateVersion = "21.11";
 }

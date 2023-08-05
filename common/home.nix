@@ -3,146 +3,146 @@
 let cfg = osConfig.my.customData;
 in {
   imports = [ ../modules/home/zsh ../modules/home/sway ];
-  home.packages = with pkgs; [
-    (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
-
-    tcpdump
-    wireshark
-
-    filezilla
-    kiwix
-
-    gtypist
-    pandoc
-    golly
-    qjackctl
-    ntfs3g
-    fuse
-    file
-    ffmpeg
-    wineWowPackages.staging
-    winetricks
-    protontricks
-    libreoffice
-    tldr
-    libnotify
-    units
-    graphviz
-    nmap
-    whipper
-    imagemagick
-    yt-dlp
-    mpv
-    wl-mirror
-    jq
-    sdcv
-    easyeffects
-    # magic-wormhole
-    gnome.nautilus
-    anki
-
-    mpc_cli
-    killall
-    alsa-utils
-    gparted
-    pavucontrol
-    zip
-    gotop
-    nethogs
-
-    xdg-utils
-
-    krita
-    ### programming
-    gdb
-    ## java
-    openjdk17
-    ## rust
-    rustup
-    # cargo
-    # rustc
-    # rustfmt
-    # rust-analyzer
-    ## haskell
-    haskellPackages.stack
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
-    haskellPackages.cabal-install
-    haskellPackages.ghc
-    ## lisp
-    guile
-    sbcl
-    lispPackages.clwrapper
-    ## c++
-    ccls
-    # lua+fennel
-    lua
-    sumneko-lua-language-server
-    fennel
-    fnlfmt
-    ## web
-    nodePackages.eslint
-    nodejs
-    ## misc-lang
-    odin
-    zig
-    zls
-    ## formatting
-    nodePackages.prettier
-    shellcheck
-    nixfmt
-    html-tidy
-    ## resources
-    # aseprite-unfree
-    ### games
-    mudlet
-    libstrangle
-    prismlauncher
-    ivan
-    endless-sky
-    tome4
-    # (factorio.override {
-    #   username = "gdown";
-    #   token = (import secrets).factorio-token;
-    # })
-    steam
-    steam-run-native
-    runelite
-    lutris
-    mangohud
-    dolphin-emu-beta
-    cataclysm-dda
-    crawl
-    angband
-    nethack
-    sil-q
-    hyperrogue
-    cockatrice
-    ### other
-    libqalculate
-    discord
-    element-desktop
-    mumble
-    murmur
-    ## fonts
-    emacs-all-the-icons-fonts
-    jetbrains-mono
-    ### doom dependencies
-    gcc # need for emacsql-sqlite
-    gnumake
-    cmake
-    fd
-    ripgrep
-    gnutls
-    ## optional doom
-    zstd
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-    ## org-mode
-    sqlite
-    texlive.combined.scheme-full
-    texlab
-    (python3.withPackages (ps: with ps; [ sh python-lsp-server ]))
-  ];
+#  home.packages = with pkgs; [
+#    (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
+#
+#    tcpdump
+#    wireshark
+#
+#    filezilla
+#    kiwix
+#
+#    gtypist
+#    pandoc
+#    golly
+#    qjackctl
+#    ntfs3g
+#    fuse
+#    file
+#    ffmpeg
+#    wineWowPackages.staging
+#    winetricks
+#    protontricks
+#    libreoffice
+#    tldr
+#    libnotify
+#    units
+#    graphviz
+#    nmap
+#    whipper
+#    imagemagick
+#    yt-dlp
+#    mpv
+#    wl-mirror
+#    jq
+#    sdcv
+#    easyeffects
+#    # magic-wormhole
+#    gnome.nautilus
+#    anki
+#
+#    mpc_cli
+#    killall
+#    alsa-utils
+#    gparted
+#    pavucontrol
+#    zip
+#    gotop
+#    nethogs
+#
+#    xdg-utils
+#
+#    krita
+#    ### programming
+#    gdb
+#    ## java
+#    openjdk17
+#    ## rust
+#    rustup
+#    # cargo
+#    # rustc
+#    # rustfmt
+#    # rust-analyzer
+#    ## haskell
+#    haskellPackages.stack
+#    haskellPackages.haskell-language-server
+#    haskellPackages.hoogle
+#    haskellPackages.cabal-install
+#    haskellPackages.ghc
+#    ## lisp
+#    guile
+#    sbcl
+#    lispPackages.clwrapper
+#    ## c++
+#    ccls
+#    # lua+fennel
+#    lua
+#    sumneko-lua-language-server
+#    fennel
+#    fnlfmt
+#    ## web
+#    nodePackages.eslint
+#    nodejs
+#    ## misc-lang
+#    odin
+#    zig
+#    zls
+#    ## formatting
+#    nodePackages.prettier
+#    shellcheck
+#    nixfmt
+#    html-tidy
+#    ## resources
+#    # aseprite-unfree
+#    ### games
+#    mudlet
+#    libstrangle
+#    prismlauncher
+#    ivan
+#    endless-sky
+#    tome4
+#    # (factorio.override {
+#    #   username = "gdown";
+#    #   token = (import secrets).factorio-token;
+#    # })
+#    steam
+#    steam-run-native
+#    runelite
+#    lutris
+#    mangohud
+#    dolphin-emu-beta
+#    cataclysm-dda
+#    crawl
+#    angband
+#    nethack
+#    sil-q
+#    hyperrogue
+#    cockatrice
+#    ### other
+#    libqalculate
+#    discord
+#    element-desktop
+#    mumble
+#    murmur
+#    ## fonts
+#    emacs-all-the-icons-fonts
+#    jetbrains-mono
+#    ### doom dependencies
+#    gcc # need for emacsql-sqlite
+#    gnumake
+#    cmake
+#    fd
+#    ripgrep
+#    gnutls
+#    ## optional doom
+#    zstd
+#    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+#    ## org-mode
+#    sqlite
+#    texlive.combined.scheme-full
+#    texlab
+#    (python3.withPackages (ps: with ps; [ sh python-lsp-server ]))
+#  ];
 
   programs.man.generateCaches = true;
 
@@ -409,6 +409,4 @@ in {
 
   home.username = "gavin";
   home.homeDirectory = "/home/gavin";
-
-  home.stateVersion = "21.11";
 }
