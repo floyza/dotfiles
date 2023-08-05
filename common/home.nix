@@ -375,7 +375,7 @@ in {
   };
 
   home.sessionVariables = {
-    EDITOR = "emacs -nw";
+    EDITOR = "vim";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
       "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";

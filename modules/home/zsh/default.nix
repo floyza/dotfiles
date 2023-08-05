@@ -21,7 +21,7 @@
       }
     ]);
     initExtra = ''
-      export EDITOR=emacs # a workaround for broken home.sessionVariables
+      export EDITOR=vim # a workaround for broken home.sessionVariables
       if [[ "$INSIDE_EMACS" = 'vterm' ]] \
          && [[ -n "$EMACS_VTERM_PATH" ]] \
             && [[ -f "$EMACS_VTERM_PATH"/etc/emacs-vterm-zsh.sh ]]; then
