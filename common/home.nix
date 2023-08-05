@@ -12,6 +12,7 @@ in {
     filezilla
     kiwix
 
+    samba # smbclient
     gtypist
     pandoc
     golly
