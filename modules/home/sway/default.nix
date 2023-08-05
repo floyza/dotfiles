@@ -101,6 +101,8 @@ in {
       ];
       terminal = "foot";
       modifier = "Mod4"; # super
+
+      gaps.inner = 5;
     };
   };
 }
