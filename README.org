@@ -16,4 +16,4 @@ Ultimately, you can run =sudo nixos-install --flake '.#<system>'=, but there are
 
 First, you have to partition stuff, including swap, and then generate =hardware-configuration.nix= and put it in the system dir.
 
-You also have to manually install doom emacs.
+You also have to manually install doom emacs. -> =git clone --depth 1 'https://github.com/doomemacs/doomemacs' ~/.config/emacs=
