@@ -49,10 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;;(setq nand2tetris-core-base-dir "/home/gavin/Documents/nand2tetris")
-;;(package! nand2tetris
-;;  :recipe (:host github :repo "FirstLoveLife/nand2tetris.el"))
-
 ;;(package! run-command)
 
 ;;;

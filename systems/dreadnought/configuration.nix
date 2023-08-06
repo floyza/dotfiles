@@ -55,7 +55,7 @@
       TIMELINE_LIMIT_YEARLY = "0";
     };
     personal = {
-      SUBVOLUME = "/home/gavin/my";
+      SUBVOLUME = "/home/gavin/docs";
       ALLOW_USERS = [ "gavin" ];
       TIMELINE_CREATE = true;
       TIMELINE_CLEANUP = true;

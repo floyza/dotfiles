@@ -65,7 +65,7 @@ in {
         "${modifier}+e" = "exec emacs";
         "${modifier}+p" = "exec mpc toggle";
         "${modifier}+i" =
-          "exec ${grim} -t png ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";
+          "exec ${grim} -t png /home/gavin/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png";
         "${modifier}+Shift+i" = ''
           exec ${grim} -t png -g "$(${slurp})" ~/docs/screenshots/$(${date} +%Y-%m-%d_%H-%m-%s).png'';
         "${modifier}+m" = "mode passthrough";

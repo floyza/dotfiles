@@ -80,7 +80,7 @@
       (path-separator . ":")
       (null-device . "/dev/null"))))
  '(org-agenda-files
-   '("~/my/org/birthdays.org" "/home/gavin/my/org/inbox.org" "/home/gavin/my/org/plan.org" "/home/gavin/my/org/someday.org" "/home/gavin/my/org/tickler.org"))
+   '("/home/gavin/docs/my/org/birthdays.org" "/home/gavin/docs/my/org/inbox.org" "/home/gavin/docs/my/org/plan.org" "/home/gavin/docs/my/org/someday.org" "/home/gavin/docs/my/org/tickler.org"))
  '(safe-local-variable-values
    '((indent-tabs-mode 1)
      (g/rustic-cargo-3ds . t)
@@ -101,7 +101,7 @@
                  (not
                   (string= major-mode "jack-mode")))
           (progn
-            (load "/home/gavin/my/courses/nand2tetris/editor/jack-mode.el")
+            (load "/home/gavin/docs/my/courses/nand2tetris/editor/jack-mode.el")
             (jack-mode)))))
      (eval
       (lambda nil
@@ -111,7 +111,7 @@
              (not
               (string= major-mode "jack-mode")))
           (progn
-            (load "/home/gavin/my/courses/nand2tetris/editor/jack-mode.el")
+            (load "/home/gavin/docs/my/courses/nand2tetris/editor/jack-mode.el")
             (jack-mode)))))
      (eval
       (lambda nil

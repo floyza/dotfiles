@@ -98,7 +98,7 @@
 
 ;;; org-mode configuration
 
-(setq org-directory "~/my/org/")
+(setq org-directory "/home/gavin/docs/my/org/")
 (defun evil-org-edit-src-exit ()
   "Call `org-edit-src-exit'."
   (interactive)
@@ -337,6 +337,6 @@ if no argument passed. you may need to revise inserted s-expression."
 (defun update-turns (name)
   "Update the turns org file."
   (interactive "MName of person: ")
-  (doom-completing-read-org-headings "Task: " "~/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
+  (doom-completing-read-org-headings "Task: " "/home/gavin/docs/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
 
 (load-file "~/.config/doom/project-specific/blog.el")
