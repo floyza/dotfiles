@@ -28,11 +28,12 @@
 
   users.users.gavin.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID94ckwO1qnrewCT8QBou/8x+Wj7IUg9x+1/qn25IhVz gavin@Acer-Nitro-5" # acer laptop
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPkz94VB3wSbpCOIvaQ1f9ElZtmkfwQUK2dLdNJ33REa gavin.downard@runbox.com" # hp 655 laptop
   ];
 
   services.openssh.enable = true;
   services.openssh.ports = [ 22 ];
-  services.openssh.openFirewall = false;
+  services.openssh.openFirewall = true;
   services.openssh.settings = {
     PasswordAuthentication = false;
     GatewayPorts = "yes";
