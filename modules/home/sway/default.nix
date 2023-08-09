@@ -21,11 +21,27 @@ in {
     #   }
     # '';
     settings = [{
-      position = "bottom";
+      position = "top";
       modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
       modules-center = [ "sway/window" ];
       modules-right = [ "cpu" "memory" "clock" "pulseaudio" "mpd" ];
-      clock.format = "{:%H:%M}";
+      clock = {
+        format = "{:%A, %B %d, %Y - %R}";
+        tooltip-format = "<tt>{calendar}</tt>";
+        calendar = {
+          format = {
+            months = "<span color='#ffead3'><b>{}</b></span>";
+            days = "<span color='#ecc6d9'><b>{}</b></span>";
+            weeks = "<span color='#99ffdd'><b>W{}</b></span>";
+            weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+            today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+          };
+        };
+      };
+      "wlr/taskbar" = {
+        on-click = "activate";
+        on-click-right = "close";
+      };
     }];
   };
 

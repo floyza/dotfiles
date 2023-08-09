@@ -64,7 +64,7 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 11.0 :weight 'normal))
-(setq doom-theme 'leuven)
+(setq doom-theme 'doom-gruvbox)
 (setq display-line-numbers-type t)
 
 (setq next-error-message-highlight t
