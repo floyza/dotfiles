@@ -120,7 +120,6 @@ in {
     cockatrice
     ### other
     libqalculate
-    discord
     element-desktop
     mumble
     murmur
@@ -143,6 +142,11 @@ in {
     texlab
     (python3.withPackages (ps: with ps; [ sh python-lsp-server ]))
   ];
+
+  programs.discocss = {
+    enable = true;
+    css = builtins.readFile ./gruvbox-desktop.css;
+  };
 
   programs.man.generateCaches = true;
 

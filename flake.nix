@@ -11,13 +11,16 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     ssbm.url = "github:jumper149/ssbm-nix/mbedtls2";
 
+    discocss.url = "github:floyza/discocss/discord-bugfix";
+    discocss.flake = false;
+
     # My secrets are currently stored plaintext in my nix store, but I at least don't want to commit them to git
     # so I split them off here
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
   outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master, emacs-overlay
-    , ssbm, secrets, ... }@attrs: {
+    , discocss, ssbm, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
         master = (import nixpkgs-master {
@@ -36,6 +39,10 @@
                 rev = "9f44edf0b1d74da7cefbd498341d59bc52f6043f";
                 sha256 = "sha256-PjCzo3OSj/QIi2fdeV28ZjPiqLf6XAnZeNrDyjXt5wU=";
               };
+            });
+            discocss = super.discocss.overrideAttrs (oldAttrs: {
+              version = "my-fork";
+              src = discocss;
             });
           })
         ];

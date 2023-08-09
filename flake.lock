@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "discocss": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691552164,
+        "narHash": "sha256-IPJP/HGB/m4zE0fX2Dxk1gEjKmP+hPA8oKGEInxMLKg=",
+        "owner": "floyza",
+        "repo": "discocss",
+        "rev": "85ca0c377884ea568d39cf38178a699f05fa268f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "floyza",
+        "ref": "discord-bugfix",
+        "repo": "discocss",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -191,6 +208,7 @@
     },
     "root": {
       "inputs": {
+        "discocss": "discocss",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
