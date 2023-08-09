@@ -398,10 +398,12 @@ in {
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
     '';
-    ".config/gdb/gdbinit".text = ''
+  };
+  xdg.configFile = {
+    "gdb/gdbinit".text = ''
       set history save on
     '';
-    ".config/doom".source = config.lib.file.mkOutOfStoreSymlink
+    doom.source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/src/dotfiles/doom"; # NOTE: based on location of repo
   };
 
