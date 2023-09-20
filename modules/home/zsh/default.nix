@@ -40,10 +40,10 @@
               nix shell --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
       }
       ni () {
-              nix flake init -t my#"$1"
+              nix flake init -t "my#$1"
       }
       nn () {
-              nix flake new $1 -t my#"$1"
+              nix flake new $1 -t "my#$1"
       }
       nbp () {
               nix build --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
