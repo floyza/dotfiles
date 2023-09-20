@@ -175,7 +175,7 @@ in {
   programs.mu.enable = true;
   accounts.email.maildirBasePath = ".mail";
   accounts.email.accounts.runbox = {
-    address = "gavin.downard@runbox.com";
+    address = "me@floyza.com";
     userName = "gavin.downard@runbox.com";
     flavor = "runbox.com";
     gpg.key = "223072757DD22529B1DD7039FD434054864A749B";
@@ -283,7 +283,7 @@ in {
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    userEmail = "gavin.downard@runbox.com";
+    userEmail = "me@floyza.com";
     userName = "Gavin Downard";
     extraConfig = {
       github.user = "floyza";

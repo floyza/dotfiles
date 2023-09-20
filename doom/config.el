@@ -11,7 +11,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Gavin Downard"
-      user-mail-address "gavin.downard@runbox.com")
+      user-mail-address "me@floyza.com")
 
 (setq auth-sources '())
 (auth-source-pass-enable)
@@ -19,7 +19,7 @@
 
 (after! mu4e
   (setq send-mail-function    'smtpmail-send-it
-        smtpmail-smtp-user user-mail-address
+        smtpmail-smtp-user "gavin.downard@runbox.com"
         smtpmail-smtp-server  "mail.runbox.com"
         smtpmail-stream-type  'starttls
         smtpmail-servers-requiring-authorization ".*" ; Ordinarily it attempts to connect without credentials before using credentials, but that breaks the whole thing, at least with runbox.
