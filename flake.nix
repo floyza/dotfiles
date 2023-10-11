@@ -3,13 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    ssbm.url = "github:jumper149/ssbm-nix/mbedtls2";
+    # ssbm.url = "github:jumper149/ssbm-nix/mbedtls2";
+    # ssbm.url = "github:djanatyn/ssbm-nix";
+    ssbm.url = "/home/gavin/src/ssbm-nix";
 
     discocss.url = "github:floyza/discocss/discord-bugfix";
     discocss.flake = false;
@@ -19,16 +21,17 @@
     secrets.url = "/home/gavin/src/dotfiles/secrets";
     secrets.flake = false;
   };
-  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-master, emacs-overlay
+  outputs = { self, home-manager, nur, nixpkgs, nixpkgs-unstable, emacs-overlay
     , discocss, ssbm, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
-        master = (import nixpkgs-master {
+        unstable = (import nixpkgs-unstable {
           inherit system;
           config.allowUnfree = true;
         });
         update-overlays = [
           (self: super: {
+            tome4 = unstable.tome4;
             ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
               version = "master-thing";
               nativeBuildInputs = oldAttrs.nativeBuildInputs
@@ -63,7 +66,11 @@
             ./common/configuration.nix
             {
               home-manager.users.gavin = {
-                imports = [ ./common/home.nix (sys-path + "/home.nix") ];
+                imports = [
+                  ./common/home.nix
+                  (sys-path + "/home.nix")
+                  ssbm.homeManagerModule # should be in ./modules/ssbm
+                ];
               };
             }
 

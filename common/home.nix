@@ -140,7 +140,7 @@ in {
     sqlite
     texlive.combined.scheme-full
     texlab
-    (python3.withPackages (ps: with ps; [ sh python-lsp-server ]))
+    (python3.withPackages (ps: with ps; [ sh python-lsp-server pandas ]))
   ];
 
   programs.discocss = {
