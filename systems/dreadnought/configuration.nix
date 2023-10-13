@@ -93,46 +93,5 @@
     };
   };
 
-  networking = {
-    firewall.allowedTCPPorts = [ 5357 ]; # samba-wsdd
-    firewall.allowedUDPPorts = [ 3702 ]; # samba-wsdd
-  };
-
-  users.users.samba = {
-    isSystemUser = true;
-    group = "samba";
-  };
-  users.groups.samba = { };
-
-  services.samba = {
-    enable = true;
-    openFirewall = true;
-    securityType = "user";
-    enableNmbd = false; # we use wsdd instead
-    extraConfig = ''
-      workgroup = WORKGROUP
-      protocol = SMB3
-      # server string = smbnix
-      # netbios name = smbnix # we aren't using nmbd so I think we don't need this
-      hosts allow = 192.168.0.0/24 10.42.0.0/24 127.0.0.1
-      hosts deny = 0.0.0.0/0
-      guest account = samba
-      map to guest = bad user
-    '';
-    shares = {
-      family = {
-        comment = "Public Share";
-        path = "/shares/Public";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-      };
-    };
-  };
-
-  services.samba-wsdd = { enable = true; };
-
   system.stateVersion = "21.11";
 }
