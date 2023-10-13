@@ -26,7 +26,7 @@
     enableIPv6 = false; # vpn might leak if true
 
     useDHCP = false;
-    # automatically opened tcp ports: murmur, samba
+    # automatically opened tcp ports: murmur
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
     firewall.allowedTCPPorts = [ 41230 ];
     # automatically opened udp ports: avahi
