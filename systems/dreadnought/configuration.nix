@@ -16,10 +16,13 @@
 
   # setup uefi
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.editor = false;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "dreadnought";
   networking.interfaces.enp4s0.useDHCP = true;
+
+  services.fstrim.enable = true;
 
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
