@@ -96,11 +96,6 @@
   networking = {
     firewall.allowedTCPPorts = [ 5357 ]; # samba-wsdd
     firewall.allowedUDPPorts = [ 3702 ]; # samba-wsdd
-
-    # possibly required for our samba discovery (https://wiki.archlinux.org/index.php/Samba#.22Browsing.22_network_fails_with_.22Failed_to_retrieve_share_list_from_server.22)
-    firewall.extraCommands = ''
-      iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns
-    '';
   };
 
   users.users.samba = {
@@ -114,7 +109,6 @@
     openFirewall = true;
     securityType = "user";
     enableNmbd = false; # we use wsdd instead
-    enableWinbindd = true; # need to look into more
     extraConfig = ''
       workgroup = WORKGROUP
       protocol = SMB3
