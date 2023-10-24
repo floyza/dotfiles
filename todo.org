@@ -1,0 +1,6 @@
+* Inbox
+** TODO check firewall ports
+** TODO remove duplicated "/home/gavin" in home.nix
+** TODO make some options in ./common/settings.nix optional
+For example, =beets= and =mpd= can be disabled if =my.customData.musicDirectory= isn't set.
+** TODO modularize uefi and bios settings
