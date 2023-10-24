@@ -89,7 +89,7 @@ in {
       modes = { passthrough = { "${modifier}+m" = "mode default"; }; };
       input."*" = {
         accel_profile = "flat";
-        pointer_accel = "0.5";
+        pointer_accel = "-0.3";
         xkb_layout = "us";
       };
       output = let background = ./wallpaper.png;

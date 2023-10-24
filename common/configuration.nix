@@ -35,6 +35,8 @@
     firewall.enable = true;
     firewall.allowPing = true;
 
+    nftables.enable = true;
+
     hosts = {
       "192.168.0.2" = [ "dadbox" ];
       "192.168.0.3" = [ "remotehost" ];
@@ -64,8 +66,6 @@
     };
   };
 
-  services.chrony.enable = true;
-
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ brlaser ];
 
@@ -80,7 +80,7 @@
     };
   };
 
-  services.invidious.enable = false;
+  services.invidious.enable = true;
 
   services.murmur = {
     enable = true;
