@@ -39,22 +39,6 @@
         "type": "github"
       }
     },
-    "flake-compat": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -94,42 +78,6 @@
         "type": "github"
       }
     },
-    "lowdown-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1633514407,
-        "narHash": "sha256-Dw32tiMjdK9t3ETl5fzGrutQTzh2rufgZV4A/BbxuD4=",
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "rev": "d2c2b44ff6c27b936ec27358a2653caaef8f73b8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "type": "github"
-      }
-    },
-    "nix": {
-      "inputs": {
-        "flake-compat": "flake-compat",
-        "lowdown-src": "lowdown-src",
-        "nixpkgs": "nixpkgs_2",
-        "nixpkgs-regression": "nixpkgs-regression"
-      },
-      "locked": {
-        "lastModified": 1696671022,
-        "narHash": "sha256-Qs9hVi4sKOsvV3YjKJK16hF/XF4PZ8l7XzAipjyWMPU=",
-        "owner": "NixOS",
-        "repo": "nix",
-        "rev": "c29b8ba142a0650d1182ca838ddc1b2d273dcd2a",
-        "type": "github"
-      },
-      "original": {
-        "id": "nix",
-        "type": "indirect"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1697777081,
@@ -143,22 +91,6 @@
         "owner": "nixos",
         "ref": "nixos-23.05",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-regression": {
-      "locked": {
-        "lastModified": 1643052045,
-        "narHash": "sha256-uGJ0VXIhWKGXxkeNnq4TvV3CIOkUJ3PAoLZ3HMzNVMw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
         "type": "github"
       }
     },
@@ -194,38 +126,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1695283060,
-        "narHash": "sha256-CJz71xhCLlRkdFUSQEL0pIAAfcnWFXMzd9vXhPrnrEg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "31ed632c692e6a36cfc18083b88ece892f863ed4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.05-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1696604326,
-        "narHash": "sha256-YXUNI0kLEcI5g8lqGMb0nh67fY9f2YoJsILafh6zlMo=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "87828a0e03d1418e848d3dd3f3014a632e4a4f64",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "locked": {
         "lastModified": 1697985690,
@@ -249,8 +149,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "secrets": "secrets",
-        "ssbm": "ssbm"
+        "secrets": "secrets"
       }
     },
     "secrets": {
@@ -264,39 +163,6 @@
       "original": {
         "path": "/home/gavin/src/dotfiles/secrets",
         "type": "path"
-      }
-    },
-    "slippi-desktop": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696044044,
-        "narHash": "sha256-LdQHjYIQ/5FyTBq1hY2pFB8zrUF4Z26JvwTAXT0GH9w=",
-        "owner": "project-slippi",
-        "repo": "slippi-desktop-app",
-        "rev": "f3d4cc0993af6bde9b0809079871fa7b4fdc7fcd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "project-slippi",
-        "repo": "slippi-desktop-app",
-        "type": "github"
-      }
-    },
-    "ssbm": {
-      "inputs": {
-        "nix": "nix",
-        "nixpkgs": "nixpkgs_3",
-        "slippi-desktop": "slippi-desktop"
-      },
-      "locked": {
-        "lastModified": 1696638790,
-        "narHash": "sha256-chuHKwpI454L9lJRP6Xek2AZctjC4oVUEO3sfEfoSVw=",
-        "type": "git",
-        "url": "file:///home/gavin/src/ssbm-nix"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/gavin/src/ssbm-nix"
       }
     },
     "systems": {

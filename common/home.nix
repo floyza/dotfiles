@@ -7,7 +7,6 @@ in {
     (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
 
     tcpdump
-    wireshark
 
     filezilla
     kiwix
@@ -70,12 +69,16 @@ in {
     haskellPackages.hoogle
     haskellPackages.cabal-install
     haskellPackages.ghc
+    ## raku
+    rakudo
+    zef
+    readline70
     ## lisp
     guile
     sbcl
     lispPackages.clwrapper
     ## c++
-    ccls
+    clang-tools
     # lua+fennel
     lua
     sumneko-lua-language-server
@@ -122,7 +125,6 @@ in {
     libqalculate
     element-desktop
     mumble
-    murmur
     ## fonts
     emacs-all-the-icons-fonts
     jetbrains-mono

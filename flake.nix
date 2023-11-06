@@ -11,7 +11,6 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     # ssbm.url = "github:jumper149/ssbm-nix/mbedtls2";
     # ssbm.url = "github:djanatyn/ssbm-nix";
-    ssbm.url = "/home/gavin/src/ssbm-nix";
 
     discocss.url = "github:floyza/discocss/discord-bugfix";
     discocss.flake = false;
@@ -22,7 +21,7 @@
     secrets.flake = false;
   };
   outputs = { self, home-manager, nur, nixpkgs, nixpkgs-unstable, emacs-overlay
-    , discocss, ssbm, secrets, ... }@attrs: {
+    , discocss, secrets, ... }@attrs: {
       nixosConfigurations = let
         system = "x86_64-linux";
         unstable = (import nixpkgs-unstable {
@@ -59,18 +58,12 @@
             (sys-path + "/configuration.nix")
             (sys-path + "/hardware-configuration.nix")
 
-            ./modules/ssbm
-            ssbm.nixosModule # this seems wrong to have outside of ./modules/ssbm
             ./common/settings.nix
             ./modules/japanese
             ./common/configuration.nix
             {
               home-manager.users.gavin = {
-                imports = [
-                  ./common/home.nix
-                  (sys-path + "/home.nix")
-                  ssbm.homeManagerModule # should be in ./modules/ssbm
-                ];
+                imports = [ ./common/home.nix (sys-path + "/home.nix") ];
               };
             }
 

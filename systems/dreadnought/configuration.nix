@@ -47,8 +47,6 @@
     GatewayPorts = "yes";
   };
 
-  virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
-
   services.fail2ban.enable = true; # for ssh
 
   services.snapper.configs = {
@@ -76,17 +74,6 @@
     };
     games = {
       SUBVOLUME = "/home/gavin/games";
-      ALLOW_USERS = [ "gavin" ];
-      TIMELINE_CREATE = true;
-      TIMELINE_CLEANUP = true;
-      TIMELINE_LIMIT_HOURLY = "5";
-      TIMELINE_LIMIT_DAILY = "7";
-      TIMELINE_LIMIT_WEEKLY = "0";
-      TIMELINE_LIMIT_MONTHLY = "0";
-      TIMELINE_LIMIT_YEARLY = "0";
-    };
-    games-other = {
-      SUBVOLUME = "/home/gavin/games-other";
       ALLOW_USERS = [ "gavin" ];
       TIMELINE_CREATE = true;
       TIMELINE_CLEANUP = true;

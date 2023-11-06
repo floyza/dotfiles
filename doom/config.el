@@ -128,8 +128,8 @@
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
           ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))))
 
-(assq-delete-all ?* +ligatures-composition-alist)
-(mapc (lambda (p) (cl-remf +ligatures-extra-symbols p)) '(:true :false :bool :list :pipe))
+;; remove missing symbols
+(mapc (lambda (p) (cl-remf +ligatures-extra-symbols p)) '(:pipe))
 
 (set-ligatures! 'haskell-mode
   :lambda "\\")
@@ -144,26 +144,20 @@
       :desc "Find today"             "r d T" #'org-roam-dailies-find-today
       :desc "Find yesterday"         "r d Y" #'org-roam-dailies-find-yesterday)
 
-
-(after! format
-  (setq +format-on-save-enabled-modes (append +format-on-save-enabled-modes '(haskell-mode))))
-
-(defvar lsp-file-watch-ignored-directories-additional nil
-  "Additional ignored directories added to lsp-file-watch-ignored-directories.")
-(put 'lsp-file-watch-ignored-directories-additional 'safe-local-variable #'listp)
-(after! lsp-mode
-  (add-function :around (symbol-function 'lsp-file-watch-ignored-directories)
-                (lambda (orig)
-                  (append lsp-file-watch-ignored-directories-additional (funcall orig)))))
-
 (after! lsp-ui
   (setq! lsp-ui-sideline-show-code-actions t
          lsp-ui-doc-show-with-cursor t
          lsp-ui-doc-delay 0.2))
 
-(after! ccls
-  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
-  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("-j=3"
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+          "--header-insertion=never"
+          "--header-insertion-decorators=0"))
+  (set-lsp-priority! 'clangd 2))
 
 (after! scheme
   (setq geiser-repl-skip-version-check-p t))
@@ -180,6 +174,9 @@
   (map! :localleader
         :map haskell-mode-map
         "l" #'haskell-hoogle-lookup))
+
+(after! raku-mode
+  (advice-add #'run-raku :filter-return (lambda (win) (window-buffer win))))
 
 (after! rust-mode
   (defvar g/rustic-cargo-3ds nil
@@ -214,10 +211,10 @@ The documentation is built if necessary."
 
 (after! fennel-mode
   (define-format-all-formatter fnlfmt
-    (:executable "fnlfmt")
-    (:install "nix profile install 'nixpkgs#fnlfmt'")
-    (:modes fennel-mode)
-    (:format (format-all--buffer-easy executable "-"))))
+                               (:executable "fnlfmt")
+                               (:install "nix profile install 'nixpkgs#fnlfmt'")
+                               (:modes fennel-mode)
+                               (:format (format-all--buffer-easy executable "-"))))
 
 (add-hook! lisp-mode
   (setq! inferior-lisp-program "common-lisp.sh"))
@@ -320,19 +317,19 @@ if no argument passed. you may need to revise inserted s-expression."
     (use-local-map newmap)))
 
 (defun update-turns--modify (name file location)
-    (save-window-excursion
-      (find-file file)
-      (goto-char location)
-      (org-end-of-subtree)
-      (org-insert-item)
-      (condition-case err
-          (org-time-stamp-inactive)
-        (quit
-         (delete-region (line-beginning-position) (1+ (line-end-position))))
-        (:success
-         (end-of-line)
-         (insert name)))
-      (save-buffer)))
+  (save-window-excursion
+    (find-file file)
+    (goto-char location)
+    (org-end-of-subtree)
+    (org-insert-item)
+    (condition-case err
+        (org-time-stamp-inactive)
+      (quit
+       (delete-region (line-beginning-position) (1+ (line-end-position))))
+      (:success
+       (end-of-line)
+       (insert name)))
+    (save-buffer)))
 
 (defun update-turns (name)
   "Update the turns org file."
