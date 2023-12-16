@@ -40,7 +40,7 @@
     };
 
     "/home/gavin/games" = {
-      device = "/dev/disk/by-uuid/9db75b93-b1f5-4f8b-a686-aa1833b4bede";
+      device = "/dev/disk/by-uuid/990bb5ab-802f-466c-b88f-8c5f6bb4fcc5";
       fsType = "btrfs";
       options = [ "subvol=games" "compress=zstd" "noatime" ];
     };

@@ -21,6 +21,7 @@
 
   networking.hostName = "dreadnought";
   networking.interfaces.enp4s0.useDHCP = true;
+  networking.nftables.enable = lib.mkForce false;
 
   # remove long delay on startup caused by waiting for availability of ip address
   networking.dhcpcd.extraConfig = ''

@@ -72,7 +72,6 @@ in {
     ## raku
     rakudo
     zef
-    readline70
     ## lisp
     guile
     sbcl
@@ -382,6 +381,7 @@ in {
   };
 
   home.sessionVariables = {
+    GTK_IM_MODULE = "xim"; # lets XCompose work
     EDITOR = "vim";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH =
@@ -404,6 +404,10 @@ in {
     ".sbclrc".text = ''
       (require 'asdf)
       (push '*default-pathname-defaults* asdf:*central-registry*)
+    '';
+    ".XCompose".text = ''
+      include "%L"
+      <Multi_key> <s> <h> <r> <u> <g> : "¯\\_(ツ)_/¯"
     '';
   };
   xdg.configFile = {

@@ -79,6 +79,7 @@
      (tramp-connection-local-default-system-profile
       (path-separator . ":")
       (null-device . "/dev/null"))))
+ '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(org-agenda-files
    '("/home/gavin/docs/my/org/birthdays.org" "/home/gavin/docs/my/org/inbox.org" "/home/gavin/docs/my/org/plan.org" "/home/gavin/docs/my/org/someday.org" "/home/gavin/docs/my/org/tickler.org"))
  '(safe-local-variable-values

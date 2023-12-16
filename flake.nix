@@ -30,6 +30,22 @@
         });
         update-overlays = [
           (self: super: {
+            zef = self.symlinkJoin {
+              name = "zef-wrapped";
+              paths = [ super.zef ];
+              nativeBuildInputs = [ self.makeWrapper ];
+              postBuild = ''
+                wrapProgram $out/bin/zef --set LD_LIBRARY_PATH ${self.readline70}/lib
+              '';
+            };
+            rakudo = self.symlinkJoin {
+              name = "rakudo-wrapped";
+              paths = [ super.rakudo ];
+              nativeBuildInputs = [ self.makeWrapper ];
+              postBuild = ''
+                wrapProgram $out/bin/rakudo --set LD_LIBRARY_PATH ${self.readline70}/lib
+              '';
+            };
             tome4 = unstable.tome4;
             ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
               version = "master-thing";

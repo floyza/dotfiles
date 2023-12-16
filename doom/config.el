@@ -32,7 +32,7 @@
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
-      :channels ("#emacs" "#haskell" "#nixos" "#crawl" "#magicjudges-rules") ; #osdev
+      :channels ("#emacs" "#haskell" "#nixos" "#crawl" "#magicjudges-rules" "#raku") ; #osdev
       :nick "gdown"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
@@ -176,6 +176,9 @@
         "l" #'haskell-hoogle-lookup))
 
 (after! raku-mode
+  (setq! raku-indent-offset tab-width)
+  (add-hook 'raku-mode-hook (lambda () (set-input-method "TeX")))
+  (add-hook 'raku-repl-mode-hook (lambda () (set-input-method "TeX")))
   (advice-add #'run-raku :filter-return (lambda (win) (window-buffer win))))
 
 (after! rust-mode

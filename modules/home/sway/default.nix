@@ -91,6 +91,7 @@ in {
         accel_profile = "flat";
         pointer_accel = "-0.3";
         xkb_layout = "us";
+        xkb_options = "compose:ralt";
       };
       output = let background = ./wallpaper.png;
       in {
