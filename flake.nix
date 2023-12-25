@@ -2,9 +2,9 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -46,7 +46,6 @@
                 wrapProgram $out/bin/rakudo --set LD_LIBRARY_PATH ${self.readline70}/lib
               '';
             };
-            tome4 = unstable.tome4;
             ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
               version = "master-thing";
               nativeBuildInputs = oldAttrs.nativeBuildInputs

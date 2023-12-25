@@ -5,7 +5,7 @@
     primaryAudio =
       "alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
     secondaryAudio =
-      "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.iec958-stereo";
+      "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.analog-stereo";
     primaryOutput = {
       id = "DP-1";
       mode = "3440x1440@160.000hz";

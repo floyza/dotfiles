@@ -127,7 +127,7 @@
 
   services.locate = {
     enable = true;
-    locate = pkgs.mlocate;
+    package = pkgs.mlocate;
     localuser = null; # for pkgs.mlocate
     interval = "hourly"; # fine with mlocate?
     pruneNames = [ ".snapshots" ];

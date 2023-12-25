@@ -196,7 +196,7 @@ in {
     settings = {
       main = {
         term = "xterm-256color";
-        font = "JetBrains Mono:size=10.0";
+        font = "JetBrains Mono:size=11.0";
         # font = "Monospace:size=10";
         bold-text-in-bright = "palette-based";
         initial-window-size-chars = "80x25";

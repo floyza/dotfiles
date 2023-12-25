@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  fonts.fonts = with pkgs; [ ipafont ];
+  fonts.packages = with pkgs; [ ipafont ];
 
   fonts.fontconfig.defaultFonts = {
     monospace = [ "DejaVu Sans Mono" "IPAGothic" ];
