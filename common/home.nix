@@ -367,7 +367,7 @@ in {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-unstable;
-    extraPackages = epkgs: [ epkgs.vterm ];
+    extraPackages = epkgs: [ epkgs.vterm epkgs.mu4e ];
   };
 
   xdg = {
