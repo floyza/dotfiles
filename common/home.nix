@@ -4,7 +4,7 @@ let cfg = osConfig.my.customData;
 in {
   imports = [ ../modules/home/zsh ../modules/home/sway ];
   home.packages = with pkgs; [
-    (appimage-run.override { extraPkgs = p: [ p.gmpxx ]; })
+    (appimage-run.override { extraPkgs = p: [ p.gmpxx p.libnotify p.pcre2 ]; })
 
     tcpdump
 
