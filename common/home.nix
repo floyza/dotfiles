@@ -260,7 +260,6 @@ in {
         "privacy.trackingprotection.cryptomining.enabled" = true; # default
         "privacy.trackingprotection.enabled" = true;
         "browser.send_pings" = false; # default
-        "dom.event.clipboardevents.enabled" = false; # track clipboard events
         "media.navigator.enabled" = false; # track mic and camera status
         "network.cookie.cookieBehavior" = 1; # do not accept third-party cookies
         "beacon.enabled" = false;

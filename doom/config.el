@@ -86,6 +86,8 @@
   (map! :map vterm-mode-map :i "C-w" evil-window-map)) ; YASSS!
 (map! :leader "C" #'calc-dispatch)
 
+(map! :leader :desc "irc" "o i" #'=irc)
+
 (map! :leader :n ":" #'pp-eval-expression)
 (map! :leader :n ";" #'counsel-M-x)
 
@@ -340,3 +342,5 @@ if no argument passed. you may need to revise inserted s-expression."
   (doom-completing-read-org-headings "Task: " "/home/gavin/docs/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
 
 (load-file "~/.config/doom/project-specific/blog.el")
+
+(setq load-prefer-newer t)              ; use while we are doing org-mode development
