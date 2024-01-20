@@ -9,6 +9,7 @@
     ### games
     yuzu-mainline
     retroarchFull
+    obs-studio
   ];
 
   home.stateVersion = "21.11";
