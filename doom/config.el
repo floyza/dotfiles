@@ -1,7 +1,10 @@
 ;;; $DOOMDIR/config.el --- My private config -*- lexical-binding: t; -*-
 
+(add-to-list 'load-path "~/.config/doom/libraries")
+
 (require 's)
 (require 'f)
+(require 'google-c-style)
 
 ;;; Library of useful functions
 (defun g/pp (&rest stuff)
@@ -27,6 +30,20 @@
         +mu4e-alert-bell-cmd nil))
 
 (setq auth-source-pass-filename "~/.local/share/password-store")
+
+(after! format
+  ;; ech, better than nothing
+  (defun g/format-buffer-then-save ()
+    (+format/buffer)
+    (sleep-for 0.1)
+    (save-buffer))
+  ;; prioritize `+format-functions' (e.g. lsp) over using aphelieia proper
+  (add-hook 'apheleia-mode-hook (lambda ()
+                                  (if apheleia-mode
+                                      (progn
+                                        (remove-hook 'after-save-hook #'apheleia-format-after-save 'local) ; take it away again!
+                                        (add-hook 'after-save-hook #'g/format-buffer-then-save nil 'local))
+                                    (remove-hook 'after-save-hook #'g/format-buffer-then-save 'local)))))
 
 (after! circe
   (set-irc-server! "irc.libera.chat"
@@ -71,6 +88,9 @@
       read-minibuffer-restore-windows nil
       mouse-wheel-progressive-speed nil)
 
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 (after! projectile
   (setq projectile-track-known-projects-automatically nil)
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
@@ -91,10 +111,13 @@
 (map! :leader :n ":" #'pp-eval-expression)
 (map! :leader :n ";" #'counsel-M-x)
 
-(map! :map company-active-map "<return>" nil)
-(map! :map company-active-map "RET" nil)
-(map! :map company-active-map "C-<return>" #'company-complete-selection)
-(map! :map company-active-map "C-RET" #'company-complete-selection)
+(after! company
+  (map! :map company-active-map "<return>" nil)
+  (map! :map company-active-map "RET" nil)
+  (map! :map company-active-map "C-<return>" #'company-complete-selection)
+  (map! :map company-active-map "C-RET" #'company-complete-selection)
+  ;; prevent interference with yasnippet: we use C-j + C-k instead anyways
+  (add-hook 'company-mode-hook (lambda () (remove-hook 'yas-keymap-disable-hook 'company--active-p t))))
 
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
@@ -221,7 +244,7 @@ The documentation is built if necessary."
                                (:modes fennel-mode)
                                (:format (format-all--buffer-easy executable "-"))))
 
-(add-hook! lisp-mode
+(after! lisp
   (setq! inferior-lisp-program "common-lisp.sh"))
 
 (after! counsel
@@ -251,8 +274,8 @@ The documentation is built if necessary."
   (add-to-list 'lispy-no-indent-modes 'minibuffer-mode)
   (add-to-list 'lispy-colon-no-space-regex '(fennel-mode . "")))
 
-;; (setq-default indent-tabs-mode t)
 (setq-default tab-width 2)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
 
 (after! evil
   (evil-escape-mode -1))
@@ -295,7 +318,7 @@ if no argument passed. you may need to revise inserted s-expression."
         "https://factorio.com/blog/rss"
         "https://xkcd.com/rss.xml"))
 (after! elfeed
-  (add-hook! 'elfeed-search-mode-hook #'elfeed-update))
+  (add-hook 'elfeed-search-mode-hook #'elfeed-update))
 
 (use-package! hackernews)
 (use-package! egg-timer)

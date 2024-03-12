@@ -96,7 +96,7 @@ in {
     nixfmt
     html-tidy
     ## resources
-    # aseprite-unfree
+    aseprite
     ### games
     mudlet
     libstrangle
@@ -142,10 +142,12 @@ in {
     texlive.combined.scheme-full
     texlab
     (python3.withPackages (ps: with ps; [ sh python-lsp-server pandas ]))
+
+    discord
   ];
 
   programs.discocss = {
-    enable = true;
+    enable = false;
     css = builtins.readFile ./gruvbox-desktop.css;
   };
 

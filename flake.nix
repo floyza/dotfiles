@@ -46,6 +46,7 @@
                 wrapProgram $out/bin/rakudo --set LD_LIBRARY_PATH ${self.readline70}/lib
               '';
             };
+            aseprite = self.callPackage ./packages/aseprite { };
             ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
               version = "master-thing";
               nativeBuildInputs = oldAttrs.nativeBuildInputs

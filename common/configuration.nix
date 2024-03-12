@@ -7,10 +7,12 @@
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages =
+    [ "openssl-1.1.1w" ]; # yuck! devil daggers uses this version of the library
   nixpkgs.overlays = [
     (self: super: {
       steam = super.steam.override {
-        extraPkgs = pkgs: [ pkgs.libpng pkgs.libsecret ];
+        extraPkgs = pkgs: [ pkgs.libpng pkgs.libsecret pkgs.openssl_1_1 ];
       };
     })
   ];
@@ -146,6 +148,8 @@
     virt-manager
     dconf # needed for saving settings in virt-manager
     libguestfs # needed for virt-sparsify
+
+    virtiofsd
 
     # packages using udev rules
     antimicrox
