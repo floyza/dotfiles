@@ -155,7 +155,11 @@
     antimicrox
   ]);
 
-  services.udev.packages = [ pkgs.qmk-udev-rules pkgs.antimicrox ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
+  # to autoload at boot:
+  boot.kernelModules = [ "gcadapter_oc" ];
+  services.udev.packages =
+    [ pkgs.qmk-udev-rules pkgs.antimicrox pkgs.dolphinEmu ];
 
   services.udev.extraRules = ''
     ACTION=="add", ATTR{idVendor}=="26ce", ATTR{idProduct}=="01a2", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
