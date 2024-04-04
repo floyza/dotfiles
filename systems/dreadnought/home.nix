@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ssbm, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 

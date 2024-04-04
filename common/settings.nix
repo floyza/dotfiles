@@ -34,5 +34,17 @@ with lib; {
       type = lib.types.str;
       description = "Location of music directory.";
     };
+
+    enableSway = mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Enable swaywm";
+    };
+
+    enableI3 = mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Enable i3wm";
+    };
   };
 }

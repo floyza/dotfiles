@@ -33,17 +33,20 @@
 
 (after! format
   ;; ech, better than nothing
-  (defun g/format-buffer-then-save ()
-    (+format/buffer)
-    (sleep-for 0.1)
-    (save-buffer))
+  ;; (defun g/format-buffer-then-save ()
+  ;;   (when
+  ;;       (or (run-hook-with-args-until-success '+format-functions (point-min) (point-max) 'buffer)
+  ;;           (apheleia-format-after-save))
+  ;;     (sleep-for 0.1)
+  ;;     (save-buffer)))
   ;; prioritize `+format-functions' (e.g. lsp) over using aphelieia proper
-  (add-hook 'apheleia-mode-hook (lambda ()
-                                  (if apheleia-mode
-                                      (progn
-                                        (remove-hook 'after-save-hook #'apheleia-format-after-save 'local) ; take it away again!
-                                        (add-hook 'after-save-hook #'g/format-buffer-then-save nil 'local))
-                                    (remove-hook 'after-save-hook #'g/format-buffer-then-save 'local)))))
+  ;; (add-hook 'apheleia-mode-hook (lambda ()
+  ;;                                 (if apheleia-mode
+  ;;                                     (progn
+  ;;                                       (remove-hook 'after-save-hook #'apheleia-format-after-save 'local) ; take it away again!
+  ;;                                       (add-hook 'after-save-hook #'g/format-buffer-then-save nil 'local))
+  ;;                                   (remove-hook 'after-save-hook #'g/format-buffer-then-save 'local))))
+  )
 
 (after! circe
   (set-irc-server! "irc.libera.chat"

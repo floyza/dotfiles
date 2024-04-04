@@ -164,7 +164,11 @@
   services.udev.extraRules = ''
     ACTION=="add", ATTR{idVendor}=="26ce", ATTR{idProduct}=="01a2", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
     ACTION=="add", ATTR{idVendor}=="1b1c", ATTR{idProduct}=="0c1a", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
-  '';
+
+    ACTION=="add", ATTR{idVendor}=="2dc8", ATTR{idProduct}=="3106", RUN="${pkgs.kmod}/bin/modprobe xpad", RUN+="${pkgs.bash}/bin/bash -c 'echo 2dc8 3106 > /sys/bus/usb/drivers/xpad/new_id'"
+
+    ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", MODE="666", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device" TAG+="uaccess"
+  ''; # last entry is gcc
 
   environment.pathsToLink = [
     "/share/zsh" # for zsh completion
@@ -199,6 +203,10 @@
   virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.epkowa ];

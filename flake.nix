@@ -11,6 +11,8 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     # ssbm.url = "github:jumper149/ssbm-nix/mbedtls2";
     # ssbm.url = "github:djanatyn/ssbm-nix";
+    # ssbm.url = "github:lytedev/ssbm-nix";
+    # ssbm.inputs.nixpkgs.follows = "nixpkgs";
 
     discocss.url = "github:floyza/discocss/discord-bugfix";
     discocss.flake = false;

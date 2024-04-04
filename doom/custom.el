@@ -83,7 +83,28 @@
  '(org-agenda-files
    '("/home/gavin/docs/my/org/birthdays.org" "/home/gavin/docs/my/org/inbox.org" "/home/gavin/docs/my/org/plan.org" "/home/gavin/docs/my/org/someday.org" "/home/gavin/docs/my/org/tickler.org"))
  '(safe-local-variable-values
-   '((indent-tabs-mode 1)
+   '((eval
+      (lambda nil
+        (when
+            (and buffer-file-name
+                 (string-match-p "\\.jack\\'" buffer-file-name)
+                 (not
+                  (string= major-mode "jack-mode")))
+          (progn
+            (message default-directory)
+            (load "/home/gavin/docs/my/courses/nand2tetris/editor/jack-mode.el")
+            (jack-mode)))))
+     (eval
+      (lambda nil
+        (when
+            (and buffer-file-name
+                 (string-match-p "\\.jack\\'" buffer-file-name)
+                 (not
+                  (string= major-mode "jack-mode")))
+          (progn
+            (load "/home/gavin/my/courses/nand2tetris/editor/jack-mode.el")
+            (jack-mode)))))
+     (indent-tabs-mode 1)
      (g/rustic-cargo-3ds . t)
      (eval my-buffer-local-set-key
       (kbd "<normal-state> SPC m r")
