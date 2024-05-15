@@ -83,7 +83,8 @@
  '(org-agenda-files
    '("/home/gavin/docs/my/org/birthdays.org" "/home/gavin/docs/my/org/inbox.org" "/home/gavin/docs/my/org/plan.org" "/home/gavin/docs/my/org/someday.org" "/home/gavin/docs/my/org/tickler.org"))
  '(safe-local-variable-values
-   '((eval
+   '((lsp-file-watch-ignored-directories-additional "[////]Build\\'" "[////]Ports\\'" "[////]Toolchain/Local\\'" "[////]Toolchain/Tarballs\\'" "[////]Toolchain/Build\\'")
+     (eval
       (lambda nil
         (when
             (and buffer-file-name
@@ -107,14 +108,14 @@
      (indent-tabs-mode 1)
      (g/rustic-cargo-3ds . t)
      (eval my-buffer-local-set-key
-      (kbd "<normal-state> SPC m r")
-      (lambda nil "Reflex-specific run project"
-        (interactive)
-        (haskell-process-restart)
-        (haskell-process-load-file)
-        (haskell-process-queue-without-filters
-         (haskell-commands-process)
-         "main")))
+           (kbd "<normal-state> SPC m r")
+           (lambda nil "Reflex-specific run project"
+             (interactive)
+             (haskell-process-restart)
+             (haskell-process-load-file)
+             (haskell-process-queue-without-filters
+              (haskell-commands-process)
+              "main")))
      (eval
       (lambda nil
         (when
@@ -145,11 +146,11 @@
           (prog-mode))))
      (lsp-haskell-formatting-provider . "fourmolu")
      (eval setq-local org-roam-db-location
-      (concat
-       (locate-dominating-file default-directory ".dir-locals.el")
-       "org-roam.db"))
+           (concat
+            (locate-dominating-file default-directory ".dir-locals.el")
+            "org-roam.db"))
      (eval setq-local org-roam-directory
-      (locate-dominating-file default-directory ".dir-locals.el"))
+           (locate-dominating-file default-directory ".dir-locals.el"))
      (org-roam-directory locate-dominating-file default-directory ".dir-locals.el")
      (haskell-process-type quote stack-ghci)
      (haskell-compiler-type quote stack)
