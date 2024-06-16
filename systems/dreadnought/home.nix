@@ -10,6 +10,7 @@
     yuzu-mainline
     retroarchFull
     obs-studio
+    pcsx2
   ];
 
   home.stateVersion = "21.11";
