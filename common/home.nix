@@ -11,6 +11,7 @@ in {
     filezilla
     kiwix
 
+    atool
     samba # smbclient
     gtypist
     pandoc
