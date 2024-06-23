@@ -110,7 +110,7 @@ in {
     # })
     steam
     steam-run-native
-    lutris
+    (lutris.override { extraLibraries = pkgs: [ xorg.libXScrnSaver ]; })
     mangohud
     dolphin-emu-beta
     cataclysm-dda
