@@ -4,3 +4,6 @@
 ** TODO make some options in ./common/settings.nix optional
 For example, =beets= and =mpd= can be disabled if =my.customData.musicDirectory= isn't set.
 ** TODO modularize uefi and bios settings
+* Important
+** TODO upgrade to 24.05
+*** TODO afterwards checkout btop graphics card stuff
