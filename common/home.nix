@@ -75,8 +75,6 @@ in {
     zef
     ## lisp
     guile
-    sbcl
-    lispPackages.clwrapper
     ## c++
     clang-tools
     # lua+fennel
@@ -94,7 +92,7 @@ in {
     ## formatting
     nodePackages.prettier
     shellcheck
-    nixfmt
+    nixfmt-rfc-style
     html-tidy
     ## resources
     aseprite

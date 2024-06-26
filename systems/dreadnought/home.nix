@@ -1,13 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
 
   home.packages = with pkgs; [
+    (btop.override { rocmSupport = true; })
     ### programming
     ## resources
     godot_4
     ### games
-    yuzu-mainline
     retroarchFull
     obs-studio
     pcsx2

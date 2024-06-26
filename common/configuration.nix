@@ -74,15 +74,13 @@
   services.avahi = {
     enable = true;
     openFirewall = true;
-    nssmdns = true;
+    nssmdns4 = true;
     publish = {
       enable = true;
       domain = false;
       userServices = true;
     };
   };
-
-  services.invidious.enable = true;
 
   services.murmur = {
     enable = true;
@@ -186,7 +184,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "gtk2";
+    pinentryPackage = pkgs.pinentry-gtk2;
   };
 
   programs.corectrl = {
