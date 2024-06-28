@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   my.customData = {
-    primaryAudio =
-      "alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
-    secondaryAudio =
-      "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.analog-stereo";
+    primaryAudio = "alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
+    secondaryAudio = "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.analog-stereo";
     primaryOutput = {
       id = "DP-1";
       mode = "3440x1440@160.000hz";
@@ -130,7 +133,9 @@
     };
   };
 
-  services.samba-wsdd = { enable = true; };
+  services.samba-wsdd = {
+    enable = true;
+  };
 
   system.stateVersion = "21.11";
 }
