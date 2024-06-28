@@ -1,18 +1,28 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernel.sysctl = { "kernel.sysrq" = "1"; };
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = "1";
+  };
 
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages =
-    [ "openssl-1.1.1w" ]; # yuck! devil daggers uses this version of the library
+  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; # yuck! devil daggers uses this version of the library
   nixpkgs.overlays = [
     (self: super: {
       steam = super.steam.override {
-        extraPkgs = pkgs: [ pkgs.libpng pkgs.libsecret pkgs.openssl_1_1 ];
+        extraPkgs = pkgs: [
+          pkgs.libpng
+          pkgs.libsecret
+          pkgs.openssl_1_1
+        ];
       };
     })
   ];
@@ -33,7 +43,10 @@
     firewall.allowedTCPPorts = [ 41230 ];
     # automatically opened udp ports: avahi
     # manually opened: factorio, custom
-    firewall.allowedUDPPorts = [ 34197 41230 ];
+    firewall.allowedUDPPorts = [
+      34197
+      41230
+    ];
     firewall.enable = true;
     firewall.allowPing = true;
 
@@ -60,8 +73,7 @@
           "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
         ];
         cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
 
       server_names = [ "cloudflare" ];
@@ -89,7 +101,9 @@
     welcometext = "Welcome to my humble server.";
   };
 
-  programs.sway = { enable = true; };
+  programs.sway = {
+    enable = true;
+  };
 
   # Enable pipewire
   security.rtkit.enable = true;
@@ -101,12 +115,14 @@
     jack.enable = true;
   };
 
-  security.pam.loginLimits = [{
-    domain = "gavin";
-    item = "nofile";
-    type = "hard";
-    value = 1048576;
-  }];
+  security.pam.loginLimits = [
+    {
+      domain = "gavin";
+      item = "nofile";
+      type = "hard";
+      value = 1048576;
+    }
+  ];
 
   users.users.gavin = {
     isNormalUser = true;
@@ -133,31 +149,37 @@
     pruneNames = [ ".snapshots" ];
   };
 
-  environment.systemPackages = (with pkgs; [
-    wget
-    vim
-    tmux
-    efibootmgr
-    unzip
-    inetutils
-    usbutils # lsusb
-    man-pages
+  environment.systemPackages = (
+    with pkgs;
+    [
+      wget
+      vim
+      tmux
+      efibootmgr
+      unzip
+      inetutils
+      usbutils # lsusb
+      man-pages
 
-    virt-manager
-    dconf # needed for saving settings in virt-manager
-    libguestfs # needed for virt-sparsify
+      virt-manager
+      dconf # needed for saving settings in virt-manager
+      libguestfs # needed for virt-sparsify
 
-    virtiofsd
+      virtiofsd
 
-    # packages using udev rules
-    antimicrox
-  ]);
+      # packages using udev rules
+      antimicrox
+    ]
+  );
 
   boot.extraModulePackages = [ config.boot.kernelPackages.gcadapter-oc-kmod ];
   # to autoload at boot:
   boot.kernelModules = [ "gcadapter_oc" ];
-  services.udev.packages =
-    [ pkgs.qmk-udev-rules pkgs.antimicrox pkgs.dolphinEmu ];
+  services.udev.packages = [
+    pkgs.qmk-udev-rules
+    pkgs.antimicrox
+    pkgs.dolphinEmu
+  ];
 
   services.udev.extraRules = ''
     ACTION=="add", ATTR{idVendor}=="26ce", ATTR{idProduct}=="01a2", RUN="${pkgs.bash}/bin/bash -c 'echo 0 >/sys/\$devpath/authorized'"
@@ -212,8 +234,9 @@
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = [ pkgs.rocm-opencl-icd ];
   };
+
+  hardware.amdgpu.opencl.enable = true;
 
   hardware.steam-hardware.enable = true;
 
@@ -224,9 +247,7 @@
       options = "--delete-older-than 30d";
     };
     settings = {
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
       substituters = [ "https://nix-community.cachix.org" ];
       auto-optimise-store = true;
     };
