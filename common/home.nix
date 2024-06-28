@@ -1,10 +1,28 @@
-{ config, osConfig, pkgs, lib, secrets, ... }:
+{
+  config,
+  osConfig,
+  pkgs,
+  lib,
+  secrets,
+  ...
+}:
 
-let cfg = osConfig.my.customData;
-in {
-  imports = [ ../modules/home/zsh ../modules/home/sway ];
+let
+  cfg = osConfig.my.customData;
+in
+{
+  imports = [
+    ../modules/home/zsh
+    ../modules/home/sway
+  ];
   home.packages = with pkgs; [
-    (appimage-run.override { extraPkgs = p: [ p.gmpxx p.libnotify p.pcre2 ]; })
+    (appimage-run.override {
+      extraPkgs = p: [
+        p.gmpxx
+        p.libnotify
+        p.pcre2
+      ];
+    })
 
     tcpdump
 
@@ -135,12 +153,24 @@ in {
     gnutls
     ## optional doom
     zstd
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+    (aspellWithDicts (
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
+    ))
     ## org-mode
     sqlite
     texlive.combined.scheme-full
     texlab
-    (python3.withPackages (ps: with ps; [ sh python-lsp-server pandas ]))
+    (python3.withPackages (
+      ps: with ps; [
+        sh
+        python-lsp-server
+        pandas
+      ]
+    ))
 
     discord
   ];
@@ -152,7 +182,9 @@ in {
 
   programs.man.generateCaches = true;
 
-  programs.password-store = { enable = true; };
+  programs.password-store = {
+    enable = true;
+  };
 
   programs.tmux = {
     enable = true;
@@ -204,9 +236,9 @@ in {
       };
       colors = {
         # gruvbox
-        background = "282828";
+        background = "1d2021"; # 282828
         foreground = "ebdbb2";
-        regular0 = "282828";
+        regular0 = "1d2021"; # 282828
         regular1 = "cc241d";
         regular2 = "98971a";
         regular3 = "d79921";
@@ -255,8 +287,7 @@ in {
         "browser.startup.homepage" = "https://duckduckgo.com";
         # see https://privacytools.io/browsers/#about_config
         "privacy.firstparty.isolate" = true;
-        "privacy.resistFingerprinting" =
-          false; # disables canvas when enabled, breaks chessable
+        "privacy.resistFingerprinting" = false; # disables canvas when enabled, breaks chessable
         "privacy.trackingprotection.fingerprinting.enabled" = true; # default
         "privacy.trackingprotection.cryptomining.enabled" = true; # default
         "privacy.trackingprotection.enabled" = true;
@@ -264,8 +295,7 @@ in {
         "media.navigator.enabled" = false; # track mic and camera status
         "network.cookie.cookieBehavior" = 1; # do not accept third-party cookies
         "beacon.enabled" = false;
-        "browser.safebrowsing.downloads.remote.enabled" =
-          false; # don't integrate with Google Safe Browsing
+        "browser.safebrowsing.downloads.remote.enabled" = false; # don't integrate with Google Safe Browsing
         "network.dns.disablePrefetch" = true; # default
         "network.dns.disablePrefetchFromHTTPS" = true; # default
         "network.predictor.enabled" = false; # default
@@ -332,19 +362,31 @@ in {
       }
       {
         key = "J";
-        command = [ "select_item" "scroll_down" ];
+        command = [
+          "select_item"
+          "scroll_down"
+        ];
       }
       {
         key = "K";
-        command = [ "select_item" "scroll_up" ];
+        command = [
+          "select_item"
+          "scroll_up"
+        ];
       }
       {
         key = "l";
-        command = [ "next_column" "slave_screen" ];
+        command = [
+          "next_column"
+          "slave_screen"
+        ];
       }
       {
         key = "h";
-        command = [ "previous_column" "master_screen" ];
+        command = [
+          "previous_column"
+          "master_screen"
+        ];
       }
       {
         key = "'";
@@ -359,15 +401,17 @@ in {
       visualizer_type = "spectrum";
       visualizer_look = "+|";
       visualizer_fps = cfg.primaryOutput.fps;
-      lyrics_fetchers =
-        "musixmatch, genius, azlyrics, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet";
+      lyrics_fetchers = "musixmatch, genius, azlyrics, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet";
     };
   };
 
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-unstable;
-    extraPackages = epkgs: [ epkgs.vterm epkgs.mu4e ];
+    extraPackages = epkgs: [
+      epkgs.vterm
+      epkgs.mu4e
+    ];
   };
 
   xdg = {
@@ -384,18 +428,12 @@ in {
     GTK_IM_MODULE = "xim"; # lets XCompose work
     EDITOR = "vim";
     # BUG Plugin paths are not automatically added, so we must add them
-    DSSI_PATH =
-      "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";
-    LADSPA_PATH =
-      "$HOME/.ladspa:$HOME/.nix-profile/lib/ladspa:/run/current-system/sw/lib/ladspa";
-    LV2_PATH =
-      "$HOME/.lv2:$HOME/.nix-profile/lib/lv2:/run/current-system/sw/lib/lv2";
-    LXVST_PATH =
-      "$HOME/.lxvst:$HOME/.nix-profile/lib/lxvst:/run/current-system/sw/lib/lxvst";
-    VST_PATH =
-      "$HOME/.vst:$HOME/.nix-profile/lib/vst:/run/current-system/sw/lib/vst";
-    VST3_PATH =
-      "$HOME/.vst3:$HOME/.nix-profile/lib/vst3:/run/current-system/sw/lib/vst3";
+    DSSI_PATH = "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";
+    LADSPA_PATH = "$HOME/.ladspa:$HOME/.nix-profile/lib/ladspa:/run/current-system/sw/lib/ladspa";
+    LV2_PATH = "$HOME/.lv2:$HOME/.nix-profile/lib/lv2:/run/current-system/sw/lib/lv2";
+    LXVST_PATH = "$HOME/.lxvst:$HOME/.nix-profile/lib/lxvst:/run/current-system/sw/lib/lxvst";
+    VST_PATH = "$HOME/.vst:$HOME/.nix-profile/lib/vst:/run/current-system/sw/lib/vst";
+    VST3_PATH = "$HOME/.vst3:$HOME/.nix-profile/lib/vst3:/run/current-system/sw/lib/vst3";
   };
 
   home.sessionPath = [ "$HOME/bin" ];
@@ -414,8 +452,7 @@ in {
     "gdb/gdbinit".text = ''
       set history save on
     '';
-    doom.source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/src/dotfiles/doom"; # NOTE: based on location of repo
+    doom.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/dotfiles/doom"; # NOTE: based on location of repo
   };
 
   programs.home-manager.enable = true;
