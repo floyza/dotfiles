@@ -116,6 +116,7 @@ in
     ## resources
     aseprite
     ### games
+    the-powder-toy
     mudlet
     libstrangle
     prismlauncher
