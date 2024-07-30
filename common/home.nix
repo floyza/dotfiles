@@ -29,6 +29,7 @@ in
     filezilla
     kiwix
 
+    chromium
     atool
     samba # smbclient
     gtypist
@@ -420,6 +421,11 @@ in
     mimeApps.defaultApplications = {
       "text/plain" = "emacs.desktop";
       "text/org" = "emacs.desktop";
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
     };
     configFile."mimeapps.list".force = true;
   };
@@ -427,6 +433,7 @@ in
   home.sessionVariables = {
     GTK_IM_MODULE = "xim"; # lets XCompose work
     EDITOR = "vim";
+    DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox";
     # BUG Plugin paths are not automatically added, so we must add them
     DSSI_PATH = "$HOME/.dssi:$HOME/.nix-profile/lib/dssi:/run/current-system/sw/lib/dssi";
     LADSPA_PATH = "$HOME/.ladspa:$HOME/.nix-profile/lib/ladspa:/run/current-system/sw/lib/ladspa";
