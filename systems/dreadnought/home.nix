@@ -16,6 +16,7 @@
     retroarchFull
     obs-studio
     pcsx2
+    runelite
   ];
 
   home.stateVersion = "21.11";

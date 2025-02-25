@@ -6,7 +6,7 @@
 }:
 
 {
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_13;
   boot.kernel.sysctl = {
     "kernel.sysrq" = "1";
   };
@@ -40,13 +40,27 @@
     useDHCP = false;
     # automatically opened tcp ports: murmur
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
-    firewall.allowedTCPPorts = [ 41230 ];
+    # 27040: steam local downloads
+    firewall.allowedTCPPorts = [
+      41230
+      27040
+    ];
     # automatically opened udp ports: avahi
     # manually opened: factorio, custom
-    firewall.allowedUDPPorts = [
-      34197
-      41230
-    ];
+    firewall.allowedUDPPorts =
+      [
+        34197
+        41230
+      ]
+      ++ [
+        # steam local downloads discovery
+        27031
+        27032
+        27033
+        27034
+        27035
+        27036
+      ];
     firewall.enable = true;
     firewall.allowPing = true;
 
@@ -137,9 +151,12 @@
       "adbusers"
       "docker"
       "wireshark"
+      "dialout"
     ];
     shell = pkgs.zsh;
   };
+
+  programs.udevil.enable = true;
 
   services.locate = {
     enable = true;
@@ -178,7 +195,7 @@
   services.udev.packages = [
     pkgs.qmk-udev-rules
     pkgs.antimicrox
-    pkgs.dolphinEmu
+    pkgs.dolphin-emu-beta
   ];
 
   services.udev.extraRules = ''
@@ -197,7 +214,7 @@
 
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -231,21 +248,21 @@
   hardware.sane.enable = true;
   hardware.sane.extraBackends = [ pkgs.epkowa ];
 
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable32Bit = true;
 
   hardware.amdgpu.opencl.enable = true;
 
   hardware.steam-hardware.enable = true;
 
   nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
+    # if we have to do this manually partially anyways, it's better to do it 100% manually
+    #gc = {
+    #  # IMPORTANT! this does NOT garbage collect home-manager roots properly!
+    #  # to do so, run nix-collect garbage as your own user
+    #  automatic = true;
+    #  dates = "weekly";
+    #  options = "--delete-older-than 30d";
+    #};
     settings = {
       trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
       substituters = [ "https://nix-community.cachix.org" ];

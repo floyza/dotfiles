@@ -58,7 +58,7 @@ in
     sdcv
     easyeffects
     # magic-wormhole
-    gnome.nautilus
+    nautilus
     anki
 
     mpc_cli
@@ -168,19 +168,17 @@ in
     texlab
     (python3.withPackages (
       ps: with ps; [
+        jupyter
         sh
         python-lsp-server
         pandas
       ]
     ))
+    omnisharp-roslyn
+    dotnet-sdk
 
     discord
   ];
-
-  programs.discocss = {
-    enable = false;
-    css = builtins.readFile ./gruvbox-desktop.css;
-  };
 
   programs.man.generateCaches = true;
 
@@ -263,11 +261,11 @@ in
   gtk = {
     enable = true;
     iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
+      package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
     };
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
       name = "Adwaita";
     };
   };

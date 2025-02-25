@@ -2,9 +2,9 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -13,9 +13,6 @@
     # ssbm.url = "github:djanatyn/ssbm-nix";
     # ssbm.url = "github:lytedev/ssbm-nix";
     # ssbm.inputs.nixpkgs.follows = "nixpkgs";
-
-    discocss.url = "github:floyza/discocss/discord-bugfix";
-    discocss.flake = false;
 
     # My secrets are currently stored plaintext in my nix store, but I at least don't want to commit them to git
     # so I split them off here
@@ -30,7 +27,6 @@
       nixpkgs,
       nixpkgs-unstable,
       emacs-overlay,
-      discocss,
       secrets,
       ...
     }@attrs:
@@ -63,21 +59,7 @@
                 '';
               };
               aseprite = self.callPackage ./packages/aseprite { };
-              ncmpcpp = super.ncmpcpp.overrideAttrs (oldAttrs: {
-                version = "master-thing";
-                nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ self.autoreconfHook ];
-                src = self.fetchFromGitHub {
-                  owner = "ncmpcpp";
-                  repo = "ncmpcpp";
-                  rev = "9f44edf0b1d74da7cefbd498341d59bc52f6043f";
-                  sha256 = "sha256-PjCzo3OSj/QIi2fdeV28ZjPiqLf6XAnZeNrDyjXt5wU=";
-                };
-              });
-              discocss = super.discocss.overrideAttrs (oldAttrs: {
-                version = "my-fork";
-                src = discocss;
-              });
-              ollama = self.callPackage ./packages/ollama { };
+              # ollama = self.callPackage ./packages/ollama { };
             })
           ];
         in
@@ -94,7 +76,7 @@
               (sys-path + "/hardware-configuration.nix")
 
               ./common/settings.nix
-              ./modules/japanese
+              # ./modules/japanese
               ./common/configuration.nix
               {
                 home-manager.users.gavin = {
@@ -108,7 +90,7 @@
               home-manager.nixosModules.home-manager
               {
                 nixpkgs.overlays = [
-                  nur.overlay
+                  nur.overlays.default
                   emacs-overlay.overlay
                 ] ++ update-overlays;
                 nix.registry.nixpkgs.flake = nixpkgs;

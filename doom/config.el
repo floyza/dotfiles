@@ -52,8 +52,8 @@
   (set-irc-server! "irc.libera.chat"
     `(:tls t
       :port 6697
-      :channels ("#emacs" "#haskell" "#nixos" "#crawl" "#magicjudges-rules" "#raku") ; #osdev
-      :nick "gdown"
+      :channels ("#emacs" "#haskell" "#nixos" "#crawl" "#magicjudges-rules" "#raku" "#wasp-os") ; #osdev
+      :nick "floyza"
       :sasl-username "gdown"
       :sasl-password (lambda (&rest _) (+pass-get-secret "irc/libera.chat"))))
   (set-irc-server! "irc.rizon.net"
@@ -102,8 +102,13 @@
   (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
   (add-to-list 'projectile-globally-ignored-directories ".stack-work"))
 
+(after! dirvish
+  (map! :map dirvish-mode-map
+        :n "z" nil
+        :n "a" #'dirvish-history-jump))
+
 ;;; evil config
-(setq evil-move-cursor-back nil         ; typing in insert mode -> ESC -> org-insert-link
+(setq evil-move-cursor-back nil ; typing in insert mode -> ESC -> org-insert-link
       evil-move-beyond-eol t)
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
@@ -207,6 +212,7 @@
 (after! raku-mode
   (setq! raku-indent-offset tab-width)
   (add-hook 'raku-mode-hook (lambda () (set-input-method "TeX")))
+  (add-hook 'raku-mode-hook (lambda () (add-to-list 'electric-indent-chars ?})))
   (add-hook 'raku-repl-mode-hook (lambda () (set-input-method "TeX")))
   (advice-add #'run-raku :filter-return (lambda (win) (window-buffer win))))
 
@@ -260,11 +266,33 @@ The documentation is built if necessary."
   (setq company-idle-delay 0.2
         company-tooltip-idle-delay 0.2))
 
+(after! sly
+  ;; This should be upstreamed
+  ;; maybe sly-edit-uses for :references?
+  ;; actually, maybe not. most packages don't add a definition handler for repls,
+  ;; and anyways, 'v' shows source in a button, which these have
+  ;; well, who cares about conventions, this seems useful
+  (set-lookup-handlers! '(lisp-mode sly-apropos-mode sly-db-mode sly-trace-dialog-mode sly-mrepl-mode)
+    :definition #'sly-edit-definition
+    :documentation #'sly-describe-symbol)
+
+  (map! :map sly-inspector-mode-map :n "<C-i>" #'sly-inspector-next) ; why evil-collection? why?
+  (map! :map sly-inspector-mode-map :n "C-j" nil) ; C-i is the button for back, not C-j
+
+  (defun g/lisp-add-to-link-farm (directory)
+    (interactive "DDirectory: ")
+    (let ((common-lisp-sys-dir (f-join (xdg-data-home) "common-lisp" "systems")))
+      (f-mkdir-full-path common-lisp-sys-dir)
+      (f-symlink directory (f-join common-lisp-sys-dir (f-filename directory)))))
+
+  (setq sly-complete-symbol-function 'sly-flex-completions))
+
 (after! lispy
   ;; lispy-mode-map-base uses copy-keymap instead of inheritance,
   ;; so we need to copy to each keymap individually
   (map! :map (lispy-mode-map-paredit lispy-mode-map-parinfer lispy-mode-map-evilcp lispy-mode-map-lispy)
         "<C-backspace>" 'lispy-backward-kill-word)
+  (setq lispy-colon-p nil)
   (lispyville-set-key-theme '((operators normal)
                               c-w
                               c-u
@@ -274,12 +302,18 @@ The documentation is built if necessary."
                               (prettify insert)
                               (atom-movement t)
                               slurp/barf-lispy additional additional-insert))
-  (add-to-list 'lispy-elisp-modes 'minibuffer-mode)
-  (add-to-list 'lispy-no-indent-modes 'minibuffer-mode)
+  ;; (add-to-list 'lispy-elisp-modes 'minibuffer-mode)
+  ;; (add-to-list 'lispy-no-indent-modes 'minibuffer-mode)
   (add-to-list 'lispy-colon-no-space-regex '(fennel-mode . "")))
 
+(after! cc-mode
+  ;; the default of (setq c-basic-offset tab-width) that doom uses
+  ;; doesn't play well with csharp
+  (setq c-basic-offset 'set-from-style))
+
 (setq-default tab-width 2)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-hook 'google-set-c-style)
+(add-hook 'c++-mode-hook 'google-set-c-style)
 
 (after! evil
   (evil-escape-mode -1))

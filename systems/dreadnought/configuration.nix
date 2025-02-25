@@ -115,20 +115,23 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    securityType = "user";
-    enableNmbd = false; # we use wsdd instead
-    enableWinbindd = true; # need to look into more
-    extraConfig = ''
-      workgroup = WORKGROUP
-      protocol = SMB3
-      # server string = smbnix
-      # netbios name = smbnix # we aren't using nmbd so I think we don't need this
-      hosts allow = 192.168.0.0/24 10.42.0.0/24 127.0.0.1
-      hosts deny = 0.0.0.0/0
-      guest account = samba
-      map to guest = bad user
-    '';
-    shares = {
+    nmbd.enable = false; # we use wsdd instead
+    winbindd.enable = true; # need to look into more
+    settings = {
+      global = {
+        workgroup = "WORKGROUP";
+        protocol = "SMB3";
+        # server string = smbnix
+        # netbios name = smbnix # we aren't using nmbd so I think we don't need this
+        "hosts allow" = "192.168.0.0/24 10.42.0.0/24 127.0.0.1";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "samba";
+        "map to guest" = "bad user";
+
+        security = "user";
+      };
+
+      # shares
       family = {
         comment = "Public Share";
         path = "/shares/Public";

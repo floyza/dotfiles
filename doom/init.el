@@ -25,7 +25,7 @@
        company                        ; the ultimate code completion backend
        ;;(helm +icons)               ; the *other* search engine for love and life
        ;;ido                          ; the other *other* search engine...
-       (ivy +icons +prescient) ; a search engine for love and life
+       (ivy +icons +fuzzy) ; a search engine for love and life
 
        :ui
        ;;deft                         ; notational velocity for Emacs
@@ -120,7 +120,7 @@
        common-lisp                    ; if you've seen one lisp, you've seen them all
        ;;coq                          ; proofs-as-programs
        ;;crystal                      ; ruby at the speed of c
-       ;;csharp                       ; unity, .NET, and mono shenanigans
+       (csharp +lsp +dotnet +treesitter)                       ; unity, .NET, and mono shenanigans
        ;;data                         ; config/data formats
        ;;(dart +flutter)              ; paint ui and not much else
        ;;elixir                       ; erlang done right
@@ -150,7 +150,7 @@
        ;;nim                          ; python + lisp at the speed of c
        nix                            ; I hereby declare "nix geht mehr!"
        ;;ocaml                        ; an objective camel
-       (org +roam2 +dragndrop)                    ; organize your plain life in plain text
+       (org +roam2 +dragndrop +jupyter)                    ; organize your plain life in plain text
        ;;php                          ; perl's insecure younger brother
        ;;plantuml                     ; diagrams for confusing people more
        ;;purescript                   ; javascript, but functional

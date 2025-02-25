@@ -61,7 +61,7 @@
       cp = "cp --reflink=auto";
       ec = "emacs -nw";
       ns = "nix search nixpkgs";
-      sway = "sway -Dnoscanout";
+      #sway = "sway -Dnoscanout"; I think this was for VRR, and fixed?
     };
     shellGlobalAliases = { G = "| grep -i"; };
   };
