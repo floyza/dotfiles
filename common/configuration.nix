@@ -226,11 +226,6 @@
     pinentryPackage = pkgs.pinentry-gtk2;
   };
 
-  programs.corectrl = {
-    enable = true;
-    gpuOverclock.enable = true;
-  };
-
   # List services that you want to enable:
 
   security.polkit.enable = true;
