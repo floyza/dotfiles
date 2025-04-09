@@ -126,7 +126,10 @@
         "hosts allow" = "192.168.0.0/24 10.42.0.0/24 127.0.0.1";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "samba";
-        "map to guest" = "bad user";
+        "map to guest" = "never";
+        "valid users" = "samba";
+
+        "force user" = "samba";
 
         security = "user";
       };
@@ -137,7 +140,7 @@
         path = "/shares/Public";
         browseable = "yes";
         "read only" = "no";
-        "guest ok" = "yes";
+        "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
       };
