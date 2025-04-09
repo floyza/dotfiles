@@ -59,7 +59,7 @@
                 '';
               };
               aseprite = self.callPackage ./packages/aseprite { };
-              # ollama = self.callPackage ./packages/ollama { };
+              ollama = unstable.ollama;
             })
           ];
         in

@@ -112,7 +112,8 @@
       evil-move-beyond-eol t)
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
-  (map! :map vterm-mode-map :i "C-w" evil-window-map)) ; YASSS!
+  (map! :map vterm-mode-map :i "C-w" evil-window-map) ; YASSS!
+  (map! :map vterm-mode-map "M-:" nil))
 (map! :leader "C" #'calc-dispatch)
 
 (map! :leader :desc "irc" "o i" #'=irc)

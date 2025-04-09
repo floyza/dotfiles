@@ -112,6 +112,8 @@
   };
   users.groups.samba = { };
 
+  virtualisation.waydroid.enable = true;
+
   services.samba = {
     enable = true;
     openFirewall = true;

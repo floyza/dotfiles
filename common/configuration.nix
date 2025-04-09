@@ -119,6 +119,8 @@
     enable = true;
   };
 
+  programs.ydotool.enable = true;
+
   # Enable pipewire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -152,6 +154,7 @@
       "docker"
       "wireshark"
       "dialout"
+      "ydotool"
     ];
     shell = pkgs.zsh;
   };

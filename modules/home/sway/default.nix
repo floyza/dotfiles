@@ -109,6 +109,7 @@ in
             "${modifier}+Tab" = "workspace back_and_forth";
             "${modifier}+e" = "exec emacs";
             "${modifier}+p" = "exec mpc toggle";
+            "${modifier}+t" = ''exec sleep 1 && ydotool type "$(wl-paste)"'';
             "${modifier}+i" = "exec ~/bin/screenshot.sh";
             "${modifier}+Shift+i" = "exec ~/bin/screenshot.sh --query-rect";
             "${modifier}+m" = "mode passthrough";

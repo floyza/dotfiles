@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.zsh = {
@@ -7,19 +12,21 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     defaultKeymap = "emacs";
-    plugins = (with pkgs; [
-      {
-        name = "zsh-powerlevel10k";
-        src = zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "zsh-history-substring-search";
-        src = zsh-history-substring-search;
-        file =
-          "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
-      }
-    ]);
+    plugins = (
+      with pkgs;
+      [
+        {
+          name = "zsh-powerlevel10k";
+          src = zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "zsh-history-substring-search";
+          src = zsh-history-substring-search;
+          file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+        }
+      ]
+    );
     initExtra = ''
       export EDITOR=vim # a workaround for broken home.sessionVariables
       if [[ "$INSIDE_EMACS" = 'vterm' ]] \
@@ -37,7 +44,7 @@
               nix run "nixpkgs#$1"
       }
       nsh () {
-              nix shell --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
+              nix shell --impure --expr "with (import <nixpkgs> {}); $*"
       }
       ni () {
               nix flake init -t "my#$1"
@@ -46,7 +53,7 @@
               nix flake new $1 -t "my#$1"
       }
       nbp () {
-              nix build --impure --expr "with (import (builtins.getFlake \"nixpkgs\") {}); $*"
+              nix build --impure --expr "with (import <nixpkgs> {}); $*"
       }
       bindkey -M emacs '^P' history-substring-search-up
       bindkey -M emacs '^N' history-substring-search-down
@@ -63,6 +70,8 @@
       ns = "nix search nixpkgs";
       #sway = "sway -Dnoscanout"; I think this was for VRR, and fixed?
     };
-    shellGlobalAliases = { G = "| grep -i"; };
+    shellGlobalAliases = {
+      G = "| grep -i";
+    };
   };
 }

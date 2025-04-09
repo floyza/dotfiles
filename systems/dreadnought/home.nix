@@ -17,6 +17,7 @@
     obs-studio
     pcsx2
     runelite
+    pyfa
   ];
 
   home.stateVersion = "21.11";
