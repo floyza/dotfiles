@@ -315,7 +315,7 @@ in
     enable = true;
     package = pkgs.gitAndTools.gitFull;
     userEmail = "me@floyza.com";
-    userName = "Gavin Downard";
+    userName = "floyza";
     extraConfig = {
       github.user = "floyza";
       sendemail.identity = "runbox";
