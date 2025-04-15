@@ -96,7 +96,7 @@
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 (after! projectile
-  (setq projectile-track-known-projects-automatically nil)
+  (setq projectile-track-known-projects-automatically t)
   (add-to-list 'projectile-globally-ignored-directories "zig-cache")
   (add-to-list 'projectile-globally-ignored-directories "zig-out")
   (add-to-list 'projectile-globally-ignored-directories "dist-newstyle")
