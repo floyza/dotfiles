@@ -121,13 +121,17 @@
 (map! :leader :n ":" #'pp-eval-expression)
 (map! :leader :n ";" #'counsel-M-x)
 
+;; all I want is for my text editor to be predictable
 (after! company
   (map! :map company-active-map "<return>" nil)
   (map! :map company-active-map "RET" nil)
   (map! :map company-active-map "C-<return>" #'company-complete-selection)
   (map! :map company-active-map "C-RET" #'company-complete-selection)
   ;; prevent interference with yasnippet: we use C-j + C-k instead anyways
-  (add-hook 'company-mode-hook (lambda () (remove-hook 'yas-keymap-disable-hook 'company--active-p t))))
+  (add-hook 'company-mode-hook (lambda () (remove-hook 'yas-keymap-disable-hook 'company--active-p t)))
+  ;; yuck! even more yasnippet interference!
+  (map! :map company-active-map [tab] nil)
+  (map! :map company-active-map "TAB" nil))
 
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
