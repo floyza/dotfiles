@@ -30,6 +30,7 @@ in
     kiwix
 
     chromium
+    brave
     atool
     samba # smbclient
     gtypist
