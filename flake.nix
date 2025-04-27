@@ -60,6 +60,7 @@
               };
               aseprite = self.callPackage ./packages/aseprite { };
               ollama = unstable.ollama;
+              godot = unstable.godot;
             })
           ];
         in

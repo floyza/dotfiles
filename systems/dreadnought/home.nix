@@ -11,7 +11,7 @@
     (btop.override { rocmSupport = true; })
     ### programming
     ## resources
-    godot_4
+    godot
     ### games
     retroarchFull
     obs-studio
