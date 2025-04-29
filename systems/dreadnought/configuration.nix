@@ -7,7 +7,7 @@
 
 {
   my.customData = {
-    primaryAudio = "alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo";
+    primaryAudio = "alsa_output.usb-Cooler_Master_Technology_Inc._MH752_00000000-00.analog-stereo";
     secondaryAudio = "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.analog-stereo";
     primaryOutput = {
       id = "DP-3";
