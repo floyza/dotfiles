@@ -369,6 +369,13 @@ if no argument passed. you may need to revise inserted s-expression."
 (use-package! disk-usage)
 (use-package! sdcv-mode)
 
+(use-package! gptel
+  :config
+  (setq! gptel-model 'qwen2.5-coder:14b
+         gptel-backend (gptel-make-ollama "ollama" :host "localhost:11434"
+                                          :stream t
+                                          :models '(qwen2.5-coder:14b))))
+
 ;;; Defuns
 
 (defun nix-generate-project ()
