@@ -112,6 +112,56 @@
       evil-move-beyond-eol t)
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
+  (defun g/vterm-child ()
+    (interactive)
+    (+vterm--configure-project-root-and-display
+     nil
+     (lambda ()
+       (if (s-match "^\\*doom:vterm-popup" (buffer-name))
+           (let ((buffer-name
+                  (generate-new-buffer-name (format "*doom:vterm-popup:%s-child*"
+                                                    (if (bound-and-true-p persp-mode)
+                                                        (safe-persp-name (get-current-persp))
+                                                      "main")))))
+             (while (window-right (selected-window)) (select-window (window-right (selected-window))))
+             (split-window-horizontally)
+             (balance-windows (window-parent))
+             (message buffer-name)
+             (vterm buffer-name))
+         (error "Not in vterm buffer")))))
+  (defun g/vterm-toggle ()
+    "Toggles a terminal popup window at project root with its friends!
+
+Returns the vterm buffer."
+    (interactive)
+    (+vterm--configure-project-root-and-display
+     nil
+     (lambda ()
+       (let* ((buffer-name
+               (format "*doom:vterm-popup:%s*"
+                       (if (bound-and-true-p persp-mode)
+                           (safe-persp-name (get-current-persp))
+                         "main")))
+              (friends (match-buffers (s-concat (s-chop-right 1 buffer-name) "-child*")))
+              confirm-kill-processes
+              current-prefix-arg)
+         (if-let* ((win (get-buffer-window buffer-name)))
+             (progn
+               (seq-map (lambda (f) (delete-window (get-buffer-window f))) friends)
+               (delete-window win))
+           (let ((buffer (get-buffer-create buffer-name)))
+             (with-current-buffer buffer
+               (unless (eq major-mode 'vterm-mode)
+                 (vterm-mode))
+               (pop-to-buffer buffer)
+               (seq-map (lambda (f)
+                          (with-selected-window (split-window-horizontally nil win)
+                            (switch-to-buffer f)))
+                        friends)
+               (if-let* ((parent (window-parent win)))
+                   (balance-windows (parent))))))
+         (get-buffer buffer-name)))))
+  ;; (advice-add #'+vterm/toggle :override #'g/vterm-toggle)
   (map! :map vterm-mode-map :i "C-w" evil-window-map) ; YASSS!
   (map! :map vterm-mode-map "M-:" nil))
 (map! :leader "C" #'calc-dispatch)
