@@ -94,27 +94,6 @@
     };
   };
 
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [ brlaser ];
-
-  services.avahi = {
-    enable = true;
-    openFirewall = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      domain = false;
-      userServices = true;
-    };
-  };
-
-  services.murmur = {
-    enable = true;
-    openFirewall = true;
-    bonjour = true;
-    welcometext = "Welcome to my humble server.";
-  };
-
   programs.sway = {
     enable = true;
   };
@@ -159,8 +138,6 @@
     shell = pkgs.zsh;
   };
 
-  programs.udevil.enable = true;
-
   services.locate = {
     enable = true;
     package = pkgs.mlocate;
@@ -186,9 +163,6 @@
       libguestfs # needed for virt-sparsify
 
       virtiofsd
-
-      # packages using udev rules
-      antimicrox
     ]
   );
 
@@ -196,8 +170,6 @@
   # to autoload at boot:
   boot.kernelModules = [ "gcadapter_oc" ];
   services.udev.packages = [
-    pkgs.qmk-udev-rules
-    pkgs.antimicrox
     pkgs.dolphin-emu-beta
   ];
 
@@ -233,24 +205,11 @@
 
   security.polkit.enable = true;
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.dconf.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
-
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.epkowa ];
-
-  hardware.graphics.enable32Bit = true;
-
-  hardware.amdgpu.opencl.enable = true;
-
-  hardware.steam-hardware.enable = true;
 
   nix = {
     # if we have to do this manually partially anyways, it's better to do it 100% manually

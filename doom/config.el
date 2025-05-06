@@ -417,7 +417,6 @@ if no argument passed. you may need to revise inserted s-expression."
 (use-package! egg-timer)
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
-(use-package! sdcv-mode)
 
 (use-package! gptel
   :config

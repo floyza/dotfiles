@@ -27,42 +27,25 @@ in
     tcpdump
 
     filezilla
-    kiwix
 
-    chromium
-    brave
     atool
     samba # smbclient
-    gtypist
-    pandoc
-    golly
     qjackctl
     ntfs3g
-    fuse
     file
     ffmpeg
-    wineWowPackages.staging
-    winetricks
-    protontricks
-    libreoffice
     tldr
     libnotify
     units
     graphviz
     nmap
-    whipper
     imagemagick
     yt-dlp
     mpv
     wl-mirror
     jq
-    sdcv
-    easyeffects
-    # magic-wormhole
     nautilus
-    anki
 
-    mpc_cli
     killall
     alsa-utils
     gparted
@@ -73,77 +56,22 @@ in
 
     xdg-utils
 
-    krita
     ### programming
     gdb
-    ## java
-    openjdk17
-    ## rust
-    rustup
-    # cargo
-    # rustc
-    # rustfmt
-    # rust-analyzer
-    ## haskell
-    haskellPackages.stack
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
-    haskellPackages.cabal-install
-    haskellPackages.ghc
-    ## raku
-    rakudo
-    zef
-    ## lisp
-    guile
-    ## c++
-    clang-tools
-    # lua+fennel
-    lua
-    sumneko-lua-language-server
-    fennel
-    fnlfmt
-    ## web
-    nodePackages.eslint
-    nodejs
-    ## misc-lang
-    odin
-    zig
-    zls
     ## formatting
-    nodePackages.prettier
     shellcheck
-    nixfmt-rfc-style
-    html-tidy
-    ## resources
-    aseprite
     ### games
-    the-powder-toy
-    mudlet
     libstrangle
-    prismlauncher
-    ivan
-    endless-sky
-    tome4
-    # (factorio.override {
-    #   username = "gdown";
-    #   token = (import secrets).factorio-token;
-    # })
     steam
     steam-run-native
     (lutris.override { extraLibraries = pkgs: [ xorg.libXScrnSaver ]; })
-    mangohud
-    dolphin-emu-beta
     cataclysm-dda
     crawl
     angband
     nethack
     sil-q
-    hyperrogue
-    cockatrice
     ### other
     libqalculate
-    element-desktop
-    mumble
     ## fonts
     emacs-all-the-icons-fonts
     jetbrains-mono
@@ -194,16 +122,6 @@ in
     keyMode = "vi";
     shortcut = "z";
     terminal = "xterm-256color";
-  };
-
-  programs.beets = {
-    enable = true;
-    settings = {
-      directory = config.services.mpd.musicDirectory;
-      library = "${config.services.mpd.musicDirectory}/library.db";
-      plugins = "fetchart";
-      fetchart.auto = true;
-    };
   };
 
   programs.mbsync.enable = true;
@@ -270,8 +188,6 @@ in
       name = "Adwaita";
     };
   };
-
-  programs.nix-index.enable = true;
 
   programs.firefox = {
     enable = true;
@@ -347,63 +263,6 @@ in
           speed "1"
       }
     '';
-  };
-
-  programs.ncmpcpp = {
-    enable = true;
-    package = pkgs.ncmpcpp.override { visualizerSupport = true; };
-    bindings = [
-      {
-        key = "j";
-        command = "scroll_down";
-      }
-      {
-        key = "k";
-        command = "scroll_up";
-      }
-      {
-        key = "J";
-        command = [
-          "select_item"
-          "scroll_down"
-        ];
-      }
-      {
-        key = "K";
-        command = [
-          "select_item"
-          "scroll_up"
-        ];
-      }
-      {
-        key = "l";
-        command = [
-          "next_column"
-          "slave_screen"
-        ];
-      }
-      {
-        key = "h";
-        command = [
-          "previous_column"
-          "master_screen"
-        ];
-      }
-      {
-        key = "'";
-        command = [ "show_lyrics" ];
-      }
-    ];
-    settings = {
-      user_interface = "alternative";
-      visualizer_data_source = "/tmp/mpd.fifo";
-      visualizer_output_name = "my_fifo";
-      visualizer_in_stereo = "yes";
-      visualizer_type = "spectrum";
-      visualizer_look = "+|";
-      visualizer_fps = cfg.primaryOutput.fps;
-      lyrics_fetchers = "musixmatch, genius, azlyrics, sing365, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, zeneszoveg, internet";
-    };
   };
 
   programs.emacs = {

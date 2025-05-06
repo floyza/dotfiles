@@ -24,6 +24,34 @@
     rocmOverrideGfx = "10.3.0";
   };
 
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ brlaser ];
+
+  services.avahi = {
+    enable = true;
+    openFirewall = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      domain = false;
+      userServices = true;
+    };
+  };
+
+  virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs"; # NOTE: system specific?
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.epkowa ];
+
+  hardware.graphics.enable32Bit = true;
+
+  hardware.amdgpu.opencl.enable = true;
+
+  hardware.steam-hardware.enable = true;
+
   # setup uefi
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.editor = false;

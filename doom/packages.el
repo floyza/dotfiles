@@ -63,9 +63,6 @@
 (package! saveplace-pdf-view)
 (package! disk-usage)
 
-(package! sdcv-mode
-  :recipe (:host github :repo "gucong/emacs-sdcv"))
-
 (package! gptel :recipe (:nonrecursive t))
 
 ;; (package! org
