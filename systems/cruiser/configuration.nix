@@ -7,11 +7,11 @@
 
 {
   my.customData = {
-    primaryAudio = "";
-    secondaryAudio = "";
+    primaryAudio = "alsa_output.pci-0000_00_1b.0.analog-stereo";
+    secondaryAudio = "alsa_output.pci-0000_00_1b.0.analog-stereo";
     primaryOutput = {
-      id = "";
-      mode = "";
+      id = "eDP-1";
+      mode = "1600x900@59.985hz";
       fps = 60;
     };
     musicDirectory = "/home/gavin/music";
