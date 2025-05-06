@@ -267,7 +267,7 @@ in
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs-unstable;
+    package = pkgs.emacs;
     extraPackages = epkgs: [
       epkgs.vterm
       epkgs.mu4e
