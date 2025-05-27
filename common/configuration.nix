@@ -140,10 +140,14 @@
 
   services.locate = {
     enable = true;
-    package = pkgs.mlocate;
-    localuser = null; # for pkgs.mlocate
-    interval = "hourly"; # fine with mlocate?
-    pruneNames = [ ".snapshots" ];
+    pruneNames = [
+      ".snapshots"
+      ".bzr"
+      ".cache"
+      ".git"
+      ".hg"
+      ".svn"
+    ];
   };
 
   environment.systemPackages = (

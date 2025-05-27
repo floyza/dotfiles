@@ -58,7 +58,6 @@ in
     runelite
     pyfa
     prismlauncher
-    tome4
     mangohud
     dolphin-emu-beta
     hyperrogue
