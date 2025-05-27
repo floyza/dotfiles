@@ -45,6 +45,7 @@ in
     wl-mirror
     jq
     nautilus
+    spotify
 
     killall
     alsa-utils
