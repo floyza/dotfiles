@@ -178,6 +178,15 @@ in
     };
   };
 
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.gnome-themes-extra;
+    name = "Adwaita";
+    size = 24;
+    gtk.enable = true;
+    sway.enable = true;
+  };
+
   gtk = {
     enable = true;
     iconTheme = {
