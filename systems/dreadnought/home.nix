@@ -80,6 +80,7 @@ in
 
     mpc_cli
     krita
+    torzu
   ];
 
   programs.ncmpcpp = {

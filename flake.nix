@@ -59,6 +59,7 @@
                 '';
               };
               aseprite = self.callPackage ./packages/aseprite { };
+              torzu = self.callPackage ./packages/torzu { };
             })
           ];
         in
