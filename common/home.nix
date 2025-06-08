@@ -54,6 +54,7 @@ in
     zip
     gotop
     nethogs
+    linux-wifi-hotspot
 
     xdg-utils
 
