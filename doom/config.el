@@ -423,7 +423,9 @@ if no argument passed. you may need to revise inserted s-expression."
   (setq! gptel-model 'qwen2.5-coder:14b
          gptel-backend (gptel-make-ollama "ollama" :host "localhost:11434"
                                           :stream t
-                                          :models '(qwen2.5-coder:14b))))
+                                          :models '(qwen2.5-coder:14b)))
+  (map! :n "C-;" #'gptel-menu)
+  (map! :n "C-:" #'gptel-abort))
 
 ;;; Defuns
 
