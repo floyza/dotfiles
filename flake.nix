@@ -14,6 +14,9 @@
     # ssbm.url = "github:lytedev/ssbm-nix";
     # ssbm.inputs.nixpkgs.follows = "nixpkgs";
 
+    slippi.url = "github:lytedev/slippi-nix";
+    slippi.inputs.nixpkgs.follows = "nixpkgs";
+
     # My secrets are currently stored plaintext in my nix store, but I at least don't want to commit them to git
     # so I split them off here
     secrets.url = "/home/gavin/src/dotfiles/secrets";
@@ -27,6 +30,7 @@
       nixpkgs,
       nixpkgs-unstable,
       emacs-overlay,
+      slippi,
       secrets,
       ...
     }@attrs:
@@ -75,8 +79,10 @@
               (sys-path + "/configuration.nix")
               (sys-path + "/hardware-configuration.nix")
 
-              ./common/settings.nix
+              slippi.nixosModules.default
+
               # ./modules/japanese
+              ./common/settings.nix
               ./common/configuration.nix
               {
                 home-manager.users.gavin = {

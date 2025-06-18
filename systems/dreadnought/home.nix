@@ -3,6 +3,7 @@
   osConfig,
   lib,
   pkgs,
+  slippi,
   ...
 }:
 
@@ -10,6 +11,9 @@ let
   cfg = osConfig.my.customData;
 in
 {
+  imports = [
+    slippi.homeManagerModules.default
+  ];
 
   home.packages = with pkgs; [
     (btop.override { rocmSupport = true; })
@@ -82,6 +86,11 @@ in
     krita
     torzu
   ];
+
+  slippi-launcher = {
+    isoPath = "/home/gavin/games/roms/melee/Super Smash Bros. Melee (USA) (En,Ja) (Rev 2).iso";
+    rootSlpPath = "${config.home.homeDirectory}/.local/share/Slippi";
+  };
 
   programs.ncmpcpp = {
     enable = true;
