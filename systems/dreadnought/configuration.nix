@@ -8,7 +8,7 @@
 {
   my.customData = {
     primaryAudio = "alsa_output.usb-Cooler_Master_Technology_Inc._MH752_00000000-00.analog-stereo";
-    secondaryAudio = "alsa_output.usb-Burr-Brown_from_TI_USB_Audio_DAC-00.analog-stereo";
+    secondaryAudio = "alsa_output.pci-0000_0a_00.4.analog-stereo";
     primaryOutput = {
       id = "DP-3";
       mode = "3440x1440@160.000hz";
