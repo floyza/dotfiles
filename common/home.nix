@@ -276,6 +276,10 @@ in
     '';
   };
 
+  services.mpd-mpris.enable = true;
+
+  services.playerctld.enable = true;
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;
