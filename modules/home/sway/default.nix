@@ -98,7 +98,10 @@ in
             "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume 0 +5%";
             "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume 0 -5%";
             "XF86AudioMute" = "exec ${pactl} set-sink-mute 0 toggle";
-            "${modifier}+c" = "exec emacs --eval '(full-calc)'";
+            "XF86AudioPlay" = "exec mpc play";
+            "XF86AudioPause" = "exec mpc pause";
+            "XF86AudioPrev" = "exec mpc prev";
+            "XF86AudioNext" = "exec mpc next";
             "${modifier}+Shift+a" = "exec ${pactl} set-default-sink ${cfg.primaryAudio}";
             "${modifier}+Shift+s" = "exec ${pactl} set-default-sink ${cfg.secondaryAudio}";
             "${modifier}+Shift+r" = ''

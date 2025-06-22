@@ -87,6 +87,15 @@ in
     torzu
   ];
 
+  wayland.windowManager.sway.config.keybindings =
+    let
+      modifier = config.wayland.windowManager.sway.config.modifier;
+    in
+    lib.mkOptionDefault {
+      "${modifier}+Shift+d" =
+        lib.mkForce "exec ${pkgs.pulseaudio}/bin/pactl set-default-sink bluez_output.70_5A_6F_6B_46_B5.1";
+    };
+
   slippi-launcher = {
     isoPath = "/home/gavin/games/roms/melee/Super Smash Bros. Melee (USA) (En,Ja) (Rev 2).iso";
     rootSlpPath = "${config.home.homeDirectory}/.local/share/Slippi";
