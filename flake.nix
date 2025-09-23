@@ -46,6 +46,7 @@
           );
           update-overlays = [
             (self: super: {
+              codex = unstable.codex;
               zef = self.symlinkJoin {
                 name = "zef-wrapped";
                 paths = [ super.zef ];
@@ -98,7 +99,8 @@
                 nixpkgs.overlays = [
                   nur.overlays.default
                   emacs-overlay.overlay
-                ] ++ update-overlays;
+                ]
+                ++ update-overlays;
                 nix.registry.nixpkgs.flake = nixpkgs;
                 nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
                 home-manager = {

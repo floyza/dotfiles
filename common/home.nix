@@ -59,6 +59,7 @@ in
     xdg-utils
 
     ### programming
+    codex
     gdb
     ## formatting
     shellcheck
