@@ -117,6 +117,11 @@ in
     enable = true;
   };
 
+  programs.bat = {
+    enable = true;
+    config.theme = "gruvbox-dark";
+  };
+
   programs.tmux = {
     enable = true;
     escapeTime = 0;
@@ -247,6 +252,7 @@ in
     extraConfig = {
       github.user = "floyza";
       sendemail.identity = "runbox";
+      init.defaultBranch = "master";
     };
     ignores = [ ".direnv/" ];
   };
