@@ -33,6 +33,11 @@
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
   networking = {
     networkmanager.enable = true;
     enableIPv6 = false; # vpn might leak if true
@@ -40,10 +45,8 @@
     useDHCP = false;
     # automatically opened tcp ports: murmur
     # 41230 is a custom port used for whatever stuff i temporarily need: games, etc
-    # 27040: steam local downloads
     firewall.allowedTCPPorts = [
       41230
-      27040
     ];
     # automatically opened udp ports: avahi
     # manually opened: factorio, custom

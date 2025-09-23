@@ -64,7 +64,6 @@ in
     shellcheck
     ### games
     libstrangle
-    steam
     steam-run-native
     (lutris.override { extraLibraries = pkgs: [ xorg.libXScrnSaver ]; })
     cataclysm-dda
