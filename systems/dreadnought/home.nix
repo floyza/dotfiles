@@ -84,6 +84,7 @@ in
 
     mpc_cli
     krita
+    pinta
     torzu
   ];
 
