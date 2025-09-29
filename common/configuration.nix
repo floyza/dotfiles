@@ -50,20 +50,10 @@
     ];
     # automatically opened udp ports: avahi
     # manually opened: factorio, custom
-    firewall.allowedUDPPorts =
-      [
-        34197
-        41230
-      ]
-      ++ [
-        # steam local downloads discovery
-        27031
-        27032
-        27033
-        27034
-        27035
-        27036
-      ];
+    firewall.allowedUDPPorts = [
+      34197
+      41230
+    ];
     firewall.enable = true;
     firewall.allowPing = true;
 
@@ -217,6 +207,8 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+
+  services.gvfs.enable = true;
 
   nix = {
     # if we have to do this manually partially anyways, it's better to do it 100% manually
