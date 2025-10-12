@@ -420,12 +420,17 @@ if no argument passed. you may need to revise inserted s-expression."
 
 (use-package! gptel
   :config
-  (setq! gptel-model 'qwen2.5-coder:14b
-         gptel-backend (gptel-make-ollama "ollama" :host "localhost:11434"
-                                          :stream t
-                                          :models '(qwen2.5-coder:14b)))
+  (setq! gptel-default-mode 'org-mode)
   (map! :n "C-;" #'gptel-menu)
-  (map! :n "C-:" #'gptel-abort))
+  (map! :n "C-:" #'gptel-abort)
+  (gptel-make-tool
+   :name "execute-elisp"
+   :function (lambda (code) (message (concat "llm code ran: " code)) (eval (read code)))
+   :description "Run elisp in the current emacs session"
+   :args (list '(:name "code"
+                 :type string
+                 :descripton "the elisp code to execute, remember to use parenthesis"))
+   :category "emacs"))
 
 ;;; Defuns
 
