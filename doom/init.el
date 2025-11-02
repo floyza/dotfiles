@@ -14,18 +14,18 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 
-(defvar native-comp-deferred-compilation-deny-list nil) ; workaround for not being defined
-
 (doom! :input
        ;;chinese
        ;;japanese
        ;;layout                       ; auie,ctsrnm is the superior home row
 
        :completion
-       company                        ; the ultimate code completion backend
+       ;;company                      ; dead :(
        ;;(helm +icons)               ; the *other* search engine for love and life
        ;;ido                          ; the other *other* search engine...
-       (ivy +icons) ; a search engine for love and life
+       ;;(ivy +icons)                 ; dead :(
+       vertico
+       (corfu +orderless)
 
        :ui
        ;;deft                         ; notational velocity for Emacs
@@ -48,7 +48,7 @@
        ;;unicode                      ; extended unicode support for various languages
        vc-gutter                      ; vcs diff in the fringe
        vi-tilde-fringe                ; fringe tildes to mark beyond EOB
-       (window-select +switch-window) ; visually switch windows
+       ;;(window-select +switch-window) ; visually switch windows
        workspaces                     ; tab emulation, persistence & separate workspaces
        ;;zen                          ; distraction-free coding or writing
 
@@ -64,12 +64,14 @@
        ;;(parinfer +rust)             ; turn lisp into python, sort of
        ;;rotate-text                  ; cycle region at point between text candidates
        snippets                       ; my elves. They type so I don't have to
+       (whitespace +trim)
        ;;word-wrap                    ; soft wrapping with language-aware indent
 
        :emacs
        dired                   ; making dired pretty [functional]
        electric                       ; smarter, keyword-based electric-indent
        ibuffer                        ; interactive buffer management
+       tramp
        (undo +tree)                   ; persistent, smarter undo for your inevitable mistakes
        vc                             ; version-control and Emacs, sitting in a tree
 
@@ -86,7 +88,7 @@
 
        :tools
        ;;ansible
-       biblio
+       ;;biblio
        ;;debugger                     ; FIXME stepping through code, to help you add bugs
        direnv
        ;;docker
@@ -95,6 +97,7 @@
        (eval +overlay)                ; run code, run (also, repls)
        ;;gist                         ; interacting with github gists
        lookup                         ; navigate your code and its documentation
+       llm
        lsp
        (magit +forge)                 ; a git porcelain for Emacs
        ;;make                         ; run make tasks from Emacs
@@ -105,7 +108,7 @@
        ;;taskrunner                   ; taskrunner for all your projects
        ;;terraform                    ; infrastructure as code
        ;;tmux                         ; an API for interacting with tmux
-       tree-sitter
+       ;;tree-sitter
        ;;upload                       ; map local to remote projects via ssh/ftp
 
        :os

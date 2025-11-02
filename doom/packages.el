@@ -63,7 +63,7 @@
 (package! saveplace-pdf-view)
 (package! disk-usage)
 
-(package! gptel :recipe (:nonrecursive t))
+(package! corfu-terminal :recipe '(:type git :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
 
 ;; (package! org
 ;;   :recipe (:local-repo "org-mode"))

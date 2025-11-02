@@ -169,19 +169,13 @@ Returns the vterm buffer."
 (map! :leader :desc "irc" "o i" #'=irc)
 
 (map! :leader :n ":" #'pp-eval-expression)
-(map! :leader :n ";" #'counsel-M-x)
+(map! :leader :n ";" #'execute-extended-command)
 
-;; all I want is for my text editor to be predictable
-(after! company
-  (map! :map company-active-map "<return>" nil)
-  (map! :map company-active-map "RET" nil)
-  (map! :map company-active-map "C-<return>" #'company-complete-selection)
-  (map! :map company-active-map "C-RET" #'company-complete-selection)
-  ;; prevent interference with yasnippet: we use C-j + C-k instead anyways
-  (add-hook 'company-mode-hook (lambda () (remove-hook 'yas-keymap-disable-hook 'company--active-p t)))
-  ;; yuck! even more yasnippet interference!
-  (map! :map company-active-map [tab] nil)
-  (map! :map company-active-map "TAB" nil))
+(after! embark
+  (define-key embark-symbol-map (kbd "h") #'helpful-symbol))
+
+(after! corfu
+  (setq! corfu-preselect 'prompt))
 
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
@@ -312,15 +306,6 @@ The documentation is built if necessary."
 (after! lisp
   (setq! inferior-lisp-program "common-lisp.sh"))
 
-(after! counsel
-  (setq counsel-compile-local-builds
-        '(counsel-compile-get-filtered-history counsel-compile-get-build-directories) ;; counsel-compile-get-make-invocation counsel-compile-get-make-help-invocations
-        compile-command "nix-build "))
-
-(after! company
-  (setq company-idle-delay 0.2
-        company-tooltip-idle-delay 0.2))
-
 (after! sly
   ;; This should be upstreamed
   ;; maybe sly-edit-uses for :references?
@@ -418,11 +403,10 @@ if no argument passed. you may need to revise inserted s-expression."
 (use-package! saveplace-pdf-view)
 (use-package! disk-usage)
 
-(use-package! gptel
+(after! gptel
   :config
+  (setq! gptel-model 'gpt-4.1)
   (setq! gptel-default-mode 'org-mode)
-  (map! :n "C-;" #'gptel-menu)
-  (map! :n "C-:" #'gptel-abort)
   (gptel-make-tool
    :name "execute-elisp"
    :function (lambda (code) (message (concat "llm code ran: " code)) (eval (read code)))
@@ -469,6 +453,15 @@ if no argument passed. you may need to revise inserted s-expression."
   "Update the turns org file."
   (interactive "MName of person: ")
   (doom-completing-read-org-headings "Task: " "/home/gavin/docs/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
+
+(unless (display-graphic-p)
+  (use-package! corfu-terminal
+    :config
+    (corfu-terminal-mode +1)))
+
+
+(unless (display-graphic-p)
+  (corfu-terminal-mode +1))
 
 (load-file "~/.config/doom/project-specific/blog.el")
 
