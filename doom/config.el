@@ -31,23 +31,6 @@
 
 (setq auth-source-pass-filename "~/.local/share/password-store")
 
-(after! format
-  ;; ech, better than nothing
-  ;; (defun g/format-buffer-then-save ()
-  ;;   (when
-  ;;       (or (run-hook-with-args-until-success '+format-functions (point-min) (point-max) 'buffer)
-  ;;           (apheleia-format-after-save))
-  ;;     (sleep-for 0.1)
-  ;;     (save-buffer)))
-  ;; prioritize `+format-functions' (e.g. lsp) over using aphelieia proper
-  ;; (add-hook 'apheleia-mode-hook (lambda ()
-  ;;                                 (if apheleia-mode
-  ;;                                     (progn
-  ;;                                       (remove-hook 'after-save-hook #'apheleia-format-after-save 'local) ; take it away again!
-  ;;                                       (add-hook 'after-save-hook #'g/format-buffer-then-save nil 'local))
-  ;;                                   (remove-hook 'after-save-hook #'g/format-buffer-then-save 'local))))
-  )
-
 (after! circe
   (set-irc-server! "irc.libera.chat"
     `(:tls t
@@ -224,10 +207,10 @@ Returns the vterm buffer."
       :desc "Capture tomorrow"       "r d m" #'org-roam-dailies-capture-tomorrow
       :desc "Capture today"          "r d t" #'org-roam-dailies-capture-today
       :desc "Capture yesterday"      "r d y" #'org-roam-dailies-capture-yesterday
-      :desc "Find arbitrary date"    "r d D" #'org-roam-dailies-find-date
-      :desc "Find tomorrow"          "r d M" #'org-roam-dailies-find-tomorrow
-      :desc "Find today"             "r d T" #'org-roam-dailies-find-today
-      :desc "Find yesterday"         "r d Y" #'org-roam-dailies-find-yesterday)
+      :desc "Find arbitrary date"    "r d D" #'org-roam-dailies-goto-date
+      :desc "Find tomorrow"          "r d M" #'org-roam-dailies-goto-tomorrow
+      :desc "Find today"             "r d T" #'org-roam-dailies-goto-today
+      :desc "Find yesterday"         "r d Y" #'org-roam-dailies-goto-yesterday)
 
 (after! lsp-ui
   (setq! lsp-ui-sideline-show-code-actions t
@@ -298,13 +281,6 @@ The documentation is built if necessary."
     (setq lsp-clients-lua-language-server-bin (f-join lua-language-server-path "bin" "lua-language-server")
           lsp-clients-lua-language-server-main-location (f-join lua-language-server-path "share" "lua-language-server" "main.lua"))))
 
-(after! fennel-mode
-  (define-format-all-formatter fnlfmt
-                               (:executable "fnlfmt")
-                               (:install "nix profile install 'nixpkgs#fnlfmt'")
-                               (:modes fennel-mode)
-                               (:format (format-all--buffer-easy executable "-"))))
-
 (after! lisp
   (setq! inferior-lisp-program "common-lisp.sh"))
 
@@ -359,7 +335,6 @@ The documentation is built if necessary."
 
 (after! evil
   (evil-escape-mode -1))
-;; (setq! ivy-posframe-style 'frame-top-center)
 
 (defun insert-kbd-macro-in-register (register)
   "insert macro from register. prompt for register key
@@ -400,13 +375,9 @@ if no argument passed. you may need to revise inserted s-expression."
 (after! elfeed
   (add-hook 'elfeed-search-mode-hook #'elfeed-update))
 
-(use-package! hackernews)
-(use-package! egg-timer)
 (use-package! saveplace-pdf-view)
-(use-package! disk-usage)
 
 (after! gptel
-  :config
   (setq! gptel-model 'gpt-4.1)
   (setq! gptel-default-mode 'org-mode)
   (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "* ")
@@ -421,13 +392,6 @@ if no argument passed. you may need to revise inserted s-expression."
 
 ;;; Defuns
 
-(defun nix-generate-project ()
-  (interactive)
-  (let ((buffer (find-file "./.envrc")))
-    (insert "use nix")
-    (save-buffer)
-    (kill-buffer buffer)))
-
 (defun my-buffer-local-set-key (key command)
   (interactive "KSet key buffer-locally: \nCSet key %s buffer-locally to command: ")
   (let ((oldmap (current-local-map))
@@ -437,38 +401,12 @@ if no argument passed. you may need to revise inserted s-expression."
     (define-key newmap key command)
     (use-local-map newmap)))
 
-(defun update-turns--modify (name file location)
-  (save-window-excursion
-    (find-file file)
-    (goto-char location)
-    (org-end-of-subtree)
-    (org-insert-item)
-    (condition-case err
-        (org-time-stamp-inactive)
-      (quit
-       (delete-region (line-beginning-position) (1+ (line-end-position))))
-      (:success
-       (end-of-line)
-       (insert name)))
-    (save-buffer)))
-
-(defun update-turns (name)
-  "Update the turns org file."
-  (interactive "MName of person: ")
-  (doom-completing-read-org-headings "Task: " "/home/gavin/docs/my/turns.org" :depth 1 :action (-cut update-turns--modify name <> <>)))
-
 (unless (display-graphic-p)
   (use-package! corfu-terminal
     :config
     (corfu-terminal-mode +1)))
 
-
-(unless (display-graphic-p)
-  (corfu-terminal-mode +1))
-
 (load-file "~/.config/doom/project-specific/blog.el")
-
-(setq load-prefer-newer t)              ; use while we are doing org-mode development
 
 ;;; non-upstreamed workarounds (TODO?)
 

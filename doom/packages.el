@@ -58,10 +58,7 @@
 ;; convert macros to elisp (BUG -- doesn't work with evil macros)
 ;; (package! elmacro)
 
-(package! hackernews)
-(package! egg-timer)
 (package! saveplace-pdf-view)
-(package! disk-usage)
 
 (package! corfu-terminal :recipe '(:type git :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
 
