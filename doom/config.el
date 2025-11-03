@@ -409,6 +409,7 @@ if no argument passed. you may need to revise inserted s-expression."
   :config
   (setq! gptel-model 'gpt-4.1)
   (setq! gptel-default-mode 'org-mode)
+  (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "* ")
   (gptel-make-tool
    :name "execute-elisp"
    :function (lambda (code) (message (concat "llm code ran: " code)) (eval (read code)))
@@ -468,3 +469,8 @@ if no argument passed. you may need to revise inserted s-expression."
 (load-file "~/.config/doom/project-specific/blog.el")
 
 (setq load-prefer-newer t)              ; use while we are doing org-mode development
+
+;;; non-upstreamed workarounds (TODO?)
+
+(after! gptel
+  (add-hook 'gptel-context-buffer-mode-hook (lambda () (hl-line-mode -1))))
