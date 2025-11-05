@@ -93,7 +93,8 @@
 ;;; evil config
 (setq evil-move-cursor-back nil ; typing in insert mode -> ESC -> org-insert-link
       evil-move-beyond-eol t)
-(map! :map view-mode-map :n "0" nil)
+(after! view
+  (map! :map view-mode-map :n "0" nil))
 
 (map! :i "C-w" evil-window-map) ; YES!!!!!
 (after! vterm
