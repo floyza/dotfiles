@@ -63,7 +63,7 @@ in
     pyfa
     prismlauncher
     mangohud
-    dolphin-emu-beta
+    dolphin-emu
     hyperrogue
     cockatrice
     mumble

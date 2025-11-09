@@ -14,7 +14,10 @@
   time.timeZone = "America/Los_Angeles";
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ]; # yuck! devil daggers uses this version of the library
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w" # yuck! devil daggers uses this version of the library
+    "mbedtls-2.28.10"
+  ];
   nixpkgs.overlays = [
     (self: super: {
       steam = super.steam.override {
@@ -167,7 +170,7 @@
   # to autoload at boot:
   boot.kernelModules = [ "gcadapter_oc" ];
   services.udev.packages = [
-    pkgs.dolphin-emu-beta
+    pkgs.dolphin-emu
   ];
 
   services.udev.extraRules = ''

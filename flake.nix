@@ -102,7 +102,10 @@
                 ]
                 ++ update-overlays;
                 nix.registry.nixpkgs.flake = nixpkgs;
-                nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; # use this instead of `nixos` channel
+                nix.nixPath = [
+                  "nixpkgs=${nixpkgs}"
+                  "nixpkgs-unstable=${nixpkgs-unstable}"
+                ]; # use this instead of `nixos` channel
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
