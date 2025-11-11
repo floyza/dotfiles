@@ -103,6 +103,7 @@ in
         sh
         python-lsp-server
         pandas
+        openai
       ]
     ))
     omnisharp-roslyn
