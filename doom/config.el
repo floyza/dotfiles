@@ -29,8 +29,6 @@
         smtpmail-smtp-service 587
         +mu4e-alert-bell-cmd nil))
 
-(setq auth-source-pass-filename "~/.local/share/password-store")
-
 (after! circe
   (set-irc-server! "irc.libera.chat"
     `(:tls t
@@ -418,14 +416,7 @@ if no argument passed. you may need to revise inserted s-expression."
 
 ;;; Defuns
 
-(defun my-buffer-local-set-key (key command)
-  (interactive "KSet key buffer-locally: \nCSet key %s buffer-locally to command: ")
-  (let ((oldmap (current-local-map))
-        (newmap (make-sparse-keymap)))
-    (when oldmap
-      (set-keymap-parent newmap oldmap))
-    (define-key newmap key command)
-    (use-local-map newmap)))
+;; use `keymap-local-set' instead of my old custom function, `my-buffer-local-set-key'
 
 (unless (display-graphic-p)
   (use-package! corfu-terminal
