@@ -90,9 +90,20 @@
         :n "z" nil
         :n "a" #'dirvish-history-jump))
 
-;;; evil config
-(setq evil-move-cursor-back nil ; typing in insert mode -> ESC -> org-insert-link
-      evil-move-beyond-eol t)
+(after! evil
+  (setq evil-move-cursor-back nil ; typing in insert mode -> ESC -> org-insert-link
+        evil-move-beyond-eol t)
+  ;; should this use add-advice instead of redefining it?
+  (evil-define-motion evil-end-of-visual-line (count)
+    "Move the cursor to the last character of the current screen line.
+If COUNT is given, move COUNT - 1 screen lines downward first. This is
+my override of this function to make it behave more consistently with
+evil-move-beyond-eol."
+    :type inclusive
+    (end-of-visual-line count)
+    (if (not evil-move-beyond-eol)
+        (evil-move-cursor-back t))))
+
 (after! view
   (map! :map view-mode-map :n "0" nil))
 
@@ -381,7 +392,21 @@ if no argument passed. you may need to revise inserted s-expression."
 (after! gptel
   (setq! gptel-model 'gpt-4.1)
   (setq! gptel-default-mode 'org-mode)
+  (gptel-make-anthropic "Claude" :stream t :key gptel-api-key)
   (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "* ")
+  (map! "C-:" #'gptel-abort)
+  (defun gptel-send-shortened ()
+    (interactive)
+    (let ((gptel--system-message (concat gptel--system-message "\nDo only what is told, with no additional text. Avoid code blocks if unnessesary.")))
+      (gptel-send)))
+  (map! :leader :desc "Send to gptel (shortened)" "o l S" #'gptel-send-shortened)
+  (advice-add #'gptel-request :around
+              (lambda (func &optional prompt &rest args)
+                (if (and (null (plist-get args :position))
+                         (evil-visual-state-p)
+                         (eq evil-visual-selection 'line))
+                    (apply func prompt :position (max (point-min) (1- (region-end))) args)
+                  (apply func prompt args))))
   (gptel-make-tool
    :name "execute-elisp"
    :function (lambda (code) (message (concat "llm code ran: " code)) (eval (read code)))
@@ -413,3 +438,17 @@ if no argument passed. you may need to revise inserted s-expression."
 
 (after! gptel
   (add-hook 'gptel-context-buffer-mode-hook (lambda () (hl-line-mode -1))))
+
+(defun doom-create-missing-directories-h ()
+  "Automatically create missing directories when creating new files.
+Modified to not show a blank buffer on usage."
+  (unless (file-remote-p buffer-file-name)
+    (let ((parent-directory (file-name-directory buffer-file-name)))
+      (and (not (file-directory-p parent-directory))
+           (y-or-n-p (format "Directory `%s' does not exist! Create it?"
+                             parent-directory))
+           (progn (make-directory parent-directory 'parents)
+                  (find-file buffer-file-name)
+                  t)))))
+
+(map! "M-SPC" doom-leader-map) ; why is this bound to cycle-spacing?
