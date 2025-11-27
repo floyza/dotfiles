@@ -47,6 +47,7 @@
           update-overlays = [
             (self: super: {
               codex = unstable.codex;
+              ollama = unstable.ollama;
               zef = self.symlinkJoin {
                 name = "zef-wrapped";
                 paths = [ super.zef ];

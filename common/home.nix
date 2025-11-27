@@ -46,6 +46,7 @@ in
     jq
     nautilus
     spotify
+    pdfgrep
 
     killall
     alsa-utils
@@ -106,6 +107,7 @@ in
         openai
       ]
     ))
+    uv
     omnisharp-roslyn
     dotnet-sdk
 

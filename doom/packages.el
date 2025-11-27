@@ -58,9 +58,9 @@
 ;; convert macros to elisp (BUG -- doesn't work with evil macros)
 ;; (package! elmacro)
 
-(package! saveplace-pdf-view)
-
 (package! corfu-terminal :recipe '(:type git :repo "https://codeberg.org/akib/emacs-corfu-terminal.git"))
+
+(package! mcp)
 
 ;; (package! org
 ;;   :recipe (:local-repo "org-mode"))

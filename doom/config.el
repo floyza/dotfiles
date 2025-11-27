@@ -167,11 +167,15 @@ Returns the vterm buffer."
 (map! :leader :n ";" #'execute-extended-command)
 
 (after! embark
-  (define-key embark-symbol-map (kbd "h") #'helpful-symbol))
+  (keymap-set embark-symbol-map "h" #'helpful-symbol)
+  (keymap-set embark-general-map "C-;" #'gptel-menu)
+  (push 'embark--mark-target (alist-get 'gptel-menu embark-pre-action-hooks))
+  (setq! embark-quit-after-action '((gptel-menu . nil) (t . t))))
 
 (after! corfu
   (setq! corfu-preselect 'prompt))
 
+(keymap-set minibuffer-mode-map "C-M-<backspace>" #'delete-minibuffer-contents)
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
 ;;; org-mode configuration
@@ -385,17 +389,34 @@ if no argument passed. you may need to revise inserted s-expression."
 (after! elfeed
   (add-hook 'elfeed-search-mode-hook #'elfeed-update))
 
-(use-package! saveplace-pdf-view)
+(after! pdf-tools
+  (defun pdf-grep (search)
+    (interactive "sSearch pdf: ")
+    (let ((buf (generate-new-buffer "*pdfgrep*")))
+      (start-process "pdfgrep" buf "pdfgrep" "-in" search (buffer-file-name))
+      (display-buffer buf)))
+  (keymap-set pdf-view-mode-map "M-/" #'pdf-grep))
 
 (after! gptel
-  (setq! gptel-model 'gpt-4.1)
+  (setq! gptel-model 'gpt-5.1)
   (setq! gptel-default-mode 'org-mode)
   (gptel-make-anthropic "Claude" :stream t :key gptel-api-key)
+  (setq! gptel-backend (gptel-make-openai "ChatGPT-new"
+                         :key 'gptel-api-key
+                         :stream t
+                         :models '((gpt-5.1
+                                    :description "The best model for coding and agentic tasks with configurable reasoning effort"
+                                    :capabilities (media tool-use json url)
+                                    :mime-types ("image/jpeg" "image/png" "image/gif" "image/webp")
+                                    :context-window 400
+                                    :input-cost 1.25
+                                    :output-cost 10
+                                    :cuttoff-date "2024-09"))))
   (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "* ")
   (map! "C-:" #'gptel-abort)
   (defun gptel-send-shortened ()
     (interactive)
-    (let ((gptel--system-message (concat gptel--system-message "\nDo only what is told, with no additional text. Avoid code blocks if unnessesary.")))
+    (let ((gptel--system-message (concat gptel--system-message "\nDo only what is told, without any additional description or explanation. Generate ONLY what is told.")))
       (gptel-send)))
   (map! :leader :desc "Send to gptel (shortened)" "o l S" #'gptel-send-shortened)
   (advice-add #'gptel-request :around
@@ -423,6 +444,18 @@ if no argument passed. you may need to revise inserted s-expression."
     :config
     (corfu-terminal-mode +1)))
 
+(use-package mcp
+  :after gptel
+  :custom (mcp-hub-servers
+           `(("spotify" . (:command "uvx"
+                           :args ("--python" "3.12" "--from" "git+https://github.com/varunneal/spotify-mcp" "spotify-mcp")
+                           :env (:SPOTIFY_CLIENT_ID "4fd41a196eea4d209e77b7f30dc5de94"
+                                 :SPOTIFY_CLIENT_SECRET "e38dd12ac38c4248b8d393193ca4602f"
+                                 :SPOTIFY_REDIRECT_URI "http://127.0.0.1:8080/callback")))))
+  :config
+  (require 'mcp-hub)
+  (require 'gptel-integrations))
+
 (load-file "~/.config/doom/project-specific/blog.el")
 
 ;;; non-upstreamed workarounds (TODO?)
@@ -443,3 +476,12 @@ Modified to not show a blank buffer on usage."
                   t)))))
 
 (map! "M-SPC" doom-leader-map) ; why is this bound to cycle-spacing?
+
+(setq load-prefer-newer t)
+
+(setq mcp-hub-servers
+      `(("spotify" . (:command "uvx"
+                      :args ("--python" "3.12" "--from" "git+https://github.com/varunneal/spotify-mcp" "spotify-mcp")
+                      :env (:SPOTIFY_CLIENT_ID "4fd41a196eea4d209e77b7f30dc5de94"
+                            :SPOTIFY_CLIENT_SECRET "e38dd12ac38c4248b8d393193ca4602f"
+                            :SPOTIFY_REDIRECT_URI "http://127.0.0.1:8080/callback")))))
