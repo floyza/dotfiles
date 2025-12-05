@@ -324,9 +324,13 @@ in
     LXVST_PATH = "$HOME/.lxvst:$HOME/.nix-profile/lib/lxvst:/run/current-system/sw/lib/lxvst";
     VST_PATH = "$HOME/.vst:$HOME/.nix-profile/lib/vst:/run/current-system/sw/lib/vst";
     VST3_PATH = "$HOME/.vst3:$HOME/.nix-profile/lib/vst3:/run/current-system/sw/lib/vst3";
+    DOTNET_ROOT = "${pkgs.dotnet-sdk}/share/dotnet";
   };
 
-  home.sessionPath = [ "$HOME/bin" ];
+  home.sessionPath = [
+    "$HOME/bin"
+    "$HOME/.dotnet/tools"
+  ];
 
   home.file = {
     ".sbclrc".text = ''

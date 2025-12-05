@@ -298,6 +298,8 @@ The documentation is built if necessary."
 (after! lisp
   (setq! inferior-lisp-program "common-lisp.sh"))
 
+(add-to-list 'auto-mode-alist '("\\.csx\\'" . csharp-mode))
+
 (after! sly
   ;; This should be upstreamed
   ;; maybe sly-edit-uses for :references?
