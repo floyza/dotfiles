@@ -31,8 +31,8 @@ in
     nodejs
     # lua+fennel
     lua
-    sumneko-lua-language-server
-    fennel
+    lua-language-server
+    luaPackages.fennel
     fnlfmt
     ## c++
     clang-tools
@@ -54,9 +54,9 @@ in
     ## java
     openjdk17
     ## resources
-    aseprite
+    # aseprite
     ### games
-    retroarchFull
+    retroarch-full
     obs-studio
     pcsx2
     runelite
@@ -82,10 +82,10 @@ in
     whipper
     anki
 
-    mpc_cli
+    mpc
     krita
     pinta
-    torzu
+    # torzu
   ];
 
   wayland.windowManager.sway.config = {

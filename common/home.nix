@@ -66,7 +66,7 @@ in
     shellcheck
     ### games
     libstrangle
-    steam-run-native
+    steam-run
     (lutris.override { extraLibraries = pkgs: [ xorg.libXScrnSaver ]; })
     cataclysm-dda
     crawl
@@ -249,10 +249,10 @@ in
 
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
-    userEmail = "me@floyza.com";
-    userName = "floyza";
-    extraConfig = {
+    package = pkgs.gitFull;
+    settings = {
+      user.email = "me@floyza.com";
+      user.name = "floyza";
       github.user = "floyza";
       sendemail.identity = "runbox";
       init.defaultBranch = "master";

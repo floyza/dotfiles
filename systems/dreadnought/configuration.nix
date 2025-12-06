@@ -68,10 +68,10 @@
 
   services.fstrim.enable = true;
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleRebootKey=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleRebootKey = "ignore";
+  };
 
   users.users.gavin.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID94ckwO1qnrewCT8QBou/8x+Wj7IUg9x+1/qn25IhVz gavin@Acer-Nitro-5" # acer laptop
